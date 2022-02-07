@@ -96,6 +96,10 @@ struct FileView: View {
                 EmptyView()
             }
         }
+        .onChange(of: editMode?.wrappedValue == .active) { _ in
+            selection.removeAll()
+            viewClicked = false
+        }
         .frame(width: 250, height: 250, alignment: .center)
         .padding()
     }
