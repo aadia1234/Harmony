@@ -15,7 +15,7 @@ class Folder: Item {
     
     override init() {
         super.init()
-        self.title = "New Directory"
+        self.title = "New Folder"
         Folder.allFolders.append(self)
     }
     

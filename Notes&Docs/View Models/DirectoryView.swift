@@ -25,35 +25,31 @@ struct DirectoryView: View {
     var body: some View {
         VStack {
             ScrollView {
-                Group {
-                    Text("Documents")
-                        .font(.title2)
-                    LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                        ForEach(searchResults, id: \.self.id) { doc in
-                            FileView(doc, $selectedDocuments)
-                                .environment(\.editMode, editMode)
-                        }
+                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                    ForEach(searchResults, id: \.self.id) { doc in
+                        FileView(doc, $selectedDocuments)
+                            .environment(\.editMode, editMode)
                     }
                 }
                 .padding(.top, 50)
-                .opacity(searchResults.isEmpty ? 0 : 1)
             }
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer)
         .navigationTitle(directory.title)
         .opacity(updateView.didUpdate ? 0 : 1)
         .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
+                Button {
+                    selectedDocuments.forEach({$0.delete()})
+                } label: {
+                    Text("Delete")
+                }
+                .opacity(editMode?.wrappedValue == .active ? 1 : 0)
+            }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
                     EditButton()
-                    if editMode?.wrappedValue == .active {
-                        Button {
-                            selectedDocuments.forEach({$0.delete()})
-                        } label: {
-                            Image(systemName: "trash")
-                        }
-                    }
-                    
                     ZStack {
                         HStack {
                             // newItemAlert.showNewItem

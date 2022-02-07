@@ -18,7 +18,7 @@ class UpdateView: ObservableObject {
 
 struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
-    @StateObject var newDirAlert = TextAlert(title: "New Directory")
+    @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
     @StateObject var master = MasterDirectory()
     @State var dirView = DirectoryView(directory: Folder.parentDirectories.first!)
     @State var sideBarView = SidebarView(alert: TextAlert(title: ""))

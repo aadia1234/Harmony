@@ -22,7 +22,7 @@ struct SidebarView: View {
     }
     
     var body: some View {
-        ZStack {
+        Group {
             List(searchResults, id: \.self, children: \.children, selection: $selection) { folder in
                 NavigationLink(destination: DirectoryView(directory: folder)) {
                     Label(folder.title, systemImage: "folder")
@@ -33,44 +33,39 @@ struct SidebarView: View {
                     } label: {
                         Text("Delete")
                     }
-
                 }
             }
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
-            .navigationTitle("Directories")
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    HStack {
-                        EditButton()
-                        if mode?.wrappedValue == .active {
-                            Button(role: .destructive) {
-                                selection.forEach{ $0.delete() }
-                                updateView.update()
-                                
-                            } label: {
-                                Label("Delete Folder", systemImage: "trash")
-                            }
-                        }
-                    }
-                    
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    ZStack {
-                        NavigationLink(isActive: $newDirAlert.showNewItem) {
-                            DirectoryView(directory: Folder.parentDirectories.last ?? Folder())
-                        } label: {
-                            EmptyView()
-                        }
+            
+            NavigationLink(isActive: $newDirAlert.showNewItem) {
+                DirectoryView(directory: Folder.parentDirectories.last ?? Folder())
+            } label: {
+                EmptyView()
+            }
+        }
+        .navigationTitle("Folders")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+            ToolbarItemGroup(placement: .bottomBar) {
+                if mode?.wrappedValue == .active {
+                    Button(role: .destructive) {
+                        selection.forEach{ $0.delete() }
+                        updateView.update()
                         
-                        Button {
-                            newDirAlert.item = Folder()
-                            newDirAlert.item.title = ""
-                            newDirAlert.visibility = true
-                            newDirAlert.showNewItem = false
-                        } label: {
-                            Label("New Directory", systemImage: "plus")
-                        }
+                    } label: {
+                        Label("Delete Folder", systemImage: "trash")
+                    }
+                } else {
+                    Button {
+                        newDirAlert.item = Folder()
+                        newDirAlert.item.title = ""
+                        newDirAlert.visibility = true
+                        newDirAlert.showNewItem = false
+                    } label: {
+                        Label("New Directory", systemImage: "plus")
                     }
                 }
             }
@@ -81,7 +76,7 @@ struct SidebarView: View {
         if searchText.isEmpty {
             return Folder.parentDirectories
         } else {
-            return Folder.parentDirectories.filter({ $0.title.contains(searchText) })
+            return Folder.allFolders.filter({ $0.title.contains(searchText) })
         }
         
     }
