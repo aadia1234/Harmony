@@ -96,7 +96,7 @@ struct FileView: View {
                 EmptyView()
             }
         }
-        .onChange(of: editMode?.wrappedValue == .active) { _ in
+        .onChange(of: editMode?.wrappedValue == .inactive) { _ in
             selection.removeAll()
             viewClicked = false
         }

@@ -37,6 +37,7 @@ struct SidebarView: View {
             }
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
+            .onChange(of: mode?.wrappedValue == .inactive) { _ in selection.removeAll() }
             
             NavigationLink(isActive: $newDirAlert.showNewItem) {
                 DirectoryView(directory: Folder.parentDirectories.last ?? Folder())
@@ -52,7 +53,7 @@ struct SidebarView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 if mode?.wrappedValue == .active {
                     Button(role: .destructive) {
-                        selection.forEach{ $0.delete() }
+                        selection.forEach{$0.delete()}
                         updateView.update()
                         
                     } label: {
