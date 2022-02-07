@@ -12,13 +12,11 @@ struct DirectoryView: View {
     @EnvironmentObject var master: MasterDirectory
     @Environment(\.editMode) var editMode
     
-    @State private var isEditing = false
     @ObservedObject var directory: Directory = Directory.allDirectories.first!
     
     @EnvironmentObject var newItemAlert: TextAlert
     @State private var searchText = ""
-        
-    
+
     init(directory: Directory) {
         self.directory = directory
     }
@@ -26,25 +24,30 @@ struct DirectoryView: View {
     var body: some View {
         VStack {
             ScrollView {
-                Text("Folders")
-                    .font(.title2)
-                    .padding(.top, 50)
-                    .opacity(directory.items.contains(where: {$0 is Folder}) ? 1 : 0)
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                    ForEach(searchResults.filter({$0 is Folder}), id: \.self.id) { folder in
-                        FileView(item: folder)
+                if searchResults.contains(where: {$0 is Folder}) {
+                    Group {
+                        Text("Folders")
+                            .font(.title2)
+                        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                            ForEach(searchResults.filter({$0 is Folder}), id: \.self.id) { folder in
+                                FileView(item: folder)
+                            }
+                        }
                     }
+                    .padding(.top, 50)
                 }
                 
-                
-                Text("Documents")
-                    .font(.title2)
-                    .padding(.top, 50)
-                    .opacity(directory.items.contains(where: {$0 is Document}) ? 1 : 0)
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                    ForEach(searchResults.filter({$0 is Document}), id: \.self.id) { doc in
-                        FileView(item: doc)
+                if searchResults.contains(where: {$0 is Document}) {
+                    Group {
+                        Text("Documents")
+                            .font(.title2)
+                        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                            ForEach(searchResults.filter({$0 is Document}), id: \.self.id) { doc in
+                                FileView(item: doc)
+                            }
+                        }
                     }
+                    .padding(.top, 50)
                 }
             }
         }
@@ -119,9 +122,7 @@ struct DirectoryView: View {
         } else {
             return directory.items.filter({ $0.title.contains(searchText) })
         }
-        
     }
-    
 }
 
 struct DirectoryView_Previews: PreviewProvider {
