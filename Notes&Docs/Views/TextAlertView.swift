@@ -24,7 +24,7 @@ struct ShakeEffect: GeometryEffect {
 }
 
 struct TextAlertView: View {
-    @EnvironmentObject var directory: Directory
+    @EnvironmentObject var directory: Folder
     @State var cancelHandler: () -> Void
     @State var successHandler: () -> Void
     @State private var buttonClicked = false

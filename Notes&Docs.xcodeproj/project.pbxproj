@@ -15,11 +15,10 @@
 		35638159278FB77B00296071 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35638158278FB77B00296071 /* NoteView.swift */; };
 		3566671727AD28B400490522 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3566671627AD28B400490522 /* Item.swift */; };
 		35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4EE279B291C00A8CD1A /* TextAlert.swift */; };
-		35A1A4F1279B294500A8CD1A /* Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4F0279B294500A8CD1A /* Directory.swift */; };
+		35A1A4F1279B294500A8CD1A /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4F0279B294500A8CD1A /* Folder.swift */; };
 		35A34AA027A96C3E0093B8ED /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34A9F27A96C3E0093B8ED /* Document.swift */; };
 		35A34AA227A96C490093B8ED /* WordPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA127A96C490093B8ED /* WordPad.swift */; };
 		35A34AA427A972260093B8ED /* WordPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA327A972260093B8ED /* WordPadView.swift */; };
-		35A5C27D2798EF8200BBD3B2 /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A5C27C2798EF8200BBD3B2 /* Folder.swift */; };
 		35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */; };
 		35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8E2799CF20005D2D9B /* SidebarView.swift */; };
 		35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E547D3279971910052C9D6 /* TextAlertView.swift */; };
@@ -37,11 +36,10 @@
 		35638158278FB77B00296071 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		3566671627AD28B400490522 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		35A1A4EE279B291C00A8CD1A /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
-		35A1A4F0279B294500A8CD1A /* Directory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directory.swift; sourceTree = "<group>"; };
+		35A1A4F0279B294500A8CD1A /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		35A34A9F27A96C3E0093B8ED /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		35A34AA127A96C490093B8ED /* WordPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPad.swift; sourceTree = "<group>"; };
 		35A34AA327A972260093B8ED /* WordPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPadView.swift; sourceTree = "<group>"; };
-		35A5C27C2798EF8200BBD3B2 /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		35E547D3279971910052C9D6 /* TextAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertView.swift; sourceTree = "<group>"; };
@@ -115,9 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				35F3B69C27981B6F00E57466 /* Note.swift */,
-				35A5C27C2798EF8200BBD3B2 /* Folder.swift */,
 				35A1A4EE279B291C00A8CD1A /* TextAlert.swift */,
-				35A1A4F0279B294500A8CD1A /* Directory.swift */,
+				35A1A4F0279B294500A8CD1A /* Folder.swift */,
 				35A34A9F27A96C3E0093B8ED /* Document.swift */,
 				35A34AA127A96C490093B8ED /* WordPad.swift */,
 				3566671627AD28B400490522 /* Item.swift */,
@@ -209,7 +206,7 @@
 				353D746D278FAF7300C96CFF /* FileView.swift in Sources */,
 				3566671727AD28B400490522 /* Item.swift in Sources */,
 				35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */,
-				35A1A4F1279B294500A8CD1A /* Directory.swift in Sources */,
+				35A1A4F1279B294500A8CD1A /* Folder.swift in Sources */,
 				35F3B69D27981B6F00E57466 /* Note.swift in Sources */,
 				35F3B69927981B1200E57466 /* CanvasView.swift in Sources */,
 				35638159278FB77B00296071 /* NoteView.swift in Sources */,
@@ -218,7 +215,6 @@
 				353D745D278FAC8B00C96CFF /* Notes_DocsApp.swift in Sources */,
 				35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */,
 				35A34AA427A972260093B8ED /* WordPadView.swift in Sources */,
-				35A5C27D2798EF8200BBD3B2 /* Folder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

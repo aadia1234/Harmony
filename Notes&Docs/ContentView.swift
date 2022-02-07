@@ -20,7 +20,7 @@ struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Directory")
     @StateObject var master = MasterDirectory()
-    @State var dirView = DirectoryView(directory: Directory.allDirectories.first!)
+    @State var dirView = DirectoryView(directory: Folder.parentDirectories.first!)
     @State var sideBarView = SidebarView(alert: TextAlert(title: ""))
     
     @State private var editMode = EditMode.inactive
@@ -35,8 +35,8 @@ struct ContentView: View {
             VStack {
                 Spacer(minLength: 1.0)
                 NavigationView {
-                    sideBarView.environment(\.editMode, $editMode)
-                    dirView.environment(\.editMode, $editMode)
+                    sideBarView
+                    dirView
                 }
             }
             .disabled(alertShowing)
@@ -47,7 +47,12 @@ struct ContentView: View {
                 newItemAlert.showNewItem = false
 
             } successHandler: {
-                master.cd.items.append(newItemAlert.item)
+                if newItemAlert.item is Folder {
+                    if master.cd.children == nil { master.cd.children = [] }
+                    master.cd.children?.append(newItemAlert.item as! Folder)
+                } else {
+                    master.cd.documents.append(newItemAlert.item as! Document)
+                }
                 newItemAlert.visibility = false
                 newItemAlert.showNewItem = true
             }
@@ -59,13 +64,11 @@ struct ContentView: View {
                 newDirAlert.showNewItem = false
  
             } successHandler: {
-                
-                Directory.allDirectories.append(newDirAlert.item as! Directory)
+                Folder.parentDirectories.append(newDirAlert.item as! Folder)
                 newDirAlert.visibility = false
                 newDirAlert.showNewItem = true
             }
             .disabled(!alertShowing || newItemAlert.visibility)
-            
             
         }
         .onAppear {

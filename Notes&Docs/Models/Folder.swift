@@ -1,15 +1,32 @@
 //
-//  Folder.swift
+//  Directory.swift
 //  Notes&Docs
 //
-//  Created by Aadi Anand on 1/20/22.
+//  Created by Aadi Anand on 1/22/22.
 //
 
-import SwiftUI
+import Foundation
 
-class Folder: Directory {
+class Folder: Item {
+    public static var parentDirectories: [Folder] = [Folder()]
+    public static var allFolders: [Folder] = []
+    @Published var documents: [Document] = []
+    @Published var children: [Folder]?
+    
     override init() {
         super.init()
-        title = ""
+        self.title = "New Directory"
+        Folder.allFolders.append(self)
     }
+    
+    override func delete() {
+        Folder.parentDirectories.removeAll(where: {$0.id == self.id})
+        Folder.allFolders.removeAll(where: {$0.id == self.id})
+        let parent = Folder.allFolders.first(where: {$0.children?.contains(where: {$0.id == self.id}) ?? false})
+        parent?.children?.removeAll(where: {$0.id == self.id})
+    }
+}
+
+class MasterDirectory: ObservableObject {
+    @Published var cd = Folder.parentDirectories.first!
 }

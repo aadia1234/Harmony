@@ -12,43 +12,31 @@ struct DirectoryView: View {
     @EnvironmentObject var master: MasterDirectory
     @Environment(\.editMode) var editMode
     
-    @ObservedObject var directory: Directory = Directory.allDirectories.first!
+    @ObservedObject var directory: Folder = Folder.parentDirectories.first!
     
     @EnvironmentObject var newItemAlert: TextAlert
     @State private var searchText = ""
+    @State private var selectedDocuments: [Document] = []
 
-    init(directory: Directory) {
+    init(directory: Folder) {
         self.directory = directory
     }
     
     var body: some View {
         VStack {
             ScrollView {
-                if searchResults.contains(where: {$0 is Folder}) {
-                    Group {
-                        Text("Folders")
-                            .font(.title2)
-                        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                            ForEach(searchResults.filter({$0 is Folder}), id: \.self.id) { folder in
-                                FileView(item: folder)
-                            }
+                Group {
+                    Text("Documents")
+                        .font(.title2)
+                    LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                        ForEach(searchResults, id: \.self.id) { doc in
+                            FileView(doc, $selectedDocuments)
+                                .environment(\.editMode, editMode)
                         }
                     }
-                    .padding(.top, 50)
                 }
-                
-                if searchResults.contains(where: {$0 is Document}) {
-                    Group {
-                        Text("Documents")
-                            .font(.title2)
-                        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                            ForEach(searchResults.filter({$0 is Document}), id: \.self.id) { doc in
-                                FileView(item: doc)
-                            }
-                        }
-                    }
-                    .padding(.top, 50)
-                }
+                .padding(.top, 50)
+                .opacity(searchResults.isEmpty ? 0 : 1)
             }
         }
         .searchable(text: $searchText, placement: .navigationBarDrawer)
@@ -58,13 +46,19 @@ struct DirectoryView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
                     EditButton()
+                    if editMode?.wrappedValue == .active {
+                        Button {
+                            selectedDocuments.forEach({$0.delete()})
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                    }
+                    
                     ZStack {
                         HStack {
                             // newItemAlert.showNewItem
                             NavigationLink(isActive: .constant(false)) {
-                                if newItemAlert.item is Folder {
-                                    DirectoryView(directory: newItemAlert.item as! Folder)
-                                } else if newItemAlert.item is Note {
+                                if newItemAlert.item is Note {
                                     NoteView(note: newItemAlert.item as! Note)
                                 } else if newItemAlert.item is WordPad {
                                     WordPadView(wordPad: newItemAlert.item as! WordPad)
@@ -77,11 +71,13 @@ struct DirectoryView: View {
                             Menu {
                                 Button {
                                     newItemAlert.item = Folder()
+                                    newItemAlert.item.title = ""
                                     newItemAlert.visibility = true
                                 } label: {
                                     Label("New Folder", systemImage: "folder.badge.plus")
                                 }
                                 
+                            
                                 Button {
                                     newItemAlert.item = Note()
                                     newItemAlert.visibility = true
@@ -110,24 +106,24 @@ struct DirectoryView: View {
                             master.cd = directory
                         }
                     }
-                    .disabled(Directory.allDirectories.isEmpty || editMode!.wrappedValue.isEditing)
+                    .disabled(Folder.parentDirectories.isEmpty || editMode!.wrappedValue.isEditing)
                 }
             }
         }
     }
     
-    var searchResults: [Item] {
+    var searchResults: [Document] {
         if searchText.isEmpty {
-            return directory.items
+            return directory.documents
         } else {
-            return directory.items.filter({ $0.title.contains(searchText) })
+            return directory.documents.filter({ $0.title.contains(searchText) })
         }
     }
 }
 
 struct DirectoryView_Previews: PreviewProvider {
     static var previews: some View {
-        DirectoryView(directory: Directory())
+        DirectoryView(directory: Folder())
             .environmentObject(UpdateView())
             .environmentObject(TextAlert(title: ""))
             .environmentObject(MasterDirectory())
