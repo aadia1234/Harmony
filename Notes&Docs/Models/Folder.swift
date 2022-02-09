@@ -8,10 +8,10 @@
 import Foundation
 
 class Folder: Item {
-    public static var parentDirectories: [Folder] = [Folder()]
+    public static var parentFolders: [Folder] = [Folder()]
     public static var allFolders: [Folder] = []
     @Published var documents: [Document] = []
-    @Published var children: [Folder]?
+    @Published var subFolders: [Folder]?
     
     override init() {
         super.init()
@@ -20,13 +20,13 @@ class Folder: Item {
     }
     
     override func delete() {
-        Folder.parentDirectories.removeAll(where: {$0.id == self.id})
+        Folder.parentFolders.removeAll(where: {$0.id == self.id})
         Folder.allFolders.removeAll(where: {$0.id == self.id})
-        let parent = Folder.allFolders.first(where: {$0.children?.contains(where: {$0.id == self.id}) ?? false})
-        parent?.children?.removeAll(where: {$0.id == self.id})
+        let parent = Folder.allFolders.first(where: {$0.subFolders?.contains(where: {$0.id == self.id}) ?? false})
+        parent?.subFolders?.removeAll(where: {$0.id == self.id})
     }
 }
 
 class MasterDirectory: ObservableObject {
-    @Published var cd = Folder.parentDirectories.first!
+    @Published var cd = Folder.parentFolders.first!
 }

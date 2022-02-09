@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SidebarView: View {
     
-    @Environment(\.editMode) var mode
+    @Environment(\.editMode) var editMode
     @EnvironmentObject var updateView: UpdateView
     @ObservedObject var newDirAlert: TextAlert
     @EnvironmentObject var master: MasterDirectory
@@ -23,7 +23,7 @@ struct SidebarView: View {
     
     var body: some View {
         Group {
-            List(searchResults, id: \.self, children: \.children, selection: $selection) { folder in
+            List(searchResults, id: \.self, children: \.subFolders, selection: $selection) { folder in
                 NavigationLink(destination: DirectoryView(directory: folder)) {
                     Label(folder.title, systemImage: "folder")
                 }
@@ -37,10 +37,10 @@ struct SidebarView: View {
             }
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
-            .onChange(of: mode?.wrappedValue == .inactive) { _ in selection.removeAll() }
+            .onChange(of: editMode?.wrappedValue == .inactive) { _ in selection.removeAll() }
             
             NavigationLink(isActive: $newDirAlert.showNewItem) {
-                DirectoryView(directory: Folder.parentDirectories.last ?? Folder())
+                DirectoryView(directory: Folder.parentFolders.last ?? Folder())
             } label: {
                 EmptyView()
             }
@@ -51,15 +51,17 @@ struct SidebarView: View {
                 EditButton()
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                if mode?.wrappedValue == .active {
+                ZStack {
                     Button(role: .destructive) {
                         selection.forEach{$0.delete()}
                         updateView.update()
-                        
+
                     } label: {
                         Label("Delete Folder", systemImage: "trash")
                     }
-                } else {
+                    .opacity(editMode?.wrappedValue == .active ? 1 : 0)
+                    .tint(.red)
+                    
                     Button {
                         newDirAlert.item = Folder()
                         newDirAlert.item.title = ""
@@ -68,6 +70,7 @@ struct SidebarView: View {
                     } label: {
                         Label("New Directory", systemImage: "plus")
                     }
+                    .opacity(editMode?.wrappedValue == .inactive ? 1 : 0)
                 }
             }
         }
@@ -75,13 +78,33 @@ struct SidebarView: View {
     
     var searchResults: [Folder] {
         if searchText.isEmpty {
-            return Folder.parentDirectories
+            return Folder.parentFolders
         } else {
             return Folder.allFolders.filter({ $0.title.contains(searchText) })
         }
         
     }
 }
+
+
+// https://www.youtube.com/watch?v=cR_5lbb0yss
+//            List {
+//                ForEach(searchResults) { folder in
+//                    DisclosureGroup("\(folder.title)") {
+//                        OutlineGroup(folder.subFolders ?? [Folder](), children: \.subFolders) { subFolder in
+//                            if subFolder.subFolders == nil {
+//                                NavigationLink(destination: DirectoryView(directory: subFolder)) {
+//                                    Label(subFolder.title, systemImage: "folder")
+//                                }
+//                            } else {
+//                                Label(subFolder.title, systemImage: "folder")
+//                            }
+//                        }
+//                    }
+//                }
+//
+//            }
+
 
 struct SidebarView_Previews: PreviewProvider {
     static var previews: some View {

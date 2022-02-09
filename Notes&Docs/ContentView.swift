@@ -20,7 +20,7 @@ struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
     @StateObject var master = MasterDirectory()
-    @State var dirView = DirectoryView(directory: Folder.parentDirectories.first!)
+    @State var dirView = DirectoryView(directory: Folder.parentFolders.first!)
     @State var sideBarView = SidebarView(alert: TextAlert(title: ""))
     
     @State private var editMode = EditMode.inactive
@@ -35,8 +35,9 @@ struct ContentView: View {
             VStack {
                 Spacer(minLength: 1.0)
                 NavigationView {
-                    sideBarView
-                    dirView
+                    SidebarView(alert: newDirAlert)
+                    DirectoryView(directory: Folder.parentFolders.first ?? Folder())
+                        .opacity(Folder.allFolders.count > 0 ? 1 : 0)
                 }
             }
             .disabled(alertShowing)
@@ -48,8 +49,8 @@ struct ContentView: View {
 
             } successHandler: {
                 if newItemAlert.item is Folder {
-                    if master.cd.children == nil { master.cd.children = [] }
-                    master.cd.children?.append(newItemAlert.item as! Folder)
+                    if master.cd.subFolders == nil { master.cd.subFolders = [] }
+                    master.cd.subFolders?.append(newItemAlert.item as! Folder)
                 } else {
                     master.cd.documents.append(newItemAlert.item as! Document)
                 }
@@ -64,7 +65,7 @@ struct ContentView: View {
                 newDirAlert.showNewItem = false
  
             } successHandler: {
-                Folder.parentDirectories.append(newDirAlert.item as! Folder)
+                Folder.parentFolders.append(newDirAlert.item as! Folder)
                 newDirAlert.visibility = false
                 newDirAlert.showNewItem = true
             }
@@ -78,7 +79,6 @@ struct ContentView: View {
         .environmentObject(UpdateView())
         .environmentObject(newItemAlert)
         .environmentObject(master)
-//        .environment(\.editMode, $editMode)
     }
 }
 

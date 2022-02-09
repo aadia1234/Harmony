@@ -69,9 +69,10 @@ struct FileView: View {
                                 .stroke(Color.accentColor, lineWidth: (viewClicked && editMode?.wrappedValue == .active) ? 2 : 0)
                         }
                     }
+                     // light mode has a bug --  https://stackoverflow.com/questions/67387227/swiftui-contextmenu-only-in-dark-mode
                     .contextMenu {
                         Button(role: .destructive) {
-                            master.cd.documents.removeAll(where: {$0.id == doc.id })
+                            doc.delete()
                         } label: {
                             Label("Delete Document", systemImage: "trash")
                         }

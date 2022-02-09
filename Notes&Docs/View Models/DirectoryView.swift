@@ -12,7 +12,7 @@ struct DirectoryView: View {
     @EnvironmentObject var master: MasterDirectory
     @Environment(\.editMode) var editMode
     
-    @ObservedObject var directory: Folder = Folder.parentDirectories.first!
+    @ObservedObject var directory: Folder = Folder.parentFolders.first!
     
     @EnvironmentObject var newItemAlert: TextAlert
     @State private var searchText = ""
@@ -46,6 +46,7 @@ struct DirectoryView: View {
                     Text("Delete")
                 }
                 .opacity(editMode?.wrappedValue == .active ? 1 : 0)
+                .tint(.red)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
@@ -102,7 +103,7 @@ struct DirectoryView: View {
                             master.cd = directory
                         }
                     }
-                    .disabled(Folder.parentDirectories.isEmpty || editMode!.wrappedValue.isEditing)
+                    .disabled(Folder.parentFolders.isEmpty || editMode!.wrappedValue.isEditing)
                 }
             }
         }
