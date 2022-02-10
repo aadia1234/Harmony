@@ -23,10 +23,12 @@ struct DirectoryView: View {
         self.directory = directory
     }
     
+    var gridLayout = [GridItem(.adaptive(minimum: 280))]
+    
     var body: some View {
         VStack {
             ScrollView {
-                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                LazyVGrid(columns: gridLayout, spacing: 50) {
                     ForEach(searchResults, id: \.self.id) { doc in
                         FileView(doc, $selectedDocuments)
                             .environment(\.editMode, editMode)                        
@@ -38,7 +40,6 @@ struct DirectoryView: View {
         .searchable(text: $searchText, placement: .navigationBarDrawer)
         .navigationTitle(directory.title)
         .opacity(updateView.didUpdate ? 0 : 1)
-        .onChange(of: Folder.allFolders) { _ in selectedDocuments.removeAll() }
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {

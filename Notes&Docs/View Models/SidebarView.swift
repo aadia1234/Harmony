@@ -37,8 +37,6 @@ struct SidebarView: View {
             }
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
-            .onChange(of: Folder.allFolders) { _ in selection.removeAll() }
-
             NavigationLink(isActive: $newDirAlert.showNewItem) {
                 DirectoryView(directory: Folder.parentFolders.last ?? Folder())
             } label: {
