@@ -16,8 +16,9 @@ struct DirectoryView: View {
     
     @EnvironmentObject var newItemAlert: TextAlert
     @State private var searchText = ""
-    @State private var selectedDocuments: [Document] = []
-
+    @State private var selectedDocuments = Set<Document>()
+    @State private var showFileNavView = false
+    
     init(directory: Folder) {
         self.directory = directory
     }
@@ -28,7 +29,7 @@ struct DirectoryView: View {
                 LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
                     ForEach(searchResults, id: \.self.id) { doc in
                         FileView(doc, $selectedDocuments)
-                            .environment(\.editMode, editMode)
+                            .environment(\.editMode, editMode)                        
                     }
                 }
                 .padding(.top, 50)
@@ -37,16 +38,30 @@ struct DirectoryView: View {
         .searchable(text: $searchText, placement: .navigationBarDrawer)
         .navigationTitle(directory.title)
         .opacity(updateView.didUpdate ? 0 : 1)
+        .onChange(of: Folder.allFolders) { _ in selectedDocuments.removeAll() }
+        .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
-                Button {
-                    selectedDocuments.forEach({$0.delete()})
-                } label: {
-                    Text("Delete")
+                HStack {
+                    Button {
+                        showFileNavView.toggle()
+                        print(selectedDocuments)
+                    } label: {
+                        Text("Move")
+                    }
+                    .opacity(editMode?.wrappedValue == .active ? 1 : 0)
+                    
+                    Spacer()
+                    
+                    Button {
+                        selectedDocuments.forEach({$0.delete()})
+                    } label: {
+                        Text("Delete")
+                    }
+                    .opacity(editMode?.wrappedValue == .active ? 1 : 0)
+                    .tint(.red)
                 }
-                .opacity(editMode?.wrappedValue == .active ? 1 : 0)
-                .tint(.red)
+                
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {

@@ -11,7 +11,7 @@ protocol DeleteProtocol: Item {
     func delete()
 }
 
-class Item: Identifiable, ObservableObject, DeleteProtocol, Hashable {
+class Item: Identifiable, ObservableObject, DeleteProtocol, Hashable, NSCopying {
     @Published var title = ""
     @Published var id = UUID()
     
@@ -23,5 +23,9 @@ class Item: Identifiable, ObservableObject, DeleteProtocol, Hashable {
         hasher.combine(self.id)
     }
     
+    func copy(with zone: NSZone? = nil) -> Any { return Item() }
+    
     func delete() {}
+    
+    func move(to folder: Folder) {}
 }

@@ -37,8 +37,8 @@ struct SidebarView: View {
             }
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
-            .onChange(of: editMode?.wrappedValue == .inactive) { _ in selection.removeAll() }
-            
+            .onChange(of: Folder.allFolders) { _ in selection.removeAll() }
+
             NavigationLink(isActive: $newDirAlert.showNewItem) {
                 DirectoryView(directory: Folder.parentFolders.last ?? Folder())
             } label: {
@@ -46,10 +46,7 @@ struct SidebarView: View {
             }
         }
         .navigationTitle("Folders")
-        .sheet(isPresented: $showFileNavView) {
-            FileNavigationView(folders: selection)
-                .environment(\.editMode, .constant(.inactive))
-        }
+        .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selection)}
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()

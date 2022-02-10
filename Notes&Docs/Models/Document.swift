@@ -11,8 +11,13 @@ class Document: Item {
     @Published var preview = Image(systemName: "pencil")
     @Published var lastOpened = Date.now
     
+    override init() {}
+    
+    func getStoredFolder() -> Folder? {
+        return Folder.allFolders.first(where: {$0.documents.contains(self)})
+    }
+    
     override func delete() {
-        let folder = Folder.allFolders.first(where: {$0.documents.contains(where: {$0 == self})})
-        folder?.documents.removeAll(where: {$0 == self})
+        getStoredFolder()?.documents.removeAll(where: {$0 == self})
     }
 }

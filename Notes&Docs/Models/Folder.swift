@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Folder: Item, NSCopying {
+class Folder: Item {
     public static var parentFolders: [Folder] = [Folder()]
     public static var allFolders: [Folder] = []
     @Published var documents: [Document] = []
@@ -28,7 +28,7 @@ class Folder: Item, NSCopying {
     }
     
     func getParent() -> Folder? {
-        return Folder.allFolders.first(where: {$0.subFolders?.contains(where: {$0 == self}) ?? false})
+        return Folder.allFolders.first(where: {$0.subFolders?.contains(self) ?? false})
     }
     
     override func delete() {
@@ -38,15 +38,16 @@ class Folder: Item, NSCopying {
         self.getParent()?.subFolders?.removeAll(where: {$0 == self})
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
+    override func copy(with zone: NSZone? = nil) -> Any {
         return Folder(title: self.title, documents: self.documents, subFolders: self.subFolders)
     }
     
-    func move(to folder: Folder) {
+    override func move(to folder: Folder) {
         if folder.subFolders == nil { folder.subFolders = [] }
         let copy = self.copy() as! Folder
         folder.subFolders?.append(copy)
         self.delete()
+        print(copy.documents)
     }
     
     func hasAncestor(_ ancestor: Folder) -> Bool {

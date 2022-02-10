@@ -13,11 +13,11 @@ struct FileView: View {
     @ObservedObject var doc: Document
     @EnvironmentObject var master: MasterDirectory
     @Environment(\.editMode) var editMode
-    @State private var viewClicked = false
+    @State private var viewSelected = false
     @State private var presentView = false
-    @Binding private var selection: [Document]
+    @Binding private var selection: Set<Document>
     
-    init(_ doc: Document, _ selection: Binding<[Document]>) {
+    init(_ doc: Document, _ selection: Binding<Set<Document>>) {
         self.doc = doc
         self._selection = selection
     }
@@ -25,11 +25,16 @@ struct FileView: View {
     var body: some View {
         ZStack {
             Button {
-                viewClicked.toggle()
+                viewSelected.toggle()
+                
                 if editMode?.wrappedValue == .inactive {
                     presentView.toggle()
-                } else if editMode?.wrappedValue == .active && viewClicked {
-                    selection.append(doc)
+                } else if editMode?.wrappedValue == .active {
+                    if selection.contains(doc) {
+                        selection.remove(doc)
+                    } else {
+                        selection.update(with: doc)
+                    }
                 }
             } label: {
                 VStack {
@@ -45,17 +50,17 @@ struct FileView: View {
                         
                         Circle()
                             .size(CGSize(width: 20.0, height: 20.0))
-                            .foregroundColor((viewClicked && editMode?.wrappedValue == .active) ? .accentColor : .clear)
+                            .foregroundColor((viewSelected && editMode?.wrappedValue == .active) ? .accentColor : .clear)
                             .frame(width: 20.0, height: 20.0)
                             .overlay {
                                 ZStack {
                                     Image(systemName: "checkmark")
                                         .resizable()
                                         .frame(width: 10, height: 10, alignment: .center)
-                                        .opacity((viewClicked && editMode?.wrappedValue == .active) ? 1 : 0)
+                                        .opacity((viewSelected && editMode?.wrappedValue == .active) ? 1 : 0)
                                         .foregroundColor(.white)
                                     Circle()
-                                        .stroke((viewClicked && editMode?.wrappedValue == .active) ? .white : .gray, lineWidth: 2)
+                                        .stroke((viewSelected && editMode?.wrappedValue == .active) ? .white : .gray, lineWidth: 2)
                                 }
                                 
                             }
@@ -66,7 +71,7 @@ struct FileView: View {
                     .overlay {
                         if editMode?.wrappedValue == .active {
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.accentColor, lineWidth: (viewClicked && editMode?.wrappedValue == .active) ? 2 : 0)
+                                .stroke(Color.accentColor, lineWidth: (viewSelected && editMode?.wrappedValue == .active) ? 2 : 0)
                         }
                     }
                      // light mode has a bug --  https://stackoverflow.com/questions/67387227/swiftui-contextmenu-only-in-dark-mode
@@ -99,7 +104,7 @@ struct FileView: View {
         }
         .onChange(of: editMode?.wrappedValue == .inactive) { _ in
             selection.removeAll()
-            viewClicked = false
+            viewSelected = false
         }
         .frame(width: 250, height: 250, alignment: .center)
         .padding()
