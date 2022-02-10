@@ -22,7 +22,6 @@ struct ContentView: View {
     @StateObject var master = MasterDirectory()
     @State var dirView = DirectoryView(directory: Folder.parentFolders.first!)
     @State var sideBarView = SidebarView(alert: TextAlert(title: ""))
-    
     @State private var editMode = EditMode.inactive
     @State private var showRecents = true
     

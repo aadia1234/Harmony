@@ -18,6 +18,7 @@ struct NoteView: View {
     var body: some View {
         ZoomableScrollView {
             canvasView
+                .scaleEffect()
         }
         .navigationTitle(note.title)
         .navigationBarTitleDisplayMode(.inline)

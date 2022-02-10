@@ -22,6 +22,7 @@
 		35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */; };
 		35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8E2799CF20005D2D9B /* SidebarView.swift */; };
 		35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E547D3279971910052C9D6 /* TextAlertView.swift */; };
+		35F13C4827B526280001B052 /* FileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F13C4727B526280001B052 /* FileNavigationView.swift */; };
 		35F3B69927981B1200E57466 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F3B69827981B1200E57466 /* CanvasView.swift */; };
 		35F3B69D27981B6F00E57466 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F3B69C27981B6F00E57466 /* Note.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		35E547D3279971910052C9D6 /* TextAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertView.swift; sourceTree = "<group>"; };
+		35F13C4727B526280001B052 /* FileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigationView.swift; sourceTree = "<group>"; };
 		35F3B69827981B1200E57466 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		35F3B69C27981B6F00E57466 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				35BF4C8E2799CF20005D2D9B /* SidebarView.swift */,
 				353D746C278FAF7300C96CFF /* FileView.swift */,
 				35A34AA327A972260093B8ED /* WordPadView.swift */,
+				35F13C4727B526280001B052 /* FileNavigationView.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 				TargetAttributes = {
 					353D7458278FAC8B00C96CFF = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -214,6 +218,7 @@
 				35A34AA027A96C3E0093B8ED /* Document.swift in Sources */,
 				353D745D278FAC8B00C96CFF /* Notes_DocsApp.swift in Sources */,
 				35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */,
+				35F13C4827B526280001B052 /* FileNavigationView.swift in Sources */,
 				35A34AA427A972260093B8ED /* WordPadView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Notes&Docs/Preview Content\"";
@@ -362,6 +368,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.techisawesome.Notes-Docs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -372,6 +381,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Notes&Docs/Preview Content\"";
@@ -392,6 +402,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.techisawesome.Notes-Docs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

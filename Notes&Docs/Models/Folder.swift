@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Folder: Item {
+class Folder: Item, NSCopying {
     public static var parentFolders: [Folder] = [Folder()]
     public static var allFolders: [Folder] = []
     @Published var documents: [Document] = []
@@ -19,11 +19,49 @@ class Folder: Item {
         Folder.allFolders.append(self)
     }
     
+    init(title: String, documents: [Document], subFolders: [Folder]?) {
+        super.init()
+        self.title = title
+        self.documents = documents
+        self.subFolders = subFolders
+        Folder.allFolders.append(self)
+    }
+    
+    func getParent() -> Folder? {
+        return Folder.allFolders.first(where: {$0.subFolders?.contains(where: {$0 == self}) ?? false})
+    }
+    
     override func delete() {
-        Folder.parentFolders.removeAll(where: {$0.id == self.id})
-        Folder.allFolders.removeAll(where: {$0.id == self.id})
-        let parent = Folder.allFolders.first(where: {$0.subFolders?.contains(where: {$0.id == self.id}) ?? false})
-        parent?.subFolders?.removeAll(where: {$0.id == self.id})
+        Folder.parentFolders.removeAll(where: {$0 == self})
+        Folder.allFolders.removeAll(where: {$0 == self})
+        self.subFolders?.removeAll()
+        self.getParent()?.subFolders?.removeAll(where: {$0 == self})
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        return Folder(title: self.title, documents: self.documents, subFolders: self.subFolders)
+    }
+    
+    func move(to folder: Folder) {
+        if folder.subFolders == nil { folder.subFolders = [] }
+        let copy = self.copy() as! Folder
+        folder.subFolders?.append(copy)
+        self.delete()
+    }
+    
+    func hasAncestor(_ ancestor: Folder) -> Bool {
+        guard let parent = self.getParent() else { return false }
+        if parent == ancestor {
+            return true
+        } else {
+            return parent.hasAncestor(ancestor)
+        }
+    }
+    
+    func moveToParentFolders() {
+        let copy = self.copy() as! Folder
+        Folder.parentFolders.append(copy)
+        self.delete()
     }
 }
 

@@ -15,7 +15,7 @@ struct SidebarView: View {
     @EnvironmentObject var master: MasterDirectory
     @State private var searchText = ""
     @State private var selection = Set<Folder>()
-    
+    @State private var showFileNavView = false
     
     init(alert newDirAlert: TextAlert) {
         self.newDirAlert = newDirAlert
@@ -46,21 +46,37 @@ struct SidebarView: View {
             }
         }
         .navigationTitle("Folders")
+        .sheet(isPresented: $showFileNavView) {
+            FileNavigationView(folders: selection)
+                .environment(\.editMode, .constant(.inactive))
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 ZStack {
-                    Button(role: .destructive) {
-                        selection.forEach{$0.delete()}
-                        updateView.update()
+                    HStack {
+                        Button {
+                            showFileNavView.toggle()
+                        } label: {
+                            Text("Move")
+                        }
+                        .disabled(selection.isEmpty)
+                        
+                        
+                        Spacer()
+                        
+                        Button(role: .destructive) {
+                            selection.forEach{$0.delete()}
+                            updateView.update()
 
-                    } label: {
-                        Label("Delete Folder", systemImage: "trash")
+                        } label: {
+                            Text("Delete")
+                                .tint(.red)
+                        }
                     }
                     .opacity(editMode?.wrappedValue == .active ? 1 : 0)
-                    .tint(.red)
                     
                     Button {
                         newDirAlert.item = Folder()

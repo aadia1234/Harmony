@@ -8,6 +8,8 @@
 import SwiftUI
 import PencilKit
 
+
+
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
   private var content: Content
 
@@ -19,8 +21,9 @@ struct ZoomableScrollView<Content: View>: UIViewRepresentable {
     // set up the UIScrollView
     let scrollView = UIScrollView()
     scrollView.delegate = context.coordinator  // for viewForZooming(in:)
-    scrollView.maximumZoomScale = 20
-    scrollView.minimumZoomScale = 1
+    scrollView.maximumZoomScale = 2
+    scrollView.minimumZoomScale = 0.33
+    scrollView.zoomScale = scrollView.minimumZoomScale
     scrollView.bouncesZoom = true
 
     // create a UIHostingController to hold our SwiftUI content
@@ -64,7 +67,7 @@ struct CanvasView: UIViewRepresentable {
     @State private var toolpicker = PKToolPicker()
 
     func makeUIView(context: Context) -> PKCanvasView {
-        canvas.tool = PKInkingTool(.pen, color: .black, width: 10)
+        canvas.tool = PKInkingTool(.pen, color: .black, width: .greatestFiniteMagnitude)
         toggleToolPicker()
         
         return canvas
