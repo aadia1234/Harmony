@@ -46,7 +46,6 @@ struct DirectoryView: View {
                 HStack {
                     Button {
                         showFileNavView.toggle()
-                        print(selectedDocuments)
                     } label: {
                         Text("Move")
                     }

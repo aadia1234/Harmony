@@ -21,6 +21,8 @@
 		35A34AA427A972260093B8ED /* WordPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA327A972260093B8ED /* WordPadView.swift */; };
 		35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */; };
 		35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8E2799CF20005D2D9B /* SidebarView.swift */; };
+		35CD468E27B60B5E00AA13C6 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD468D27B60B5E00AA13C6 /* DataController.swift */; };
+		35CD469127B60C4800AA13C6 /* Notes&Docs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35CD468F27B60C4800AA13C6 /* Notes&Docs.xcdatamodeld */; };
 		35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E547D3279971910052C9D6 /* TextAlertView.swift */; };
 		35F13C4827B526280001B052 /* FileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F13C4727B526280001B052 /* FileNavigationView.swift */; };
 		35F3B69927981B1200E57466 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F3B69827981B1200E57466 /* CanvasView.swift */; };
@@ -43,6 +45,8 @@
 		35A34AA327A972260093B8ED /* WordPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPadView.swift; sourceTree = "<group>"; };
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		35CD468D27B60B5E00AA13C6 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		35CD469027B60C4800AA13C6 /* Notes&Docs.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Notes&Docs.xcdatamodel"; sourceTree = "<group>"; };
 		35E547D3279971910052C9D6 /* TextAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertView.swift; sourceTree = "<group>"; };
 		35F13C4727B526280001B052 /* FileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigationView.swift; sourceTree = "<group>"; };
 		35F3B69827981B1200E57466 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				353D745C278FAC8B00C96CFF /* Notes_DocsApp.swift */,
+				35CD468F27B60C4800AA13C6 /* Notes&Docs.xcdatamodeld */,
 				353D745E278FAC8B00C96CFF /* ContentView.swift */,
 				35A1A4ED279B28FD00A8CD1A /* View Models */,
 				35BF4C912799CFD3005D2D9B /* Views */,
@@ -121,6 +126,7 @@
 				35A34A9F27A96C3E0093B8ED /* Document.swift */,
 				35A34AA127A96C490093B8ED /* WordPad.swift */,
 				3566671627AD28B400490522 /* Item.swift */,
+				35CD468D27B60B5E00AA13C6 /* DataController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -209,8 +215,10 @@
 				35A34AA227A96C490093B8ED /* WordPad.swift in Sources */,
 				353D746D278FAF7300C96CFF /* FileView.swift in Sources */,
 				3566671727AD28B400490522 /* Item.swift in Sources */,
+				35CD469127B60C4800AA13C6 /* Notes&Docs.xcdatamodeld in Sources */,
 				35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */,
 				35A1A4F1279B294500A8CD1A /* Folder.swift in Sources */,
+				35CD468E27B60B5E00AA13C6 /* DataController.swift in Sources */,
 				35F3B69D27981B6F00E57466 /* Note.swift in Sources */,
 				35F3B69927981B1200E57466 /* CanvasView.swift in Sources */,
 				35638159278FB77B00296071 /* NoteView.swift in Sources */,
@@ -431,6 +439,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		35CD468F27B60C4800AA13C6 /* Notes&Docs.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				35CD469027B60C4800AA13C6 /* Notes&Docs.xcdatamodel */,
+			);
+			currentVersion = 35CD469027B60C4800AA13C6 /* Notes&Docs.xcdatamodel */;
+			path = "Notes&Docs.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 353D7451278FAC8B00C96CFF /* Project object */;
 }

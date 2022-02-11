@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct Notes_DocsApp: App {
+    @StateObject private var dataController = DataController()
+
+    init() {
+        
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

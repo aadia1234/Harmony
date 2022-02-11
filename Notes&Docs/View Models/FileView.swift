@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FileView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var renameAlert: TextAlert
     @ObservedObject var doc: Document
     @EnvironmentObject var master: MasterDirectory
     @Environment(\.editMode) var editMode
@@ -39,14 +40,12 @@ struct FileView: View {
             } label: {
                 VStack {
                     ZStack {
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .background(.regularMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                        
                         doc.preview
                             .resizable()
                             .scaleEffect(0.90)
+                            .background(Color(uiColor: .systemGray6))
+                            .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                            
                         
                         Circle()
                             .size(CGSize(width: 20.0, height: 20.0))
@@ -76,6 +75,17 @@ struct FileView: View {
                     }
                      // light mode has a bug --  https://stackoverflow.com/questions/67387227/swiftui-contextmenu-only-in-dark-mode
                     .contextMenu {
+                        Button {
+                            // rename document
+                            
+                        } label: {
+                            Label("Rename", systemImage: "character.cursor.ibeam")
+                        }
+                        Button {
+                            // move document
+                        } label: {
+                            Label("Move", systemImage: "rectangle.portrait.and.arrow.right")
+                        }
                         Button(role: .destructive) {
                             doc.delete()
                         } label: {

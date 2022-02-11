@@ -20,13 +20,14 @@ struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
     @StateObject var master = MasterDirectory()
+    @StateObject var renameDocAlert = TextAlert(title: "Rename Document")
     @State var dirView = DirectoryView(directory: Folder.parentFolders.first!)
     @State var sideBarView = SidebarView(alert: TextAlert(title: ""))
     @State private var editMode = EditMode.inactive
     @State private var showRecents = true
     
     private var alertShowing: Bool {
-        return newItemAlert.visibility || newDirAlert.visibility
+        return newItemAlert.visibility || newDirAlert.visibility || renameDocAlert.visibility
     }
     
     var body: some View {
@@ -56,7 +57,7 @@ struct ContentView: View {
                 newItemAlert.visibility = false
                 newItemAlert.showNewItem = true
             }
-            .disabled(!alertShowing || newDirAlert.visibility)
+            .disabled(!newItemAlert.visibility)
 
             
             TextAlertView(alert: newDirAlert, text: $newDirAlert.item.title) {
@@ -68,7 +69,17 @@ struct ContentView: View {
                 newDirAlert.visibility = false
                 newDirAlert.showNewItem = true
             }
-            .disabled(!alertShowing || newItemAlert.visibility)
+            .disabled(!newDirAlert.visibility)
+            
+//            TextAlertView(alert: renameDocAlert, text: $renameDocAlert.item.title) {
+//                renameDocAlert.visibility = false
+//                renameDocAlert.showNewItem = false
+// 
+//            } successHandler: {
+//                renameDocAlert.visibility = false
+//                renameDocAlert.showNewItem = true
+//            }
+//            .disabled(!renameDocAlert.visibility)
             
         }
         .onAppear {

@@ -14,7 +14,7 @@ protocol DeleteProtocol: Item {
 class Item: Identifiable, ObservableObject, DeleteProtocol, Hashable, NSCopying {
     @Published var title = ""
     @Published var id = UUID()
-    
+        
     static func == (lhs: Item, rhs: Item) -> Bool {
         return lhs.id == rhs.id
     }
