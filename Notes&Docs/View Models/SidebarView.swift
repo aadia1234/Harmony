@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SidebarView: View {
-    
     @Environment(\.editMode) var editMode
     @EnvironmentObject var updateView: UpdateView
     @ObservedObject var newDirAlert: TextAlert
@@ -44,7 +43,7 @@ struct SidebarView: View {
             }
         }
         .navigationTitle("Folders")
-        .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selection)}
+        .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selection)}.onAppear{print("count: \(selection.count)")}
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
@@ -74,8 +73,7 @@ struct SidebarView: View {
                     .opacity(editMode?.wrappedValue == .active ? 1 : 0)
                     
                     Button {
-                        newDirAlert.item = Folder()
-                        newDirAlert.item.title = ""
+                        newDirAlert.itemType = Folder.self
                         newDirAlert.visibility = true
                         newDirAlert.showNewItem = false
                     } label: {

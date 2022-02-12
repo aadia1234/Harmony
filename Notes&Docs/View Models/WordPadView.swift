@@ -11,7 +11,6 @@ struct WordPadView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var updateView: UpdateView
 
-    @State private var canvasView = CanvasView()
     @State var wordPad: WordPad
     
     var body: some View {
@@ -21,7 +20,16 @@ struct WordPadView: View {
             .opacity(updateView.didUpdate ? 0 : 1)
 //            .navigationBarHidden(true)
             .toolbar {
-                
+                Button {
+                    
+                    try! Item.context.save()
+                    self.presentationMode.wrappedValue.dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Documents")
+                    }
+                }
             }
             .onAppear {
                 wordPad.lastOpened = Date.now

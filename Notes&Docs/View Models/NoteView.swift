@@ -26,8 +26,9 @@ struct NoteView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
                 Button {
-                    note.preview = canvasView.getPreview()
-                    note.drawing = canvasView.getCanvasDrawing()
+                    note.thumbnailData = canvasView.getThumbnail().pngData()!
+                    note.drawingData = canvasView.getCanvasDrawing().dataRepresentation()
+                    try! Item.context.save()
                     self.presentationMode.wrappedValue.dismiss()
                 } label: {
                     HStack {
@@ -52,7 +53,7 @@ struct NoteView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            canvasView.setCanvasDrawing(note.drawing)
+            canvasView.setCanvasDrawing(data: note.drawingData)
             note.lastOpened = Date.now
         }
             

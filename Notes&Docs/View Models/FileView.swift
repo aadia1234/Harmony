@@ -17,6 +17,7 @@ struct FileView: View {
     @State private var viewSelected = false
     @State private var presentView = false
     @Binding private var selection: Set<Document>
+    @State private var thumbnail: Image = Image(systemName: "pencil")
     
     init(_ doc: Document, _ selection: Binding<Set<Document>>) {
         self.doc = doc
@@ -27,7 +28,6 @@ struct FileView: View {
         ZStack {
             Button {
                 viewSelected.toggle()
-                
                 if editMode?.wrappedValue == .inactive {
                     presentView.toggle()
                 } else if editMode?.wrappedValue == .active {
@@ -40,7 +40,7 @@ struct FileView: View {
             } label: {
                 VStack {
                     ZStack {
-                        doc.preview
+                        thumbnail
                             .resizable()
                             .scaleEffect(0.90)
                             .background(Color(uiColor: .systemGray6))
@@ -60,7 +60,7 @@ struct FileView: View {
                                         .foregroundColor(.white)
                                     Circle()
                                         .stroke((viewSelected && editMode?.wrappedValue == .active) ? .white : .gray, lineWidth: 2)
-                                }
+                                 }
                                 
                             }
                             .position(x: 126, y: 180)
@@ -111,6 +111,9 @@ struct FileView: View {
             } label: {
                 EmptyView()
             }
+        }
+        .onAppear {
+            if let data = doc.thumbnailData { thumbnail = Image(uiImage: UIImage(data: data)!)}
         }
         .onChange(of: editMode?.wrappedValue == .inactive) { _ in
             selection.removeAll()

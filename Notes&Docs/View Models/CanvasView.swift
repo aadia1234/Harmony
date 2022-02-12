@@ -79,16 +79,16 @@ struct CanvasView: UIViewRepresentable {
         canvas.becomeFirstResponder()
     }
     
-    func setCanvasDrawing(_ drawing: PKDrawing) {
-        canvas.drawing = drawing
+    func setCanvasDrawing(data drawingData: Data? = nil) {
+        if let data = drawingData { canvas.drawing = try! PKDrawing(data: data)}
     }
     
     func clearCanvas() {
         canvas.drawing = PKDrawing()
     }
     
-    func getPreview() -> Image {
-        return Image(uiImage: canvas.drawing.image(from: canvas.bounds, scale: 1.0))
+    func getThumbnail() -> UIImage {
+        return canvas.drawing.image(from: canvas.bounds, scale: 1.0)
     }
     
     func getCanvasDrawing() -> PKDrawing {

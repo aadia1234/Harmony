@@ -7,17 +7,16 @@
 
 import SwiftUI
 
+
 @main
 struct Notes_DocsApp: App {
-    @StateObject private var dataController = DataController()
 
-    init() {
-        
-    }
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .onAppear {
+                    print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
+                }
         }
     }
 }

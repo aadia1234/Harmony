@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351EB58E27B832F0008D04C0 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351EB58D27B832F0008D04C0 /* Item+CoreDataClass.swift */; };
 		353D745D278FAC8B00C96CFF /* Notes_DocsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D745C278FAC8B00C96CFF /* Notes_DocsApp.swift */; };
 		353D745F278FAC8B00C96CFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D745E278FAC8B00C96CFF /* ContentView.swift */; };
 		353D7461278FAC8C00C96CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7460278FAC8C00C96CFF /* Assets.xcassets */; };
 		353D7464278FAC8C00C96CFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */; };
 		353D746D278FAF7300C96CFF /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D746C278FAF7300C96CFF /* FileView.swift */; };
 		35638159278FB77B00296071 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35638158278FB77B00296071 /* NoteView.swift */; };
-		3566671727AD28B400490522 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3566671627AD28B400490522 /* Item.swift */; };
+		3572D7F427B66CE600B3813E /* WordPad+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7EA27B66CE600B3813E /* WordPad+CoreDataClass.swift */; };
+		3572D7F827B66CE600B3813E /* Folder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7EE27B66CE600B3813E /* Folder+CoreDataClass.swift */; };
+		3572D7FA27B66CE600B3813E /* Document+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7F027B66CE600B3813E /* Document+CoreDataClass.swift */; };
+		3572D7FC27B66CE600B3813E /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7F227B66CE600B3813E /* Note+CoreDataClass.swift */; };
 		35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4EE279B291C00A8CD1A /* TextAlert.swift */; };
-		35A1A4F1279B294500A8CD1A /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4F0279B294500A8CD1A /* Folder.swift */; };
-		35A34AA027A96C3E0093B8ED /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34A9F27A96C3E0093B8ED /* Document.swift */; };
-		35A34AA227A96C490093B8ED /* WordPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA127A96C490093B8ED /* WordPad.swift */; };
 		35A34AA427A972260093B8ED /* WordPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA327A972260093B8ED /* WordPadView.swift */; };
 		35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */; };
 		35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8E2799CF20005D2D9B /* SidebarView.swift */; };
@@ -26,10 +27,10 @@
 		35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E547D3279971910052C9D6 /* TextAlertView.swift */; };
 		35F13C4827B526280001B052 /* FileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F13C4727B526280001B052 /* FileNavigationView.swift */; };
 		35F3B69927981B1200E57466 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F3B69827981B1200E57466 /* CanvasView.swift */; };
-		35F3B69D27981B6F00E57466 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F3B69C27981B6F00E57466 /* Note.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		351EB58D27B832F0008D04C0 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		353D7459278FAC8B00C96CFF /* Notes&Docs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Notes&Docs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		353D745C278FAC8B00C96CFF /* Notes_DocsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes_DocsApp.swift; sourceTree = "<group>"; };
 		353D745E278FAC8B00C96CFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -37,12 +38,13 @@
 		353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		353D746C278FAF7300C96CFF /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
 		35638158278FB77B00296071 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
-		3566671627AD28B400490522 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		3572D7EA27B66CE600B3813E /* WordPad+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WordPad+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3572D7EE27B66CE600B3813E /* Folder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Folder+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3572D7F027B66CE600B3813E /* Document+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3572D7F227B66CE600B3813E /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		35A1A4EE279B291C00A8CD1A /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
-		35A1A4F0279B294500A8CD1A /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
-		35A34A9F27A96C3E0093B8ED /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		35A34AA127A96C490093B8ED /* WordPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPad.swift; sourceTree = "<group>"; };
 		35A34AA327A972260093B8ED /* WordPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPadView.swift; sourceTree = "<group>"; };
+		35AB1A2D27B7A4D400FD17E8 /* Notes-Docs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Notes-Docs-Info.plist"; sourceTree = SOURCE_ROOT; };
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		35CD468D27B60B5E00AA13C6 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -50,7 +52,6 @@
 		35E547D3279971910052C9D6 /* TextAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertView.swift; sourceTree = "<group>"; };
 		35F13C4727B526280001B052 /* FileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigationView.swift; sourceTree = "<group>"; };
 		35F3B69827981B1200E57466 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
-		35F3B69C27981B6F00E57466 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +84,7 @@
 		353D745B278FAC8B00C96CFF /* Notes&Docs */ = {
 			isa = PBXGroup;
 			children = (
+				35AB1A2D27B7A4D400FD17E8 /* Notes-Docs-Info.plist */,
 				353D745C278FAC8B00C96CFF /* Notes_DocsApp.swift */,
 				35CD468F27B60C4800AA13C6 /* Notes&Docs.xcdatamodeld */,
 				353D745E278FAC8B00C96CFF /* ContentView.swift */,
@@ -103,6 +105,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		3572D7D527B66BB300B3813E /* CoreDataObjects */ = {
+			isa = PBXGroup;
+			children = (
+				3572D7EA27B66CE600B3813E /* WordPad+CoreDataClass.swift */,
+				3572D7EE27B66CE600B3813E /* Folder+CoreDataClass.swift */,
+				3572D7F027B66CE600B3813E /* Document+CoreDataClass.swift */,
+				3572D7F227B66CE600B3813E /* Note+CoreDataClass.swift */,
+				351EB58D27B832F0008D04C0 /* Item+CoreDataClass.swift */,
+			);
+			path = CoreDataObjects;
+			sourceTree = "<group>";
+		};
 		35A1A4ED279B28FD00A8CD1A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,12 +134,8 @@
 		35BF4C902799CFA7005D2D9B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				35F3B69C27981B6F00E57466 /* Note.swift */,
+				3572D7D527B66BB300B3813E /* CoreDataObjects */,
 				35A1A4EE279B291C00A8CD1A /* TextAlert.swift */,
-				35A1A4F0279B294500A8CD1A /* Folder.swift */,
-				35A34A9F27A96C3E0093B8ED /* Document.swift */,
-				35A34AA127A96C490093B8ED /* WordPad.swift */,
-				3566671627AD28B400490522 /* Item.swift */,
 				35CD468D27B60B5E00AA13C6 /* DataController.swift */,
 			);
 			path = Models;
@@ -210,23 +220,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3572D7F427B66CE600B3813E /* WordPad+CoreDataClass.swift in Sources */,
 				35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */,
 				353D745F278FAC8B00C96CFF /* ContentView.swift in Sources */,
-				35A34AA227A96C490093B8ED /* WordPad.swift in Sources */,
 				353D746D278FAF7300C96CFF /* FileView.swift in Sources */,
-				3566671727AD28B400490522 /* Item.swift in Sources */,
 				35CD469127B60C4800AA13C6 /* Notes&Docs.xcdatamodeld in Sources */,
 				35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */,
-				35A1A4F1279B294500A8CD1A /* Folder.swift in Sources */,
 				35CD468E27B60B5E00AA13C6 /* DataController.swift in Sources */,
-				35F3B69D27981B6F00E57466 /* Note.swift in Sources */,
+				3572D7FA27B66CE600B3813E /* Document+CoreDataClass.swift in Sources */,
 				35F3B69927981B1200E57466 /* CanvasView.swift in Sources */,
 				35638159278FB77B00296071 /* NoteView.swift in Sources */,
 				35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */,
-				35A34AA027A96C3E0093B8ED /* Document.swift in Sources */,
+				351EB58E27B832F0008D04C0 /* Item+CoreDataClass.swift in Sources */,
 				353D745D278FAC8B00C96CFF /* Notes_DocsApp.swift in Sources */,
 				35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */,
 				35F13C4827B526280001B052 /* FileNavigationView.swift in Sources */,
+				3572D7FC27B66CE600B3813E /* Note+CoreDataClass.swift in Sources */,
+				3572D7F827B66CE600B3813E /* Folder+CoreDataClass.swift in Sources */,
 				35A34AA427A972260093B8ED /* WordPadView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,12 +372,13 @@
 				DEVELOPMENT_TEAM = SMF8LFK995;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Notes-Docs-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -396,12 +407,13 @@
 				DEVELOPMENT_TEAM = SMF8LFK995;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Notes-Docs-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -25,16 +25,15 @@ struct ShakeEffect: GeometryEffect {
 
 struct TextAlertView: View {
     @EnvironmentObject var directory: Folder
-    @State var cancelHandler: () -> Void
-    @State var successHandler: () -> Void
+    @State var cancelHandler: () throws -> Void
+    @State var successHandler: () throws -> Void
     @State private var buttonClicked = false
+    @State var itemType: Item.Type
+    @ObservedObject var textAlert: TextAlert
     
-    @Binding var textInput: String
-    @State var textAlert: TextAlert
-    
-    init(alert textAlert: TextAlert, text textInput: Binding<String>, cancelHandler: @escaping (() -> Void) = {}, successHandler: @escaping (() -> Void) = {}) {
+    init(alert textAlert: TextAlert, itemType: Item.Type, cancelHandler: @escaping (() throws -> Void) = {}, successHandler: @escaping (() throws -> Void) = {}) {
         self.textAlert = textAlert
-        self._textInput = textInput
+        self.itemType = itemType
         self.cancelHandler = cancelHandler
         self.successHandler = successHandler
     }
@@ -55,7 +54,7 @@ struct TextAlertView: View {
                     Divider()
                     
                     HStack {
-                        TextField("", text: $textInput)
+                        TextField("", text: $textAlert.text)
                             .font(.system(size: 15))
                             .padding(10)
                             
@@ -68,7 +67,11 @@ struct TextAlertView: View {
                     
                     HStack {
                         Button {
-                            cancelHandler()
+                            do {
+                                try cancelHandler()
+                            } catch {
+                                fatalError(error.localizedDescription)
+                            }
                         } label: {
                             Text("Cancel")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -82,9 +85,14 @@ struct TextAlertView: View {
                         Button {
                             buttonClicked.toggle()
                             
-                            if !textInput.isEmpty {
+                            if !textAlert.text.isEmpty {
                                 buttonClicked = false
-                                successHandler()
+                                do {
+                                    try successHandler()
+                                } catch {
+                                    fatalError(error.localizedDescription)
+                                }
+                                textAlert.text = ""
                             }
                         } label: {
                             Text("OK")
@@ -104,14 +112,14 @@ struct TextAlertView: View {
         .frame(maxWidth: 320, maxHeight: 190, alignment: .center)
         .clipShape(RoundedRectangle(cornerRadius: 10.0))
         .opacity(textAlert.visibility ? 1 : 0)
-        .modifier(ShakeEffect(shakes: (textInput.isEmpty && buttonClicked) ?  2 : 0))
+        .modifier(ShakeEffect(shakes: (textAlert.text.isEmpty && buttonClicked) ?  2 : 0))
         .animation(.linear(duration: 0.5), value: buttonClicked)
     }
 }
 
 struct TextAlertView_Previews: PreviewProvider {
     static var previews: some View {
-        TextAlertView(alert: TextAlert(title: "Alert Title"), text: .constant("Alert Text"))
+        TextAlertView(alert: TextAlert(title: "Alert Title"), itemType: Item.self)
             .previewInterfaceOrientation(.landscapeLeft)
 //            .environment(\.colorScheme, .dark)
     }

@@ -12,8 +12,7 @@ struct DirectoryView: View {
     @EnvironmentObject var master: MasterDirectory
     @Environment(\.editMode) var editMode
     
-    @ObservedObject var directory: Folder = Folder.parentFolders.first!
-    
+    @ObservedObject var directory: Folder = Folder.parentFolders.first ?? Folder()
     @EnvironmentObject var newItemAlert: TextAlert
     @State private var searchText = ""
     @State private var selectedDocuments = Set<Document>()
@@ -29,9 +28,9 @@ struct DirectoryView: View {
         VStack {
             ScrollView {
                 LazyVGrid(columns: gridLayout, spacing: 50) {
-                    ForEach(searchResults, id: \.self.id) { doc in
+                    ForEach(searchResults, id: \.self) { doc in
                         FileView(doc, $selectedDocuments)
-                            .environment(\.editMode, editMode)                        
+                            .environment(\.editMode, editMode)
                     }
                 }
                 .padding(.top, 50)
@@ -70,11 +69,11 @@ struct DirectoryView: View {
                         HStack {
                             // newItemAlert.showNewItem
                             NavigationLink(isActive: .constant(false)) {
-                                if newItemAlert.item is Note {
-                                    NoteView(note: newItemAlert.item as! Note)
-                                } else if newItemAlert.item is WordPad {
-                                    WordPadView(wordPad: newItemAlert.item as! WordPad)
-                                }
+//                                if newItemAlert.itemType == Note.self {
+//                                    NoteView(note: newItemAlert.item as! Note)
+//                                } else if newItemAlert.itemType == WordPad.self {
+//                                    WordPadView(wordPad: newItemAlert.item as! WordPad)
+//                                }
                             } label: {
                                 EmptyView()
                             }
@@ -82,8 +81,8 @@ struct DirectoryView: View {
                             
                             Menu {
                                 Button {
-                                    newItemAlert.item = Folder()
-                                    newItemAlert.item.title = ""
+                                    newItemAlert.itemType = Folder.self
+                                    newItemAlert.text = ""
                                     newItemAlert.visibility = true
                                 } label: {
                                     Label("New Folder", systemImage: "folder.badge.plus")
@@ -91,14 +90,14 @@ struct DirectoryView: View {
                                 
                             
                                 Button {
-                                    newItemAlert.item = Note()
+                                    newItemAlert.itemType = Note.self
                                     newItemAlert.visibility = true
                                 } label: {
                                     Label("New Note", systemImage: "note.text.badge.plus")
                                 }
                                 
                                 Button {
-                                    newItemAlert.item = WordPad()
+                                    newItemAlert.itemType = WordPad.self
                                     newItemAlert.visibility = true
                                 } label: {
                                     Label("New WordPad", systemImage: "doc.badge.plus")
