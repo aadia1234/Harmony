@@ -18,6 +18,8 @@ class UpdateView: ObservableObject {
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
+    @Environment(\.scenePhase) var scenePhase
+
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
     @StateObject var master = MasterDirectory()
@@ -52,13 +54,13 @@ struct ContentView: View {
                 if newItemAlert.itemType == Folder.self {
                     if master.cd.subFolders == nil { master.cd.subFolders = [] }
                     _ = Folder(title: newItemAlert.text, parentFolder: master.cd, documents: [Document](), subFolders: nil)
-                    try! Item.context.save()
+                    DataController.save()
                 } else {
                     
                     let doc: Document = newItemAlert.itemType.init() as! Document
                     doc.title = newItemAlert.text
                     doc.folder = master.cd
-                    try! Item.context.save()
+                    DataController.save()
                 }
                 newItemAlert.visibility = false
                 newItemAlert.showNewItem = true
@@ -72,7 +74,7 @@ struct ContentView: View {
 
             } successHandler: {
                 let _ = Folder(title: newDirAlert.text, parentFolder: nil, documents: [Document](), subFolders: nil)
-                try! Item.context.save()
+                DataController.save()
                 newDirAlert.visibility = false
                 newDirAlert.showNewItem = true
             }
@@ -92,7 +94,13 @@ struct ContentView: View {
         .onAppear {
             sideBarView = SidebarView(alert: newDirAlert)
         }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .inactive || newPhase == .background {
+//                try! Item.context.save()
+            }
+        }
         .animation(.spring(), value: alertShowing)
+        .edgesIgnoringSafeArea(.all)
         .environmentObject(UpdateView())
         .environmentObject(newItemAlert)
         .environmentObject(master)

@@ -28,8 +28,8 @@ struct NoteView: View {
                 Button {
                     note.thumbnailData = canvasView.getThumbnail().pngData()!
                     note.drawingData = canvasView.getCanvasDrawing().dataRepresentation()
-                    try! Item.context.save()
                     self.presentationMode.wrappedValue.dismiss()
+                    DataController.save()
                 } label: {
                     HStack {
                         Image(systemName: "chevron.left")

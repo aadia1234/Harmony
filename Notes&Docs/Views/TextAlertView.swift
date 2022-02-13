@@ -69,6 +69,7 @@ struct TextAlertView: View {
                         Button {
                             do {
                                 try cancelHandler()
+                                self.textAlert.text = ""
                             } catch {
                                 fatalError(error.localizedDescription)
                             }
@@ -89,10 +90,10 @@ struct TextAlertView: View {
                                 buttonClicked = false
                                 do {
                                     try successHandler()
+                                    self.textAlert.text = ""
                                 } catch {
                                     fatalError(error.localizedDescription)
                                 }
-                                textAlert.text = ""
                             }
                         } label: {
                             Text("OK")

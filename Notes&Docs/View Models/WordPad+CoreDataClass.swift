@@ -20,8 +20,4 @@ public class WordPad: Document {
         self.lastOpened = lastOpened
         self.text = text
     }
-    
-    public override func copy(with zone: NSZone? = nil) -> Any {
-        return WordPad(title: self.title, thumbnailData: self.thumbnailData, lastOpened: self.lastOpened, text: self.text)
-    }
 }

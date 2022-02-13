@@ -30,7 +30,7 @@ struct FileNavigationView<T: Item>: View {
                                     .opacity(selectedFolder == folder ? 1 : 0)
                         }
                     }
-                    .disabled(isFolders && (items as! Set<Folder>).contains(where: {folder.hasAncestor($0) || $0 == folder || $0.getParent() == folder}))
+                    .disabled(isFolders && (items as! Set<Folder>).contains(where: {folder.hasAncestor($0) || $0 == folder || $0.parentFolder == folder}))
                     .disabled(!isFolders && (items as! Set<Document>).contains(where: {$0.storedFolder == folder}))
                 }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
@@ -52,10 +52,10 @@ struct FileNavigationView<T: Item>: View {
                     .padding(20)
                     .foregroundColor(.white)
                     .background(Color.accentColor)
-                    .clipShape(Capsule())
+                    .clipShape(RoundedRectangle(cornerRadius: 7.5))
                     .disabled(folders.contains(where: {Folder.parentFolders.contains($0)}))
                     
-                    Spacer(minLength: 10)
+                    Spacer(minLength: 15)
                 }
                 
             }

@@ -8,7 +8,21 @@
 import SwiftUI
 import PencilKit
 
-
+//extension PKDrawing {
+//    mutating func scale(in frame: CGRect) {
+//        var scaleFactor:CGFloat = 0
+//
+//        if self.bounds.width != frame.width {
+//            scaleFactor = frame.width / self.bounds.width
+//        } else if self.bounds.height != frame.height {
+//            scaleFactor = frame.height / self.bounds.height
+//        }
+//
+//        let trasform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+//
+//        self.transform(using: trasform)
+//    }
+//}
 
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
   private var content: Content

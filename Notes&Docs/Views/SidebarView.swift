@@ -23,9 +23,12 @@ struct SidebarView: View {
     var body: some View {
         Group {
             List(searchResults, id: \.self, children: \.subFolders, selection: $selection) { folder in
+                Label(folder.title, systemImage: "folder")
                 NavigationLink(destination: DirectoryView(directory: folder)) {
-                    Label(folder.title, systemImage: "folder")
+                    EmptyView()
                 }
+                .frame(width: 0)
+                .opacity(0)
                 .swipeActions {
                     Button(role: .destructive) {
                         folder.delete()
@@ -34,6 +37,7 @@ struct SidebarView: View {
                     }
                 }
             }
+            .listStyle(.automatic)
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
             NavigationLink(isActive: $newDirAlert.showNewItem) {

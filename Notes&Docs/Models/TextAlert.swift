@@ -16,6 +16,5 @@ class TextAlert: ObservableObject {
     
     init(title: String) {
         self.title = title
-//        item.title = ""
     }
 }

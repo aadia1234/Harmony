@@ -18,8 +18,12 @@
 		3572D7F827B66CE600B3813E /* Folder+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7EE27B66CE600B3813E /* Folder+CoreDataClass.swift */; };
 		3572D7FA27B66CE600B3813E /* Document+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7F027B66CE600B3813E /* Document+CoreDataClass.swift */; };
 		3572D7FC27B66CE600B3813E /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3572D7F227B66CE600B3813E /* Note+CoreDataClass.swift */; };
+		35847A2927B9307300C57E0B /* DMSerifDisplay-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35847A2627B9307300C57E0B /* DMSerifDisplay-Italic.ttf */; };
+		35847A2A27B9307300C57E0B /* DMSerifDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35847A2727B9307300C57E0B /* DMSerifDisplay-Regular.ttf */; };
+		35847A2B27B9307300C57E0B /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 35847A2827B9307300C57E0B /* OFL.txt */; };
 		35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4EE279B291C00A8CD1A /* TextAlert.swift */; };
 		35A34AA427A972260093B8ED /* WordPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA327A972260093B8ED /* WordPadView.swift */; };
+		35BC86AB27B94BF8007E8688 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BC86AA27B94BF8007E8688 /* CloudKit.framework */; };
 		35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */; };
 		35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8E2799CF20005D2D9B /* SidebarView.swift */; };
 		35CD468E27B60B5E00AA13C6 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35CD468D27B60B5E00AA13C6 /* DataController.swift */; };
@@ -42,9 +46,13 @@
 		3572D7EE27B66CE600B3813E /* Folder+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Folder+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3572D7F027B66CE600B3813E /* Document+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3572D7F227B66CE600B3813E /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
+		35847A2627B9307300C57E0B /* DMSerifDisplay-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSerifDisplay-Italic.ttf"; sourceTree = "<group>"; };
+		35847A2727B9307300C57E0B /* DMSerifDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSerifDisplay-Regular.ttf"; sourceTree = "<group>"; };
+		35847A2827B9307300C57E0B /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		35A1A4EE279B291C00A8CD1A /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		35A34AA327A972260093B8ED /* WordPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPadView.swift; sourceTree = "<group>"; };
-		35AB1A2D27B7A4D400FD17E8 /* Notes-Docs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Notes-Docs-Info.plist"; sourceTree = SOURCE_ROOT; };
+		35BC86A827B94BF2007E8688 /* Notes&Docs.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Notes&Docs.entitlements"; sourceTree = "<group>"; };
+		35BC86AA27B94BF8007E8688 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		35CD468D27B60B5E00AA13C6 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -59,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35BC86AB27B94BF8007E8688 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +79,7 @@
 			children = (
 				353D745B278FAC8B00C96CFF /* Notes&Docs */,
 				353D745A278FAC8B00C96CFF /* Products */,
+				35BC86A927B94BF8007E8688 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,7 +94,10 @@
 		353D745B278FAC8B00C96CFF /* Notes&Docs */ = {
 			isa = PBXGroup;
 			children = (
-				35AB1A2D27B7A4D400FD17E8 /* Notes-Docs-Info.plist */,
+				35BC86A827B94BF2007E8688 /* Notes&Docs.entitlements */,
+				35847A2627B9307300C57E0B /* DMSerifDisplay-Italic.ttf */,
+				35847A2727B9307300C57E0B /* DMSerifDisplay-Regular.ttf */,
+				35847A2827B9307300C57E0B /* OFL.txt */,
 				353D745C278FAC8B00C96CFF /* Notes_DocsApp.swift */,
 				35CD468F27B60C4800AA13C6 /* Notes&Docs.xcdatamodeld */,
 				353D745E278FAC8B00C96CFF /* ContentView.swift */,
@@ -105,7 +118,7 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		3572D7D527B66BB300B3813E /* CoreDataObjects */ = {
+		35A1A4ED279B28FD00A8CD1A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
 				3572D7EA27B66CE600B3813E /* WordPad+CoreDataClass.swift */,
@@ -114,27 +127,20 @@
 				3572D7F227B66CE600B3813E /* Note+CoreDataClass.swift */,
 				351EB58D27B832F0008D04C0 /* Item+CoreDataClass.swift */,
 			);
-			path = CoreDataObjects;
+			path = "View Models";
 			sourceTree = "<group>";
 		};
-		35A1A4ED279B28FD00A8CD1A /* View Models */ = {
+		35BC86A927B94BF8007E8688 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */,
-				35F3B69827981B1200E57466 /* CanvasView.swift */,
-				35638158278FB77B00296071 /* NoteView.swift */,
-				35BF4C8E2799CF20005D2D9B /* SidebarView.swift */,
-				353D746C278FAF7300C96CFF /* FileView.swift */,
-				35A34AA327A972260093B8ED /* WordPadView.swift */,
-				35F13C4727B526280001B052 /* FileNavigationView.swift */,
+				35BC86AA27B94BF8007E8688 /* CloudKit.framework */,
 			);
-			path = "View Models";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		35BF4C902799CFA7005D2D9B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3572D7D527B66BB300B3813E /* CoreDataObjects */,
 				35A1A4EE279B291C00A8CD1A /* TextAlert.swift */,
 				35CD468D27B60B5E00AA13C6 /* DataController.swift */,
 			);
@@ -144,6 +150,13 @@
 		35BF4C912799CFD3005D2D9B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */,
+				35F3B69827981B1200E57466 /* CanvasView.swift */,
+				35638158278FB77B00296071 /* NoteView.swift */,
+				35BF4C8E2799CF20005D2D9B /* SidebarView.swift */,
+				353D746C278FAF7300C96CFF /* FileView.swift */,
+				35A34AA327A972260093B8ED /* WordPadView.swift */,
+				35F13C4727B526280001B052 /* FileNavigationView.swift */,
 				35E547D3279971910052C9D6 /* TextAlertView.swift */,
 			);
 			path = Views;
@@ -208,6 +221,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35847A2B27B9307300C57E0B /* OFL.txt in Resources */,
+				35847A2927B9307300C57E0B /* DMSerifDisplay-Italic.ttf in Resources */,
+				35847A2A27B9307300C57E0B /* DMSerifDisplay-Regular.ttf in Resources */,
 				353D7464278FAC8C00C96CFF /* Preview Assets.xcassets in Resources */,
 				353D7461278FAC8C00C96CFF /* Assets.xcassets in Resources */,
 			);
@@ -366,10 +382,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Notes&Docs/Notes&Docs.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Notes&Docs/Preview Content\"";
-				DEVELOPMENT_TEAM = SMF8LFK995;
+				DEVELOPMENT_TEAM = A767GDGQM8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Notes-Docs-Info.plist";
@@ -384,7 +401,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.techisawesome.Notes-Docs";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.techisawesome.Notes-and-Docs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -401,10 +418,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Notes&Docs/Notes&Docs.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Notes&Docs/Preview Content\"";
-				DEVELOPMENT_TEAM = SMF8LFK995;
+				DEVELOPMENT_TEAM = A767GDGQM8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Notes-Docs-Info.plist";
@@ -419,7 +437,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.techisawesome.Notes-Docs";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.techisawesome.Notes-and-Docs";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;

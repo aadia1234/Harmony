@@ -18,12 +18,11 @@ struct WordPadView: View {
             .navigationTitle(wordPad.title)
             .navigationBarTitleDisplayMode(.inline)
             .opacity(updateView.didUpdate ? 0 : 1)
-//            .navigationBarHidden(true)
+            .navigationBarHidden(true)
             .toolbar {
                 Button {
-                    
-                    try! Item.context.save()
                     self.presentationMode.wrappedValue.dismiss()
+                    DataController.save()
                 } label: {
                     HStack {
                         Image(systemName: "chevron.left")

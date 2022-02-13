@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 
 @main
 struct Notes_DocsApp: App {
@@ -15,7 +15,13 @@ struct Notes_DocsApp: App {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
+                    DataController.container.loadPersistentStores { description, error in
+                        if let error = error {
+                            print("Core Data failed to load: \(error.localizedDescription)")
+                        }
+                        DataController.context = DataController.container.viewContext
+                        DataController.context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+                    }
                 }
         }
     }

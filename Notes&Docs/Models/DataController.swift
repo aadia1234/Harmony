@@ -8,16 +8,8 @@
 import SwiftUI
 import CoreData
 
-class DataController: ObservableObject {
-    let container = NSPersistentContainer(name: "Notes&Docs")
-    
-    init() {
-        self.container.loadPersistentStores { description, error in
-            if let error = error {
-                print("Core Data failed to load: \(error.localizedDescription)")
-            }
-            
-            self.container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-        }
-    }
+class DataController {
+    public static let container = NSPersistentCloudKitContainer(name: "Notes&Docs")
+    public static var context: NSManagedObjectContext = DataController.container.viewContext
+    public static func save() { try! DataController.context.save() }
 }

@@ -73,26 +73,6 @@ struct FileView: View {
                                 .stroke(Color.accentColor, lineWidth: (viewSelected && editMode?.wrappedValue == .active) ? 2 : 0)
                         }
                     }
-                     // light mode has a bug --  https://stackoverflow.com/questions/67387227/swiftui-contextmenu-only-in-dark-mode
-                    .contextMenu {
-                        Button {
-                            // rename document
-                            
-                        } label: {
-                            Label("Rename", systemImage: "character.cursor.ibeam")
-                        }
-                        Button {
-                            // move document
-                        } label: {
-                            Label("Move", systemImage: "rectangle.portrait.and.arrow.right")
-                        }
-                        Button(role: .destructive) {
-                            doc.delete()
-                        } label: {
-                            Label("Delete Document", systemImage: "trash")
-                        }
-                    }
-                    
                     
                     Spacer()
                     
@@ -101,7 +81,28 @@ struct FileView: View {
                         .font(.footnote)
                     Spacer()
                 }
+                .contextMenu {
+                    Button {
+                        // rename document
+                        
+                    } label: {
+                        Label("Rename", systemImage: "character.cursor.ibeam")
+                    }
+                    Button {
+                        // move document
+                    } label: {
+                        Label("Move", systemImage: "rectangle.portrait.and.arrow.right")
+                    }
+                    Button(role: .destructive) {
+                        doc.delete()
+                    } label: {
+                        Label("Delete Document", systemImage: "trash")
+                    }
+                }
+                
+
             }
+            
             NavigationLink(isActive: $presentView) {
                 if doc is Note {
                     NoteView(note: doc as! Note)
