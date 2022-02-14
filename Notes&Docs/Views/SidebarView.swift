@@ -10,80 +10,58 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.editMode) var editMode
     @EnvironmentObject var updateView: UpdateView
-    @ObservedObject var newDirAlert: TextAlert
     @EnvironmentObject var master: MasterDirectory
+    
+    @ObservedObject var newDirAlert: TextAlert
     @State private var searchText = ""
     @State private var selection = Set<Folder>()
     @State private var showFileNavView = false
     
-    init(alert newDirAlert: TextAlert) {
-        self.newDirAlert = newDirAlert
-    }
+    private var isEditing: Bool { editMode?.wrappedValue == .active }
+    
+    init(alert newDirAlert: TextAlert) { self.newDirAlert = newDirAlert }
     
     var body: some View {
         Group {
             List(searchResults, id: \.self, children: \.subFolders, selection: $selection) { folder in
                 Label(folder.title, systemImage: "folder")
-                NavigationLink(destination: DirectoryView(directory: folder)) {
-                    EmptyView()
+                .swipeActions {
+                    Button(role: .destructive) { folder.delete() } label: { Label("Delete", systemImage: "trash") }
+                    Button {} label: { Label("Move", systemImage: "rectangle.portrait.and.arrow.right") }
                 }
+                
+                NavigationLink(destination: DirectoryView(directory: folder)) { EmptyView() }
                 .frame(width: 0)
                 .opacity(0)
-                .swipeActions {
-                    Button(role: .destructive) {
-                        folder.delete()
-                    } label: {
-                        Text("Delete")
-                    }
-                }
             }
             .listStyle(.automatic)
             .searchable(text: $searchText)
             .opacity(updateView.didUpdate ? 0 : 1)
-            NavigationLink(isActive: $newDirAlert.showNewItem) {
-                DirectoryView(directory: Folder.parentFolders.last ?? Folder())
-            } label: {
-                EmptyView()
-            }
+            NavigationLink(isActive: $newDirAlert.showNewItem) { DirectoryView(directory: Folder.parentFolders.last ?? Folder()) } label: { EmptyView() }
         }
         .navigationTitle("Folders")
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selection)}.onAppear{print("count: \(selection.count)")}
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
+            ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
             ToolbarItemGroup(placement: .bottomBar) {
                 ZStack {
                     HStack {
-                        Button {
-                            showFileNavView.toggle()
-                        } label: {
-                            Text("Move")
-                        }
-                        .disabled(selection.isEmpty)
-                        
-                        
+                        Button("Move") { showFileNavView.toggle() }
                         Spacer()
-                        
                         Button(role: .destructive) {
                             selection.forEach{$0.delete()}
                             updateView.update()
-
-                        } label: {
-                            Text("Delete")
-                                .tint(.red)
-                        }
+                        } label: { Text("Delete") }
                     }
-                    .opacity(editMode?.wrappedValue == .active ? 1 : 0)
+                    .disabled(selection.isEmpty)
+                    .opacity(isEditing ? 1 : 0)
                     
                     Button {
                         newDirAlert.itemType = Folder.self
-                        newDirAlert.visibility = true
-                        newDirAlert.showNewItem = false
-                    } label: {
-                        Label("New Directory", systemImage: "plus")
-                    }
-                    .opacity(editMode?.wrappedValue == .inactive ? 1 : 0)
+//                        newDirAlert.visibility = true
+//                        newDirAlert.showNewItem = false
+                    } label: { Label("New Directory", systemImage: "plus") }
+                    .opacity(isEditing ? 0 : 1)
                 }
             }
         }
@@ -98,26 +76,6 @@ struct SidebarView: View {
         
     }
 }
-
-
-// https://www.youtube.com/watch?v=cR_5lbb0yss
-//            List {
-//                ForEach(searchResults) { folder in
-//                    DisclosureGroup("\(folder.title)") {
-//                        OutlineGroup(folder.subFolders ?? [Folder](), children: \.subFolders) { subFolder in
-//                            if subFolder.subFolders == nil {
-//                                NavigationLink(destination: DirectoryView(directory: subFolder)) {
-//                                    Label(subFolder.title, systemImage: "folder")
-//                                }
-//                            } else {
-//                                Label(subFolder.title, systemImage: "folder")
-//                            }
-//                        }
-//                    }
-//                }
-//
-//            }
-
 
 struct SidebarView_Previews: PreviewProvider {
     static var previews: some View {

@@ -24,7 +24,7 @@ struct FileNavigationView<T: Item>: View {
                     } label: {
                         HStack {
                             Label(folder.title, systemImage: "folder")
-                                Spacer()
+                            Spacer()
                             Image(systemName: "checkmark")
                                     .foregroundColor(.accentColor)
                                     .opacity(selectedFolder == folder ? 1 : 0)
@@ -39,7 +39,6 @@ struct FileNavigationView<T: Item>: View {
                 
                 if isFolders {
                     let folders = items as! Set<Folder>
-                    
                     Button {
                         folders.forEach({$0.moveToParentFolders()})
                         dismiss()
@@ -57,30 +56,13 @@ struct FileNavigationView<T: Item>: View {
                     
                     Spacer(minLength: 15)
                 }
-                
-            }
-            .onAppear {
-                print(items)
-                print(Folder.allFolders)
             }
             .navigationTitle("Select a Folder")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(role: .cancel) {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                    }
-                }
-                
+                ToolbarItem(placement: .navigationBarLeading) { Button("Cancel") { dismiss() } }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        items.forEach({$0.move(to: selectedFolder)})
-                        dismiss()
-                    } label: {
-                        Text("Move")
-                    }
+                    Button("Move") { items.forEach({$0.move(to: selectedFolder)}); dismiss() }
                     .disabled(!Folder.allFolders.contains(selectedFolder))
                 }
             }

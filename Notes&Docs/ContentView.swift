@@ -17,17 +17,10 @@ class UpdateView: ObservableObject {
 }
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var context
-    @Environment(\.scenePhase) var scenePhase
-
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
-    @StateObject var master = MasterDirectory()
     @StateObject var renameDocAlert = TextAlert(title: "Rename Document")
-    @State var dirView = DirectoryView(directory: Folder.parentFolders.first ?? Folder())
-    @State var sideBarView = SidebarView(alert: TextAlert(title: ""))
-    @State private var editMode = EditMode.inactive
-    @State private var showRecents = true
+    @StateObject var master = MasterDirectory()
     
     private var alertShowing: Bool {
         return newItemAlert.visibility || newDirAlert.visibility || renameDocAlert.visibility
@@ -47,57 +40,23 @@ struct ContentView: View {
             .blur(radius: alertShowing ? 30 : 0)
 
             TextAlertView(alert: newItemAlert, itemType: Item.self) {
-                newItemAlert.visibility = false
-                newItemAlert.showNewItem = false
-
-            } successHandler: {
                 if newItemAlert.itemType == Folder.self {
                     if master.cd.subFolders == nil { master.cd.subFolders = [] }
                     _ = Folder(title: newItemAlert.text, parentFolder: master.cd, documents: [Document](), subFolders: nil)
-                    DataController.save()
                 } else {
-                    
                     let doc: Document = newItemAlert.itemType.init() as! Document
                     doc.title = newItemAlert.text
                     doc.folder = master.cd
-                    DataController.save()
                 }
-                newItemAlert.visibility = false
-                newItemAlert.showNewItem = true
             }
-            .disabled(!newItemAlert.visibility)
 
 
             TextAlertView(alert: newDirAlert, itemType: Folder.self) {
-                newDirAlert.visibility = false
-                newDirAlert.showNewItem = false
-
-            } successHandler: {
-                let _ = Folder(title: newDirAlert.text, parentFolder: nil, documents: [Document](), subFolders: nil)
-                DataController.save()
-                newDirAlert.visibility = false
-                newDirAlert.showNewItem = true
+                _ = Folder(title: newDirAlert.text, parentFolder: nil, documents: [Document](), subFolders: nil)
             }
-            .disabled(!newDirAlert.visibility)
+            
+//            TextAlertView(alert: renameDocAlert, itemType: Document.self) {}
 
-//            TextAlertView(alert: renameDocAlert, text: $renameDocAlert.item.title) {
-//                renameDocAlert.visibility = false
-//                renameDocAlert.showNewItem = false
-//
-//            } successHandler: {
-//                renameDocAlert.visibility = false
-//                renameDocAlert.showNewItem = true
-//            }
-//            .disabled(!renameDocAlert.visibility)
-
-        }
-        .onAppear {
-            sideBarView = SidebarView(alert: newDirAlert)
-        }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .inactive || newPhase == .background {
-//                try! Item.context.save()
-            }
         }
         .animation(.spring(), value: alertShowing)
         .edgesIgnoringSafeArea(.all)

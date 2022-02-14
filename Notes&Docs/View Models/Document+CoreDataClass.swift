@@ -19,7 +19,6 @@ public class Document: Item {
     convenience required init() {self.init(context: DataController.context); DataController.save()}
     
     override func move(to folder: Folder) {
-
         self.folder = folder
         super.move(to: folder)
     }

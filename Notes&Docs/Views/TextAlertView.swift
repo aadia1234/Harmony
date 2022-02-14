@@ -25,16 +25,15 @@ struct ShakeEffect: GeometryEffect {
 
 struct TextAlertView: View {
     @EnvironmentObject var directory: Folder
-    @State var cancelHandler: () throws -> Void
-    @State var successHandler: () throws -> Void
-    @State private var buttonClicked = false
-    @State var itemType: Item.Type
-    @ObservedObject var textAlert: TextAlert
     
-    init(alert textAlert: TextAlert, itemType: Item.Type, cancelHandler: @escaping (() throws -> Void) = {}, successHandler: @escaping (() throws -> Void) = {}) {
+    @ObservedObject var textAlert: TextAlert
+    @State var successHandler: () -> Void
+    @State var buttonClicked = false
+    @State var itemType: Item.Type
+    
+    init(alert textAlert: TextAlert, itemType: Item.Type, successHandler: @escaping (() -> Void) = {}) {
         self.textAlert = textAlert
         self.itemType = itemType
-        self.cancelHandler = cancelHandler
         self.successHandler = successHandler
     }
     
@@ -54,10 +53,9 @@ struct TextAlertView: View {
                     Divider()
                     
                     HStack {
-                        TextField("", text: $textAlert.text)
+                        TextField("Type the name here", text: $textAlert.text)
                             .font(.system(size: 15))
                             .padding(10)
-                            
                     }
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -66,43 +64,29 @@ struct TextAlertView: View {
                     Divider()
                     
                     HStack {
-                        Button {
-                            do {
-                                try cancelHandler()
-                                self.textAlert.text = ""
-                            } catch {
-                                fatalError(error.localizedDescription)
-                            }
-                        } label: {
-                            Text("Cancel")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                                .hoverEffect(.automatic)
-                            
+                        Button("Cancel") {
+                            textAlert.visibility = false
+                            textAlert.showNewItem = false
                         }
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .hoverEffect(.automatic)
                         
                         Divider()
                         
-                        Button {
+                        Button("OK") {
                             buttonClicked.toggle()
                             
                             if !textAlert.text.isEmpty {
                                 buttonClicked = false
-                                do {
-                                    try successHandler()
-                                    self.textAlert.text = ""
-                                } catch {
-                                    fatalError(error.localizedDescription)
-                                }
+                                successHandler()
+                                DataController.save()
+                                textAlert.text = ""
+                                textAlert.visibility = false
+                                textAlert.showNewItem = true
                             }
-                        } label: {
-                            Text("OK")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                                .hoverEffect(.automatic)
-                            
                         }
-                        .frame(maxWidth: .infinity)
-
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .hoverEffect(.automatic)
                     }
                     .frame(height: 40)
                 }
@@ -113,8 +97,10 @@ struct TextAlertView: View {
         .frame(maxWidth: 320, maxHeight: 190, alignment: .center)
         .clipShape(RoundedRectangle(cornerRadius: 10.0))
         .opacity(textAlert.visibility ? 1 : 0)
+        .onReceive(textAlert.$itemType) { type in textAlert.visibility = type != Item.self }
         .modifier(ShakeEffect(shakes: (textAlert.text.isEmpty && buttonClicked) ?  2 : 0))
         .animation(.linear(duration: 0.5), value: buttonClicked)
+        .disabled(!textAlert.visibility)
     }
 }
 
@@ -122,6 +108,6 @@ struct TextAlertView_Previews: PreviewProvider {
     static var previews: some View {
         TextAlertView(alert: TextAlert(title: "Alert Title"), itemType: Item.self)
             .previewInterfaceOrientation(.landscapeLeft)
-//            .environment(\.colorScheme, .dark)
+            .environment(\.colorScheme, .dark)
     }
 }

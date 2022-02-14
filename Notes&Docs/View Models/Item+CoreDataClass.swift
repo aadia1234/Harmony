@@ -12,10 +12,8 @@ import CoreData
 public class Item: NSManagedObject {
     public var title: String { get {self.storedTitle ?? ""} set {self.storedTitle = newValue}}
         
-    static func == (lhs: Item, rhs: Item) -> Bool {
-        return lhs.id == rhs.id
-    }
-            
+    static func == (lhs: Item, rhs: Item) -> Bool { return lhs.id == rhs.id }
+    
     func delete() {DataController.context.delete(self)}
     
     func move(to folder: Folder) {DataController.save()}

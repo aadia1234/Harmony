@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct DirectoryView: View {
+    
+    @Environment(\.editMode) var editMode
     @EnvironmentObject var updateView: UpdateView
     @EnvironmentObject var master: MasterDirectory
-    @Environment(\.editMode) var editMode
-    
-    @ObservedObject var directory: Folder = Folder.parentFolders.first ?? Folder()
     @EnvironmentObject var newItemAlert: TextAlert
+    @ObservedObject var directory: Folder = Folder.parentFolders.first ?? Folder()
+    
     @State private var searchText = ""
     @State private var selectedDocuments = Set<Document>()
     @State private var showFileNavView = false
+    
+    private var isEditing: Bool { editMode?.wrappedValue == .active }
+    
     
     init(directory: Folder) {
         self.directory = directory
@@ -43,81 +47,24 @@ struct DirectoryView: View {
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 HStack {
-                    Button {
-                        showFileNavView.toggle()
-                    } label: {
-                        Text("Move")
-                    }
-                    .opacity(editMode?.wrappedValue == .active ? 1 : 0)
-                    
+                    Button("Move") { showFileNavView.toggle() }
                     Spacer()
-                    
-                    Button {
-                        selectedDocuments.forEach({$0.delete()})
-                    } label: {
-                        Text("Delete")
-                    }
-                    .opacity(editMode?.wrappedValue == .active ? 1 : 0)
-                    .tint(.red)
+                    Button(role: .destructive) { selectedDocuments.forEach({$0.delete()}) } label: { Text("Delete") }
                 }
+                .opacity(isEditing ? 1 : 0)
                 
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Group {
                     EditButton()
-                    ZStack {
-                        HStack {
-                            // newItemAlert.showNewItem
-                            NavigationLink(isActive: .constant(false)) {
-//                                if newItemAlert.itemType == Note.self {
-//                                    NoteView(note: newItemAlert.item as! Note)
-//                                } else if newItemAlert.itemType == WordPad.self {
-//                                    WordPadView(wordPad: newItemAlert.item as! WordPad)
-//                                }
-                            } label: {
-                                EmptyView()
-                            }
-                            .disabled(true)
-                            
-                            Menu {
-                                Button {
-                                    newItemAlert.itemType = Folder.self
-                                    newItemAlert.text = ""
-                                    newItemAlert.visibility = true
-                                } label: {
-                                    Label("New Folder", systemImage: "folder.badge.plus")
-                                }
-                                
-                            
-                                Button {
-                                    newItemAlert.itemType = Note.self
-                                    newItemAlert.visibility = true
-                                } label: {
-                                    Label("New Note", systemImage: "note.text.badge.plus")
-                                }
-                                
-                                Button {
-                                    newItemAlert.itemType = WordPad.self
-                                    newItemAlert.visibility = true
-                                } label: {
-                                    Label("New WordPad", systemImage: "doc.badge.plus")
-                                }
-                                
-                            } label: {
-                                Image(systemName: "plus")
-                            }
-                            
-                            Button {
-                                
-                            } label: {
-                                Image(systemName: "gearshape")
-                            }
-                        }
-                        .onTapGesture {
-                            master.cd = directory
-                        }
-                    }
+                    
+                    Menu {
+                        Button { newItemAlert.itemType = Folder.self } label: { Label("New Folder", systemImage: "folder.badge.plus") }
+                        Button { newItemAlert.itemType = Note.self } label: { Label("New Note", systemImage: "note.text.badge.plus") }
+                        Button { newItemAlert.itemType = WordPad.self } label: { Label("New WordPad", systemImage: "doc.badge.plus") }
+                    } label: { Label("Add Item", systemImage: "plus") }
                     .disabled(Folder.parentFolders.isEmpty || editMode!.wrappedValue.isEditing)
+                    .onTapGesture { master.cd = directory }
                 }
             }
         }

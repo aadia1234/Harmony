@@ -14,7 +14,6 @@ struct NoteView: View {
     @State private var canvasView = CanvasView()
     @State var note: Note
     
-    
     var body: some View {
         ZoomableScrollView {
             canvasView
@@ -30,25 +29,11 @@ struct NoteView: View {
                     note.drawingData = canvasView.getCanvasDrawing().dataRepresentation()
                     self.presentationMode.wrappedValue.dismiss()
                     DataController.save()
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Documents")
-                    }
-                }
+                } label: { Label("Documents", systemImage: "chevron.left") }
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button {
-                    canvasView.toggleToolPicker()
-                } label: {
-                    Image(systemName: "pencil")
-                }
-                
-                Button {
-                    canvasView.clearCanvas()
-                } label: {
-                    Image(systemName: "trash")
-                }
+                Button { canvasView.toggleToolPicker() } label: { Image(systemName: "pencil") }
+                Button { canvasView.clearCanvas() } label: { Image(systemName: "trash") }
             }
         }
         .navigationBarBackButtonHidden(true)

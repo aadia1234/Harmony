@@ -12,16 +12,12 @@ import CoreData
 @objc(Folder)
 public class Folder: Item {
     
-    public static var parentFolders: [Folder] {
-        Folder.getFolders(with: NSPredicate(format: "storedParentFolder == nil"))
-    }
-    public static var allFolders: [Folder] {
-        Folder.getFolders()
-    }
+    public static var parentFolders: [Folder] { Folder.getFolders(with: NSPredicate(format: "storedParentFolder == nil")) }
+    public static var allFolders: [Folder] { Folder.getFolders() }
     
     public var documents: [Document] {
-        get { let set = storedDocuments as? Set<Document> ?? Set<Document>(); return set.sorted { $0.title > $1.title }}
-        set {self.storedDocuments = NSSet(array: newValue); print("val: \(newValue)")}
+        get { let set = storedDocuments as? Set<Document> ?? Set<Document>(); return set.sorted { $0.title > $1.title } }
+        set { self.storedDocuments = NSSet(array: newValue) }
     }
     public var parentFolder: Folder? { get {self.storedParentFolder ?? nil} set {self.storedParentFolder = newValue}}
     public var subFolders: [Folder]? {
@@ -33,7 +29,6 @@ public class Folder: Item {
         let request: NSFetchRequest<Folder> = Folder.fetchRequest()
         if predicate != nil { request.predicate = predicate }
         if let results = try? DataController.context.fetch(request) { return results } else { return [] }
-        
     }
     
     convenience init() {
@@ -57,11 +52,7 @@ public class Folder: Item {
     
     func hasAncestor(_ ancestor: Folder) -> Bool {
         guard let parent = self.parentFolder else { return false }
-        if parent == ancestor {
-            return true
-        } else {
-            return parent.hasAncestor(ancestor)
-        }
+        return (parent == ancestor) ? true : parent.hasAncestor(ancestor)
     }
     
     func moveToParentFolders() {

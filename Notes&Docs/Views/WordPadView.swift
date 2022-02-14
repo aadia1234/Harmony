@@ -14,7 +14,7 @@ struct WordPadView: View {
     @State var wordPad: WordPad
     
     var body: some View {
-        Text("e")
+        Text("WordPad View")
             .navigationTitle(wordPad.title)
             .navigationBarTitleDisplayMode(.inline)
             .opacity(updateView.didUpdate ? 0 : 1)
@@ -30,9 +30,7 @@ struct WordPadView: View {
                     }
                 }
             }
-            .onAppear {
-                wordPad.lastOpened = Date.now
-            }
+            .onAppear { wordPad.lastOpened = Date.now }
     }
         
 }
