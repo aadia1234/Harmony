@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Document" representedClassName="Document" isAbstract="YES" parentEntity="Item" syncable="YES" codeGenerationType="category">
+        <attribute name="storedLastOpened" optional="YES" attributeType="Date" usesScalarValueType="NO" customClassName="Image"/>
+        <attribute name="storedThumbnailData" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="storedFolder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Folder" inverseName="storedDocuments" inverseEntity="Folder"/>
+    </entity>
+    <entity name="Folder" representedClassName="Folder" parentEntity="Item" syncable="YES" codeGenerationType="category">
+        <relationship name="storedDocuments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Document" inverseName="storedFolder" inverseEntity="Document"/>
+        <relationship name="storedParentFolder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Folder" inverseName="storedSubFolders" inverseEntity="Folder"/>
+        <relationship name="storedSubFolders" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Folder" inverseName="storedParentFolder" inverseEntity="Folder"/>
+    </entity>
+    <entity name="Item" representedClassName=".Item" isAbstract="YES" syncable="YES" codeGenerationType="category">
+        <attribute name="storedId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="storedTitle" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Note" representedClassName="Note" parentEntity="Document" syncable="YES" codeGenerationType="category">
+        <attribute name="storedDrawingData" optional="YES" attributeType="Binary" customClassName="PKDrawing"/>
+    </entity>
+    <entity name="WordPad" representedClassName="WordPad" parentEntity="Document" syncable="YES" codeGenerationType="category">
+        <attribute name="storedText" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="Document" positionX="146.796875" positionY="-29.3828125" width="128" height="74"/>
+        <element name="Folder" positionX="-302.125" positionY="-23.96875" width="128" height="74"/>
+        <element name="Item" positionX="-70.46875" positionY="-277.15234375" width="128" height="59"/>
+        <element name="Note" positionX="-2.1015625" positionY="161.49609375" width="128" height="44"/>
+        <element name="WordPad" positionX="215.8515625" positionY="180.3125" width="128" height="44"/>
+    </elements>
+</model>
