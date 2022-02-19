@@ -37,64 +37,65 @@ struct TextAlertView: View {
         self.successHandler = successHandler
     }
     
+    func actionCompleted() {
+        textAlert.text = ""
+        textAlert.visibility = false
+        textAlert.showNewItem = true
+    }
+    
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10.0)
-                .foregroundColor(.clear)
-                .background(.thickMaterial)
-                .scaledToFill()
-            HStack {
-                VStack {
-                    Text(textAlert.title)
-                        .foregroundColor(.primary)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    
-                    Divider()
-                    
-                    HStack {
-                        TextField("Type the name here", text: $textAlert.text)
-                            .font(.system(size: 15))
-                            .padding(10)
-                    }
+        HStack {
+            VStack {
+                Text(textAlert.title)
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .padding()
+//                        .frame(width: .infinity)
+                
+                Divider()
+                
+                TextField("Type the name here", text: $textAlert.text)
+                    .font(.system(size: 15))
+                    .padding(10)
                     .background(.thickMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     .padding([.top, .bottom], 5)
+                
+                Divider()
+                
+                HStack {
+                    Button("Cancel") {
+                        actionCompleted()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .hoverEffect(.automatic)
                     
                     Divider()
                     
-                    HStack {
-                        Button("Cancel") {
-                            textAlert.visibility = false
-                            textAlert.showNewItem = false
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .hoverEffect(.automatic)
+                    Button("OK") {
+                        buttonClicked.toggle()
                         
-                        Divider()
-                        
-                        Button("OK") {
-                            buttonClicked.toggle()
-                            
-                            if !textAlert.text.isEmpty {
-                                buttonClicked = false
-                                successHandler()
-                                DataController.save()
-                                textAlert.text = ""
-                                textAlert.visibility = false
-                                textAlert.showNewItem = true
-                            }
+                        if !textAlert.text.isEmpty {
+                            buttonClicked = false
+                            successHandler()
+                            DataController.save()
+                            actionCompleted()
                         }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .hoverEffect(.automatic)
                     }
-                    .frame(height: 40)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .hoverEffect(.automatic)
                 }
+                .frame(height: 40)
             }
-            .padding()
-
         }
-        .frame(maxWidth: 320, maxHeight: 190, alignment: .center)
+        .padding([.trailing, .leading], 16)
+        .padding([.top, .bottom], 8)
+        .frame(maxWidth: 320, minHeight: 190)
+        .background(
+            Rectangle()
+                .foregroundColor(.clear)
+                .background(.thickMaterial)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 10.0))
         .opacity(textAlert.visibility ? 1 : 0)
         .onReceive(textAlert.$itemType) { type in textAlert.visibility = type != Item.self }

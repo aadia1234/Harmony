@@ -14,7 +14,10 @@ public class Item: NSManagedObject {
         
     static func == (lhs: Item, rhs: Item) -> Bool { return lhs.id == rhs.id }
     
-    func delete() { DataController.context.delete(self); DataController.save(); }
+    func delete() {
+        DataController.context.delete(self)
+        DataController.save()
+    }
     
     func move(to folder: Folder) { DataController.save() }
 }

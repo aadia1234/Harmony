@@ -5,42 +5,94 @@
 //  Created by Aadi Anand on 1/21/22.
 //
 
+class Search: ObservableObject {
+    var results: [Folder] { Folder.parentFolders }
+}
+
 import SwiftUI
 
 struct SidebarView: View {
     @Environment(\.editMode) var editMode
-    @EnvironmentObject var updateView: UpdateView
     @EnvironmentObject var master: MasterDirectory
-    
     @ObservedObject var newDirAlert: TextAlert
-    @State private var searchText = ""
+    @ObservedObject private var search = Search()
+
     @State private var selection = Set<Folder>()
     @State private var showFileNavView = false
+    @State private var searchText = ""
+    
+    private var results: [Folder] {
+        if searchText.isEmpty {
+            return search.results
+        } else {
+            return search.results.filter({$0.title.contains(searchText)})
+        }
+    }
     
     private var isEditing: Bool { editMode?.wrappedValue == .active }
     
-    init(alert newDirAlert: TextAlert) { self.newDirAlert = newDirAlert }
+    init(alert newDirAlert: TextAlert) {
+        self.newDirAlert = newDirAlert
+
+    }
+    
+    func menuButton(title: String) {
+        newDirAlert.title = title
+        newDirAlert.itemType = Folder.self
+        editMode?.wrappedValue = .inactive
+    }
     
     var body: some View {
         Group {
-            List(searchResults, id: \.self, children: \.subFolders, selection: $selection) { folder in
-                Label(folder.title, systemImage: "folder")
-                .swipeActions {
-                    Button(role: .destructive) { folder.delete() } label: { Label("Delete", systemImage: "trash") }
-                    Button {} label: { Label("Move", systemImage: "rectangle.portrait.and.arrow.right") }
+            List(results, id: \.self, children: \.subFolders, selection: $selection) { folder in
+                ZStack {
+                    HStack {
+                        Label(folder.title, systemImage: "folder")
+                        Spacer()
+                        NavigationLink(destination: DirectoryView(directory: folder)) { EmptyView() }
+                        .frame(width: 0)
+                        .opacity(0)
+                    }
+                    .contextMenu {
+                        if !isEditing {
+                            Button {
+                                master.cd = folder
+                                menuButton(title: "Add new sub folder")
+                            } label: {
+                                Label("Add new subfolder", systemImage: "square.grid.3x1.folder.badge.plus")
+                            }
+                            
+                            Button {
+                                master.cd = folder
+                                menuButton(title: "What would you like to rename \"\(folder.title)\" to?")
+                            } label: {
+                                Label("Rename Folder", systemImage: "character.cursor.ibeam")
+                            }
+                            
+                            Button {
+                                selection = [folder]
+                                showFileNavView.toggle()
+                            } label: {
+                                Label("Move Folder", systemImage: "rectangle.portrait.and.arrow.right")
+                            }
+
+                            Button(role: .destructive) {
+                                search.objectWillChange.send()
+                                selection = [folder]
+                                selection.forEach{$0.delete()}
+                            } label: {
+                                Label("Delete Folder", systemImage: "trash")
+                            }
+                        }
+                    }
                 }
-                
-                NavigationLink(destination: DirectoryView(directory: folder)) { EmptyView() }
-                .frame(width: 0)
-                .opacity(0)
             }
             .listStyle(.automatic)
             .searchable(text: $searchText)
-            .opacity(updateView.didUpdate ? 0 : 1)
             NavigationLink(isActive: $newDirAlert.showNewItem) { DirectoryView(directory: Folder.parentFolders.last ?? Folder()) } label: { EmptyView() }
         }
         .navigationTitle("Folders")
-        .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selection)}.onAppear{print("count: \(selection.count)")}
+        .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selection)}
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) { EditButton() }
             ToolbarItemGroup(placement: .bottomBar) {
@@ -49,8 +101,8 @@ struct SidebarView: View {
                         Button("Move") { showFileNavView.toggle() }
                         Spacer()
                         Button("Delete") {
+                            search.objectWillChange.send()
                             selection.forEach{$0.delete()}
-                            updateView.update()
                         }
                         .tint(.red)
                     }
@@ -58,21 +110,16 @@ struct SidebarView: View {
                     .opacity(isEditing ? 1 : 0)
                     
                     Button {
+                        newDirAlert.title = "Add new folder"
                         newDirAlert.itemType = Folder.self
-                    } label: { Label("New Directory", systemImage: "plus") }
+                    } label: {
+                        Label("New Folder", systemImage: "plus")
+                    }
                     .opacity(isEditing ? 0 : 1)
                 }
+
             }
         }
-    }
-    
-    var searchResults: [Folder] {
-        if searchText.isEmpty {
-            return Folder.parentFolders
-        } else {
-            return Folder.allFolders.filter({ $0.title.contains(searchText) })
-        }
-        
     }
 }
 
@@ -81,6 +128,5 @@ struct SidebarView_Previews: PreviewProvider {
         SidebarView(alert: TextAlert(title: ""))
             .previewInterfaceOrientation(.landscapeLeft)
             .environmentObject(TextAlert(title: ""))
-            .environmentObject(UpdateView())
     }
 }

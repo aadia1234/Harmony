@@ -12,11 +12,22 @@ import CoreData
 @objc(Folder)
 public class Folder: Item {
     
-    public static var parentFolders: [Folder] { Folder.getFolders(with: NSPredicate(format: "storedParentFolder == nil")) }
-    public static var allFolders: [Folder] { Folder.getFolders() }
     
+    public static var parentFolders: [Folder] { Folder.getFolders(with: NSPredicate(format: "storedParentFolder == nil")) }
+    public static var allFolders: [Folder] { get{Folder.getFolders()} }
     public var documents: [Document] {
-        get { let set = storedDocuments as? Set<Document> ?? Set<Document>(); return set.sorted { $0.title > $1.title } }
+        get { let set = storedDocuments as? Set<Document> ?? Set<Document>();
+            return set.sorted { prev, curr in
+                switch DataController.sortDocumentsBy {
+                case .name:
+                    return prev.title < curr.title
+                case .date:
+                    return prev.lastOpened < curr.lastOpened
+                case .type:
+                    return String(describing: prev) < String(describing: curr)
+                }
+            }
+        }
         set { self.storedDocuments = NSSet(array: newValue) }
     }
     public var parentFolder: Folder? { get {self.storedParentFolder ?? nil} set {self.storedParentFolder = newValue}}
@@ -62,5 +73,6 @@ public class Folder: Item {
 }
 
 class MasterDirectory: ObservableObject {
-    @Published var cd = Folder.parentFolders.first ?? Folder()
+    @Published var cd: Folder = Folder.parentFolders.first ?? Folder()
+    @Published var doc: Item = Item()
 }

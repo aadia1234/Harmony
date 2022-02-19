@@ -13,7 +13,7 @@ import CoreData
 @objc(Note)
 public class Note: Document {
     public var drawingData: Data? { get {self.storedDrawingData} set {self.storedDrawingData = newValue}}
-        
+    public var drawingHeight: Double { get {self.storedDrawingHeight} set {self.storedDrawingHeight = newValue}}
     convenience init(title: String, thumbnailData: Data?, lastOpened: Date, drawingData: Data?) {
         self.init()
         self.title = title

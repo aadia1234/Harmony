@@ -8,22 +8,6 @@
 import SwiftUI
 import PencilKit
 
-//extension PKDrawing {
-//    mutating func scale(in frame: CGRect) {
-//        var scaleFactor:CGFloat = 0
-//
-//        if self.bounds.width != frame.width {
-//            scaleFactor = frame.width / self.bounds.width
-//        } else if self.bounds.height != frame.height {
-//            scaleFactor = frame.height / self.bounds.height
-//        }
-//
-//        let trasform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
-//
-//        self.transform(using: trasform)
-//    }
-//}
-
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
   private var content: Content
 
@@ -35,9 +19,9 @@ struct ZoomableScrollView<Content: View>: UIViewRepresentable {
     // set up the UIScrollView
     let scrollView = UIScrollView()
     scrollView.delegate = context.coordinator  // for viewForZooming(in:)
-    scrollView.maximumZoomScale = 2
-    scrollView.minimumZoomScale = 0.33
-    scrollView.zoomScale = scrollView.minimumZoomScale
+//      scrollView.maximumZoomScale = 1.1
+//    scrollView.minimumZoomScale = 0.33
+    scrollView.zoomScale = 1
     scrollView.bouncesZoom = true
 
     // create a UIHostingController to hold our SwiftUI content
@@ -75,15 +59,17 @@ struct ZoomableScrollView<Content: View>: UIViewRepresentable {
   }
 }
 
-
 struct CanvasView: UIViewRepresentable {
-    @State private var canvas = PKCanvasView()
-    @State private var toolpicker = PKToolPicker()
-
+    @State var controller = CanvasController()
+    let toolpicker = PKToolPicker()
+    let canvas = PKCanvasView()
+    
     func makeUIView(context: Context) -> PKCanvasView {
         canvas.tool = PKInkingTool(.pen, color: .black, width: .greatestFiniteMagnitude)
+        canvas.contentSize.width = UIScreen.main.bounds.width
+        canvas.delegate = controller
+        canvas.showsHorizontalScrollIndicator = false
         toggleToolPicker()
-        
         return canvas
     }
     
@@ -93,8 +79,13 @@ struct CanvasView: UIViewRepresentable {
         canvas.becomeFirstResponder()
     }
     
-    func setCanvasDrawing(data drawingData: Data? = nil) {
+    func setCanvasDrawing(data drawingData: Data? = nil, height: Double) {
         if let data = drawingData { canvas.drawing = try! PKDrawing(data: data)}
+        if height == 0 {
+            canvas.contentSize.height = UIScreen.main.bounds.height
+        } else {
+            canvas.contentSize.height = height
+        }
     }
     
     func clearCanvas() {
@@ -102,7 +93,7 @@ struct CanvasView: UIViewRepresentable {
     }
     
     func getThumbnail() -> UIImage {
-        return canvas.drawing.image(from: canvas.bounds, scale: 1.0)
+        return canvas.drawing.image(from: UIScreen.main.bounds, scale: 1.0)
     }
     
     func getCanvasDrawing() -> PKDrawing {
@@ -115,8 +106,8 @@ struct CanvasView: UIViewRepresentable {
 }
 
 
-struct CanvasView_Previews: PreviewProvider {
-    static var previews: some View {
-        CanvasView()
-    }
-}
+//struct CanvasView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CanvasView()
+//    }
+//}

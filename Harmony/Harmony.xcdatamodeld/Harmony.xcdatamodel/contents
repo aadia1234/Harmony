@@ -16,6 +16,7 @@
     </entity>
     <entity name="Note" representedClassName="Note" parentEntity="Document" syncable="YES" codeGenerationType="category">
         <attribute name="storedDrawingData" optional="YES" attributeType="Binary" customClassName="PKDrawing"/>
+        <attribute name="storedDrawingHeight" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="WordPad" representedClassName="WordPad" parentEntity="Document" syncable="YES" codeGenerationType="category">
         <attribute name="storedText" optional="YES" attributeType="String"/>
@@ -24,7 +25,7 @@
         <element name="Document" positionX="146.796875" positionY="-29.3828125" width="128" height="74"/>
         <element name="Folder" positionX="-302.125" positionY="-23.96875" width="128" height="74"/>
         <element name="Item" positionX="-70.46875" positionY="-277.15234375" width="128" height="59"/>
-        <element name="Note" positionX="-2.1015625" positionY="161.49609375" width="128" height="44"/>
+        <element name="Note" positionX="-2.1015625" positionY="161.49609375" width="128" height="73"/>
         <element name="WordPad" positionX="215.8515625" positionY="180.3125" width="128" height="44"/>
     </elements>
 </model>

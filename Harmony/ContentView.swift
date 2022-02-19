@@ -7,29 +7,18 @@
 
 import SwiftUI
 
-class UpdateView: ObservableObject {
-    @Published var didUpdate = false
-    
-    func update() {
-        didUpdate.toggle()
-        didUpdate.toggle()
-    }
-}
-
 struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
-    @StateObject var renameDocAlert = TextAlert(title: "Rename Document")
     @StateObject var master = MasterDirectory()
     
     private var alertShowing: Bool {
-        return newItemAlert.visibility || newDirAlert.visibility || renameDocAlert.visibility
+        return newItemAlert.visibility || newDirAlert.visibility
     }
     
     var body: some View {
         ZStack {
             VStack {
-                Spacer(minLength: 1.0)
                 NavigationView {
                     SidebarView(alert: newDirAlert)
                     DirectoryView(directory: Folder.parentFolders.first ?? Folder())
@@ -40,9 +29,8 @@ struct ContentView: View {
             .blur(radius: alertShowing ? 30 : 0)
 
             TextAlertView(alert: newItemAlert, itemType: Item.self) {
-                if newItemAlert.itemType == Folder.self {
-                    if master.cd.subFolders == nil { master.cd.subFolders = [] }
-                    _ = Folder(title: newItemAlert.text, parentFolder: master.cd, documents: [Document](), subFolders: nil)
+                if newItemAlert.itemType == Document.self {
+                    master.doc.title = newItemAlert.text
                 } else {
                     let doc: Document = newItemAlert.itemType.init() as! Document
                     doc.title = newItemAlert.text
@@ -50,17 +38,19 @@ struct ContentView: View {
                 }
             }
 
-
             TextAlertView(alert: newDirAlert, itemType: Folder.self) {
-                _ = Folder(title: newDirAlert.text, parentFolder: nil, documents: [Document](), subFolders: nil)
+                let str = newDirAlert.title.lowercased()
+                if str.contains("rename") {
+                    master.cd.title = newDirAlert.text
+                } else {
+                    let parent: Folder? = newDirAlert.title.contains("sub") ? master.cd : nil
+                    let folder = Folder(title: newDirAlert.text, parentFolder: parent, documents: [Document](), subFolders: nil)
+                    parent?.subFolders?.append(folder)
+                }
             }
-            
-//            TextAlertView(alert: renameDocAlert, itemType: Document.self) {}
-
         }
         .animation(.spring(), value: alertShowing)
         .edgesIgnoringSafeArea(.all)
-        .environmentObject(UpdateView())
         .environmentObject(newItemAlert)
         .environmentObject(master)
     }

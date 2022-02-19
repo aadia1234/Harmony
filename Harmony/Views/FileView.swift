@@ -9,9 +9,8 @@ import SwiftUI
 
 
 struct FileView: View {
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Environment(\.editMode) var editMode
-    @EnvironmentObject var renameAlert: TextAlert
+    @EnvironmentObject var itemAlert: TextAlert
     @EnvironmentObject var master: MasterDirectory
     
     @ObservedObject var doc: Document
@@ -74,16 +73,11 @@ struct FileView: View {
                         .font(.footnote)
                     Spacer()
                 }
-                .contextMenu {
-                    Button { } label: { Label("Rename", systemImage: "character.cursor.ibeam") }
-                    Button { } label: { Label("Move", systemImage: "rectangle.portrait.and.arrow.right") }
-                    Button(role: .destructive) { doc.delete() } label: { Label("Delete Document", systemImage: "trash") }
-                }
             }
             
             NavigationLink(isActive: $presentView) {
                 if doc is Note {
-                    NoteView(note: doc as! Note)
+                    NoteView(note: doc as! Note, thumbnail: $thumbnail)
                 } else {
                     WordPadView(wordPad: doc as! WordPad)
                 }
@@ -92,14 +86,13 @@ struct FileView: View {
         .onAppear { if let data = doc.thumbnailData { thumbnail = Image(uiImage: UIImage(data: data)!) } }
         .onChange(of: isEditing) { _ in selection.removeAll(); viewSelected = false }
         .frame(width: 250, height: 250, alignment: .center)
-        .padding()
     }
 }
 
-struct FileView_Previews: PreviewProvider {
-    static var previews: some View {
-        FileView(Note(), .constant([Document()]))
-            .previewInterfaceOrientation(.landscapeLeft)
-            .environmentObject(MasterDirectory())
-    }
-}
+//struct FileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FileView(Note(), .constant([Document()]))
+//            .previewInterfaceOrientation(.landscapeLeft)
+//            .environmentObject(MasterDirectory())
+//    }
+//}

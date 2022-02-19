@@ -9,7 +9,6 @@ import SwiftUI
 
 struct WordPadView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var updateView: UpdateView
 
     @State var wordPad: WordPad
     
@@ -17,20 +16,9 @@ struct WordPadView: View {
         Text("WordPad View")
             .navigationTitle(wordPad.title)
             .navigationBarTitleDisplayMode(.inline)
-            .opacity(updateView.didUpdate ? 0 : 1)
-            .navigationBarHidden(true)
-            .toolbar {
-                Button {
-                    self.presentationMode.wrappedValue.dismiss()
-                    DataController.save()
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Documents")
-                    }
-                }
-            }
+            .toolbar {}
             .onAppear { wordPad.lastOpened = Date.now }
+            .onDisappear { DataController.save() }
     }
         
 }

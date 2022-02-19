@@ -12,6 +12,7 @@
 		350E9F6627BAD89A0010C41E /* WordPad+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350E9F5C27BAD89A0010C41E /* WordPad+CoreDataClass.swift */; };
 		350E9F6827BAD89A0010C41E /* Note+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350E9F5E27BAD89A0010C41E /* Note+CoreDataClass.swift */; };
 		350E9F6A27BAD89A0010C41E /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350E9F6027BAD89A0010C41E /* Item+CoreDataClass.swift */; };
+		351B9C1027BF9B330092E46D /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351B9C0E27BF9B330092E46D /* CanvasController.swift */; };
 		353D745D278FAC8B00C96CFF /* Harmony.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D745C278FAC8B00C96CFF /* Harmony.swift */; };
 		353D745F278FAC8B00C96CFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D745E278FAC8B00C96CFF /* ContentView.swift */; };
 		353D7461278FAC8C00C96CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7460278FAC8C00C96CFF /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		350E9F5C27BAD89A0010C41E /* WordPad+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WordPad+CoreDataClass.swift"; sourceTree = "<group>"; };
 		350E9F5E27BAD89A0010C41E /* Note+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataClass.swift"; sourceTree = "<group>"; };
 		350E9F6027BAD89A0010C41E /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
+		351B9C0E27BF9B330092E46D /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		353D7459278FAC8B00C96CFF /* Harmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		353D745C278FAC8B00C96CFF /* Harmony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harmony.swift; sourceTree = "<group>"; };
 		353D745E278FAC8B00C96CFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		35BF4C902799CFA7005D2D9B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				351B9C0E27BF9B330092E46D /* CanvasController.swift */,
 				35A1A4EE279B291C00A8CD1A /* TextAlert.swift */,
 				35CD468D27B60B5E00AA13C6 /* DataController.swift */,
 			);
@@ -235,6 +238,7 @@
 				35F3B69927981B1200E57466 /* CanvasView.swift in Sources */,
 				35638159278FB77B00296071 /* NoteView.swift in Sources */,
 				35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */,
+				351B9C1027BF9B330092E46D /* CanvasController.swift in Sources */,
 				350E9F6627BAD89A0010C41E /* WordPad+CoreDataClass.swift in Sources */,
 				350E9F6A27BAD89A0010C41E /* Item+CoreDataClass.swift in Sources */,
 				353D745D278FAC8B00C96CFF /* Harmony.swift in Sources */,
