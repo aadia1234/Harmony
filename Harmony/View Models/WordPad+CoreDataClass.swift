@@ -11,7 +11,7 @@ import CoreData
 
 @objc(WordPad)
 public class WordPad: Document {
-    public var text: String { get {self.storedText ?? "text"} set {self.storedText = newValue}}
+    public var text: String { get {self.storedText ?? "text"} set {self.storedText = newValue} }
 
     convenience init(title: String, thumbnailData: Data?, lastOpened: Date, text: String) {
         self.init()

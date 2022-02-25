@@ -9,8 +9,7 @@ import SwiftUI
 
 struct WordPadView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @State var wordPad: WordPad
+    @ObservedObject var wordPad: WordPad
     
     var body: some View {
         Text("WordPad View")

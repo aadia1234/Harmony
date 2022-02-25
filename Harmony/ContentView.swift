@@ -39,8 +39,7 @@ struct ContentView: View {
             }
 
             TextAlertView(alert: newDirAlert, itemType: Folder.self) {
-                let str = newDirAlert.title.lowercased()
-                if str.contains("rename") {
+                if newDirAlert.title.lowercased().contains("rename") {
                     master.cd.title = newDirAlert.text
                 } else {
                     let parent: Folder? = newDirAlert.title.contains("sub") ? master.cd : nil
@@ -49,8 +48,8 @@ struct ContentView: View {
                 }
             }
         }
-        .animation(.spring(), value: alertShowing)
         .edgesIgnoringSafeArea(.all)
+        .animation(.default, value: alertShowing)
         .environmentObject(newItemAlert)
         .environmentObject(master)
     }

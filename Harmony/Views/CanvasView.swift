@@ -9,7 +9,7 @@ import SwiftUI
 import PencilKit
 
 struct CanvasView: UIViewRepresentable {
-    @State var controller = CanvasController()
+    let controller = CanvasController()
     let toolpicker = PKToolPicker()
     let canvas = PKCanvasView()
     
@@ -41,6 +41,7 @@ struct CanvasView: UIViewRepresentable {
     
     func clearCanvas() {
         canvas.drawing = PKDrawing()
+        canvas.contentSize.height = UIScreen.main.bounds.height
     }
     
     func getThumbnail() -> UIImage {

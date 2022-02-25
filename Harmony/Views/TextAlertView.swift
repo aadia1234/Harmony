@@ -25,7 +25,6 @@ struct ShakeEffect: GeometryEffect {
 
 struct TextAlertView: View {
     @EnvironmentObject var directory: Folder
-    
     @ObservedObject var textAlert: TextAlert
     @State var successHandler: () -> Void
     @State var buttonClicked = false
@@ -64,7 +63,7 @@ struct TextAlertView: View {
                 Divider()
                 
                 HStack {
-                    Button("Cancel") {
+                    Button("Cancel", role: .cancel) {
                         actionCompleted()
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

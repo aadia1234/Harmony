@@ -13,6 +13,7 @@ struct FileNavigationView<T: Item>: View {
     @State private var searchText = ""
     @State private var selectedFolder: Folder = Folder()
     @Binding var items: Set<T>
+    
     var isFolders: Bool { return items is Set<Folder> }
     
     var body: some View {
@@ -60,9 +61,9 @@ struct FileNavigationView<T: Item>: View {
             .navigationTitle("Select a Folder")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) { Button("Cancel") { dismiss() } }
+                ToolbarItem(placement: .navigationBarLeading) { LabelButton(title: "Cancel", role: .cancel) { dismiss() } }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Move") { items.forEach({$0.move(to: selectedFolder)}); dismiss() }
+                    LabelButton(title: "Move") { items.forEach({$0.move(to: selectedFolder)}); dismiss() }
                     .disabled(!Folder.allFolders.contains(selectedFolder))
                 }
             }
