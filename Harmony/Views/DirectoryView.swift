@@ -70,7 +70,7 @@ struct DirectoryView: View {
         .navigationTitle(directory.title)
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(placement: isEditing ? .bottomBar : .navigation) {
                 HStack {
                     Button("Move") { showFileNavView.toggle() }
                     Spacer()
