@@ -15,9 +15,8 @@ struct WordPadView: View {
         Text("WordPad View")
             .navigationTitle(wordPad.title)
             .navigationBarTitleDisplayMode(.inline)
+            .onDisappear { wordPad.date = Date.now; DataController.save() }
             .toolbar {}
-            .onAppear { wordPad.lastOpened = Date.now }
-            .onDisappear { DataController.save() }
     }
         
 }

@@ -69,7 +69,7 @@ struct FileView: View {
                     Spacer()
                     
                     Text(doc.title)
-                    Text(doc.lastOpened, format: .dateTime.day().month().year())
+                    Text(doc.date, format: .dateTime.day().month().year())
                         .font(.footnote)
                     Spacer()
                 }

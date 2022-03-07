@@ -16,19 +16,22 @@ struct SidebarView: View {
     @State private var showFileNavView = false
     @State private var searchText = ""
     
+    private var isEditing: Bool { editMode?.wrappedValue == .active }
+
     private var results: [Folder] {
-        if searchText.isEmpty {
-            return Folder.parentFolders
-        } else {
-            return Folder.parentFolders.filter({$0.title.contains(searchText)})
+        get {
+            if searchText.isEmpty {
+                return Folder.parentFolders
+            } else {
+                return Folder.parentFolders.filter({$0.title.contains(searchText)})
+            }
         }
+        set {searchText = ""}
     }
     
-    private var isEditing: Bool { editMode?.wrappedValue == .active }
     
     init(alert newDirAlert: TextAlert) {
         self.newDirAlert = newDirAlert
-
     }
     
     func menuButton(title: String) {
@@ -50,6 +53,7 @@ struct SidebarView: View {
                     }
                     .contextMenu {
                         if !isEditing {
+                            Text("Last Accessed: \(folder.date, format: .dateTime.day().month().year())")
                             LabelButton(title: "Add new subfolder", image: "square.grid.3x1.folder.badge.plus") {
                                 master.cd = folder
                                 menuButton(title: "Add new sub folder")
@@ -70,10 +74,12 @@ struct SidebarView: View {
                                 selection.forEach{$0.delete()}
                             }
                         }
-                    }
+                    }.id(folder.date)
+                    
                 }
             }
-            .listStyle(.automatic)
+            .animation(Animation.easeInOut(duration: 0), value: isEditing)
+            .listStyle(.sidebar)
             .searchable(text: $searchText)
             NavigationLink(isActive: $newDirAlert.showNewItem) { DirectoryView(directory: Folder.parentFolders.last ?? Folder()) } label: { EmptyView() }
         }
@@ -86,7 +92,10 @@ struct SidebarView: View {
                     HStack {
                         LabelButton(title: "Move") { showFileNavView.toggle() }
                         Spacer()
-                        LabelButton(title: "Delete", role: .cancel) { selection.forEach{$0.delete()} }
+                        LabelButton(title: "Delete", role: .destructive) {
+                            selection.forEach{$0.delete()}
+                            editMode?.wrappedValue = .inactive
+                        }
                     }
                     .disabled(selection.isEmpty)
                     .opacity(isEditing ? 1 : 0)

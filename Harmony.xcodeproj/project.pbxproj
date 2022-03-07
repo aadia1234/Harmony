@@ -24,6 +24,7 @@
 		35638159278FB77B00296071 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35638158278FB77B00296071 /* NoteView.swift */; };
 		35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4EE279B291C00A8CD1A /* TextAlert.swift */; };
 		35A34AA427A972260093B8ED /* WordPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A34AA327A972260093B8ED /* WordPadView.swift */; };
+		35AA7ACD27D330E70009918C /* UpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35AA7ACC27D330E70009918C /* UpdateView.swift */; };
 		35BC86AB27B94BF8007E8688 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BC86AA27B94BF8007E8688 /* CloudKit.framework */; };
 		35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */; };
 		35BF4C8F2799CF20005D2D9B /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BF4C8E2799CF20005D2D9B /* SidebarView.swift */; };
@@ -52,6 +53,7 @@
 		35638158278FB77B00296071 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		35A1A4EE279B291C00A8CD1A /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		35A34AA327A972260093B8ED /* WordPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPadView.swift; sourceTree = "<group>"; };
+		35AA7ACC27D330E70009918C /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
 		35BC86AA27B94BF8007E8688 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				35CD468D27B60B5E00AA13C6 /* DataController.swift */,
 				35242AEC27C8C9C40037A91B /* SortMethod.swift */,
 				35242AF027C8D0B50037A91B /* LabelButton.swift */,
+				35AA7ACC27D330E70009918C /* UpdateView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				35555DC427BAD0F200A3CB5C /* Harmony.xcdatamodeld in Sources */,
 				35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */,
 				353D745F278FAC8B00C96CFF /* ContentView.swift in Sources */,
+				35AA7ACD27D330E70009918C /* UpdateView.swift in Sources */,
 				353D746D278FAF7300C96CFF /* FileView.swift in Sources */,
 				35242AF127C8D0B50037A91B /* LabelButton.swift in Sources */,
 				350E9F6227BAD89A0010C41E /* Document+CoreDataClass.swift in Sources */,
@@ -393,6 +397,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -404,6 +409,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.techisawesome.Harmony;
 				PRODUCT_MODULE_NAME = test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -430,6 +437,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -441,6 +449,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.techisawesome.Harmony;
 				PRODUCT_MODULE_NAME = test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;

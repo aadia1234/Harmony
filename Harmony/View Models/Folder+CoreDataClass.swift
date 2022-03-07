@@ -13,15 +13,24 @@ import CoreData
 public class Folder: Item {
     
     
-    public static var parentFolders: [Folder] { Folder.getFolders(with: NSPredicate(format: "storedParentFolder == nil")) }
-    public static var allFolders: [Folder] { Folder.getFolders() }
+    public static var parentFolders: [Folder] {
+        let key = "stored\(DataController.sortFoldersMethod.rawValue.capitalized)"
+        let sorts = [NSSortDescriptor(key: key, ascending: true)]
+        return Item.getItems(type: Folder.self, with: NSPredicate(format: "storedParentFolder == nil"), sortBy: sorts) as! [Folder]
+    }
+    public static var allFolders: [Folder] { Folder.getItems(type: Folder.self) as! [Folder] }
     public var documents: [Document] {
         get {
             let set = storedDocuments as? Set<Document> ?? Set<Document>()
             return set.sorted { prev, curr in
-                switch DataController.sortMethod {
-                    case .name: return prev.title < curr.title
-                    case .date: return prev.lastOpened < curr.lastOpened
+                switch DataController.sortDocsMethod {
+                    case .title: return prev.title < curr.title
+                    case .date:
+                        if prev.date == curr.date {
+                            return prev.title < curr.title
+                        } else {
+                            return prev.date > curr.date
+                        }
                     case .type: return String(describing: prev) < String(describing: curr)
                 }
             }
@@ -34,13 +43,9 @@ public class Folder: Item {
         set {self.storedSubFolders = NSSet(array: newValue ?? [])}
     }
         
-    public static func getFolders(with predicate: NSPredicate? = nil) -> [Folder] {
-        let request: NSFetchRequest<Folder> = Folder.fetchRequest()
-        if let predicate = predicate { request.predicate = predicate }
-        if let results = try? DataController.context.fetch(request) { return results } else { return [] }
-    }
     
-    convenience init() {
+//    
+    convenience required init() {
         self.init(entity: Folder.entity(), insertInto: nil)
         self.title = "New Folder"
     }

@@ -20,8 +20,8 @@ struct NoteView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button { canvasView.toggleToolPicker() } label: { Image(systemName: "pencil") }
-                Button { canvasView.clearCanvas() } label: { Image(systemName: "trash") }
+                LabelButton(title: "Show pencil", image: "pencil") { canvasView.toggleToolPicker() }
+                LabelButton(title: "Delete canvas", image: "trash", role: .destructive) { canvasView.clearCanvas() }
             }
         }
         .onDisappear {
@@ -29,12 +29,10 @@ struct NoteView: View {
             note.drawingData = canvasView.getCanvasDrawing().dataRepresentation()
             thumbnail = Image(uiImage: UIImage(data: note.thumbnailData!)!)
             note.drawingHeight = canvasView.canvas.contentSize.height
+            note.date = Date.now
             DataController.save()
         }
-        .onAppear {
-            canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight)
-            note.lastOpened = Date.now
-        }
+        .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }
             
     }
 }

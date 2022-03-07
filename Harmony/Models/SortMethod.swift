@@ -8,9 +8,9 @@
 import Foundation
 
 public enum SortMethod: String, CaseIterable, Identifiable {
-    case name = "name"
-    case date = "date"
-    case type = "type"
+    case title = "Title"
+    case date = "Date"
+    case type = "Type"
     
     public var id: String { self.rawValue }
 }

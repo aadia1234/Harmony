@@ -35,6 +35,7 @@ struct ContentView: View {
                     let doc: Document = newItemAlert.itemType.init() as! Document
                     doc.title = newItemAlert.text
                     doc.folder = master.cd
+                    doc.date = Date.now
                 }
             }
 

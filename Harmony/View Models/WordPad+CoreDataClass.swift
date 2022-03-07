@@ -17,7 +17,7 @@ public class WordPad: Document {
         self.init()
         self.title = title
         self.thumbnailData = thumbnailData
-        self.lastOpened = lastOpened
+        self.date = lastOpened
         self.text = text
     }
 }

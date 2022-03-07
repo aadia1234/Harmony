@@ -17,16 +17,22 @@ struct DirectoryView: View {
     @State private var selectedDocuments = Set<Document>()
     @State private var showFileNavView = false
     @State private var showSettings = false
-    @Binding private var sortSelection: SortMethod
+    @Binding private var sortFoldersSelection: SortMethod
+    @Binding private var sortDocsSelection: SortMethod
         
     private var isEditing: Bool { editMode?.wrappedValue == .active }
     private var gridLayout = [GridItem(.adaptive(minimum: 280))]
 
     init(directory: Folder) {
         self.directory = directory
-        self._sortSelection = Binding(
-            get: { DataController.sortMethod },
-            set: { value in DataController.sortMethod = value; directory.documents = directory.documents }
+        self._sortFoldersSelection = Binding(
+            get: { DataController.sortFoldersMethod },
+            set: { DataController.sortFoldersMethod = $0 }
+        )
+        
+        self._sortDocsSelection = Binding(
+            get: { DataController.sortDocsMethod },
+            set: { value in DataController.sortDocsMethod = value; directory.documents = directory.documents }
         )
     }
     
@@ -72,6 +78,7 @@ struct DirectoryView: View {
             .searchable(text: $searchText, placement: .navigationBarDrawer)
         }
         .navigationTitle(directory.title)
+        .onDisappear {directory.date = Date.now; DataController.save()}
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {
             ToolbarItem(placement: isEditing ? .bottomBar : .navigation) {
@@ -98,20 +105,30 @@ struct DirectoryView: View {
                     LabelButton(title: "Settings", image: "gearshape") { showSettings = true }
                     .popover(isPresented: $showSettings) {
                         VStack {
-                            Section("Sort by") {
-                                Picker("Sort", selection: $sortSelection) {
-                                    ForEach(SortMethod.allCases, id: \.id) { sort in
-                                        Text(sort.rawValue.capitalized)
-                                            .tag(sort)
+                            Section("Sort Folders by") {
+                                Picker("Sort Folders", selection: $sortFoldersSelection) {
+                                    ForEach(SortMethod.allCases) { sort in
+                                        if sort != .type { Text(sort.rawValue.capitalized).tag(sort) }
                                     }
                                 }
                                 .pickerStyle(.segmented)
                             }
-                            .font(.title2)
+                            .font(.title3)
                             
+                            Spacer()
+                            
+                            Section("Sort Documents by") {
+                                Picker("Sort Documents", selection: $sortDocsSelection) {
+                                    ForEach(SortMethod.allCases) { sort in
+                                        Text(sort.rawValue.capitalized).tag(sort)
+                                    }
+                                }
+                                .pickerStyle(.segmented)
+                            }
+                            .font(.title3)
                         }
                         .padding()
-                        .frame(width: 300, height: 100, alignment: .center)
+                        .frame(width: 300, height: 212.5, alignment: .center)
                         
                     }
                 }
@@ -120,11 +137,11 @@ struct DirectoryView: View {
     }
 }
 
-struct DirectoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        DirectoryView(directory: Folder())
-            .environmentObject(TextAlert(title: ""))
-            .environmentObject(MasterDirectory())
-            .previewInterfaceOrientation(.landscapeRight)
-    }
-}
+//struct DirectoryView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DirectoryView(directory: Folder())
+//            .environmentObject(TextAlert(title: ""))
+//            .environmentObject(MasterDirectory())
+//            .previewInterfaceOrientation(.landscapeRight)
+//    }
+//}

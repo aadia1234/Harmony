@@ -36,10 +36,10 @@ struct TextAlertView: View {
         self.successHandler = successHandler
     }
     
-    func actionCompleted() {
+    func action(completed show: Bool) {
         textAlert.text = ""
         textAlert.visibility = false
-        textAlert.showNewItem = true
+        textAlert.showNewItem = show
     }
     
     var body: some View {
@@ -49,7 +49,6 @@ struct TextAlertView: View {
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .padding()
-//                        .frame(width: .infinity)
                 
                 Divider()
                 
@@ -63,22 +62,22 @@ struct TextAlertView: View {
                 Divider()
                 
                 HStack {
-                    Button("Cancel", role: .cancel) {
-                        actionCompleted()
+                    LabelButton(title: "Cancel", role: .cancel) {
+                        action(completed: false)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .hoverEffect(.automatic)
                     
                     Divider()
                     
-                    Button("OK") {
+                    LabelButton(title: "OK") {
                         buttonClicked.toggle()
                         
                         if !textAlert.text.isEmpty {
                             buttonClicked = false
                             successHandler()
                             DataController.save()
-                            actionCompleted()
+                            action(completed: true)
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -12,5 +12,6 @@ class DataController {
     public static let container = NSPersistentCloudKitContainer(name: "Harmony")
     public static var context: NSManagedObjectContext = DataController.container.viewContext
     public static func save() { try! DataController.context.save() }
-    @AppStorage("sortDocumentsBy") public static var sortMethod: SortMethod = .name
+    @AppStorage("sortFoldersMethod") public static var sortFoldersMethod: SortMethod = .title
+    @AppStorage("sortDocsMethod") public static var sortDocsMethod: SortMethod = .title
 }
