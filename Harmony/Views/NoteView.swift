@@ -27,9 +27,9 @@ struct NoteView: View {
         .onDisappear {
             note.thumbnailData = canvasView.getThumbnail().pngData()!
             note.drawingData = canvasView.getCanvasDrawing().dataRepresentation()
-            thumbnail = Image(uiImage: UIImage(data: note.thumbnailData!)!)
             note.drawingHeight = canvasView.canvas.contentSize.height
             note.date = Date.now
+            thumbnail = Image(uiImage: UIImage(data: note.thumbnailData!)!)
             DataController.save()
         }
         .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }
