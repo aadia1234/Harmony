@@ -36,6 +36,10 @@ struct ContentView: View {
                     doc.title = newItemAlert.text
                     doc.folder = master.cd
                     doc.date = Date.now
+                    
+                    if newItemAlert.itemType == WordPad.self {
+                        (doc as! WordPad).addToStoredPages(Page(text: "New Page", index: 0))
+                    }
                 }
             }
 
@@ -55,9 +59,6 @@ struct ContentView: View {
         .environmentObject(master)
     }
 }
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

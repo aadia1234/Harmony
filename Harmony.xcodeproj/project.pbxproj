@@ -15,11 +15,13 @@
 		351B9C1027BF9B330092E46D /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351B9C0E27BF9B330092E46D /* CanvasController.swift */; };
 		35242AED27C8C9C40037A91B /* SortMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35242AEC27C8C9C40037A91B /* SortMethod.swift */; };
 		35242AF127C8D0B50037A91B /* LabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35242AF027C8D0B50037A91B /* LabelButton.swift */; };
+		3524A46027DF5073007DE74B /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3524A45F27DF5073007DE74B /* TextEditorView.swift */; };
 		353D745D278FAC8B00C96CFF /* Harmony.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D745C278FAC8B00C96CFF /* Harmony.swift */; };
 		353D745F278FAC8B00C96CFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D745E278FAC8B00C96CFF /* ContentView.swift */; };
 		353D7461278FAC8C00C96CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7460278FAC8C00C96CFF /* Assets.xcassets */; };
 		353D7464278FAC8C00C96CFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */; };
 		353D746D278FAF7300C96CFF /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D746C278FAF7300C96CFF /* FileView.swift */; };
+		354A6D5927DC9FA000733E6F /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 354A6D5827DC9FA000733E6F /* HighlightedTextEditor */; };
 		35555DC427BAD0F200A3CB5C /* Harmony.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35555DBF27BACE1700A3CB5C /* Harmony.xcdatamodeld */; };
 		35638159278FB77B00296071 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35638158278FB77B00296071 /* NoteView.swift */; };
 		35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4EE279B291C00A8CD1A /* TextAlert.swift */; };
@@ -32,6 +34,7 @@
 		35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E547D3279971910052C9D6 /* TextAlertView.swift */; };
 		35F13C4827B526280001B052 /* FileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F13C4727B526280001B052 /* FileNavigationView.swift */; };
 		35F3B69927981B1200E57466 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F3B69827981B1200E57466 /* CanvasView.swift */; };
+		35F52E0E27DFB9FB003E7BF3 /* Page+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F52E0C27DFB9FB003E7BF3 /* Page+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,7 @@
 		351B9C0E27BF9B330092E46D /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		35242AEC27C8C9C40037A91B /* SortMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethod.swift; sourceTree = "<group>"; };
 		35242AF027C8D0B50037A91B /* LabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelButton.swift; sourceTree = "<group>"; };
+		3524A45F27DF5073007DE74B /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		353D7459278FAC8B00C96CFF /* Harmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		353D745C278FAC8B00C96CFF /* Harmony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harmony.swift; sourceTree = "<group>"; };
 		353D745E278FAC8B00C96CFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +55,7 @@
 		353D746C278FAF7300C96CFF /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
 		35555DC027BACE1700A3CB5C /* Harmony.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Harmony.xcdatamodel; sourceTree = "<group>"; };
 		35638158278FB77B00296071 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		35750E2527E1B00D00226D8E /* Harmony 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Harmony 2.xcdatamodel"; sourceTree = "<group>"; };
 		35A1A4EE279B291C00A8CD1A /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		35A34AA327A972260093B8ED /* WordPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPadView.swift; sourceTree = "<group>"; };
 		35AA7ACC27D330E70009918C /* UpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateView.swift; sourceTree = "<group>"; };
@@ -62,6 +67,7 @@
 		35E547D3279971910052C9D6 /* TextAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlertView.swift; sourceTree = "<group>"; };
 		35F13C4727B526280001B052 /* FileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigationView.swift; sourceTree = "<group>"; };
 		35F3B69827981B1200E57466 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		35F52E0C27DFB9FB003E7BF3 /* Page+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				354A6D5927DC9FA000733E6F /* HighlightedTextEditor in Frameworks */,
 				35BC86AB27B94BF8007E8688 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +127,7 @@
 		35A1A4ED279B28FD00A8CD1A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				35F52E0C27DFB9FB003E7BF3 /* Page+CoreDataClass.swift */,
 				350E9F5827BAD89A0010C41E /* Document+CoreDataClass.swift */,
 				350E9F5A27BAD89A0010C41E /* Folder+CoreDataClass.swift */,
 				350E9F5C27BAD89A0010C41E /* WordPad+CoreDataClass.swift */,
@@ -161,6 +169,7 @@
 				35A34AA327A972260093B8ED /* WordPadView.swift */,
 				35F13C4727B526280001B052 /* FileNavigationView.swift */,
 				35E547D3279971910052C9D6 /* TextAlertView.swift */,
+				3524A45F27DF5073007DE74B /* TextEditorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +190,9 @@
 			dependencies = (
 			);
 			name = Harmony;
+			packageProductDependencies = (
+				354A6D5827DC9FA000733E6F /* HighlightedTextEditor */,
+			);
 			productName = "Notes&Docs";
 			productReference = 353D7459278FAC8B00C96CFF /* Harmony.app */;
 			productType = "com.apple.product-type.application";
@@ -210,6 +222,9 @@
 				Base,
 			);
 			mainGroup = 353D7450278FAC8B00C96CFF;
+			packageReferences = (
+				354A6D5727DC9FA000733E6F /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
+			);
 			productRefGroup = 353D745A278FAC8B00C96CFF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -240,6 +255,7 @@
 				35BF4C8B2799CECE005D2D9B /* DirectoryView.swift in Sources */,
 				353D745F278FAC8B00C96CFF /* ContentView.swift in Sources */,
 				35AA7ACD27D330E70009918C /* UpdateView.swift in Sources */,
+				35F52E0E27DFB9FB003E7BF3 /* Page+CoreDataClass.swift in Sources */,
 				353D746D278FAF7300C96CFF /* FileView.swift in Sources */,
 				35242AF127C8D0B50037A91B /* LabelButton.swift in Sources */,
 				350E9F6227BAD89A0010C41E /* Document+CoreDataClass.swift in Sources */,
@@ -252,6 +268,7 @@
 				351B9C1027BF9B330092E46D /* CanvasController.swift in Sources */,
 				35242AED27C8C9C40037A91B /* SortMethod.swift in Sources */,
 				350E9F6627BAD89A0010C41E /* WordPad+CoreDataClass.swift in Sources */,
+				3524A46027DF5073007DE74B /* TextEditorView.swift in Sources */,
 				350E9F6A27BAD89A0010C41E /* Item+CoreDataClass.swift in Sources */,
 				353D745D278FAC8B00C96CFF /* Harmony.swift in Sources */,
 				35E547D4279971910052C9D6 /* TextAlertView.swift in Sources */,
@@ -315,7 +332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -370,7 +387,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -482,10 +499,30 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		354A6D5727DC9FA000733E6F /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kyle-n/HighlightedTextEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		354A6D5827DC9FA000733E6F /* HighlightedTextEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 354A6D5727DC9FA000733E6F /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */;
+			productName = HighlightedTextEditor;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCVersionGroup section */
 		35555DBF27BACE1700A3CB5C /* Harmony.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				35750E2527E1B00D00226D8E /* Harmony 2.xcdatamodel */,
 				35555DC027BACE1700A3CB5C /* Harmony.xcdatamodel */,
 			);
 			currentVersion = 35555DC027BACE1700A3CB5C /* Harmony.xcdatamodel */;

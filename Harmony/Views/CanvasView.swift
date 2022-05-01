@@ -12,7 +12,8 @@ struct CanvasView: UIViewRepresentable {
     let controller = CanvasController()
     let toolpicker = PKToolPicker()
     let canvas = PKCanvasView()
-    
+    var background = UIImage(color: .red)
+
     func makeUIView(context: Context) -> PKCanvasView {
         canvas.tool = PKInkingTool(.pen, color: .black, width: .greatestFiniteMagnitude)
         canvas.contentSize.width = UIScreen.main.bounds.width
@@ -20,7 +21,15 @@ struct CanvasView: UIViewRepresentable {
         canvas.maximumZoomScale = 10.0
         canvas.minimumZoomScale = 1.0
         canvas.delegate = controller
+        canvas.backgroundColor = .clear
+        
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = background
+        backgroundImage.contentMode = UIView.ContentMode.scaleAspectFit
+        canvas.insertSubview(backgroundImage, at: 0)
+        
         toggleToolPicker()
+        
         return canvas
     }
     
@@ -39,6 +48,13 @@ struct CanvasView: UIViewRepresentable {
         }
     }
     
+    mutating func setBackground(_ background: UIImage) {
+//        (canvas.subviews[0] as! UIImageView).image = background
+        for view in canvas.subviews {
+            (view as! UIImageView).image = background
+        }
+    }
+    
     func clearCanvas() {
         canvas.drawing = PKDrawing()
         canvas.contentSize.height = UIScreen.main.bounds.height
@@ -46,10 +62,6 @@ struct CanvasView: UIViewRepresentable {
     
     func getThumbnail() -> UIImage {
         return canvas.drawing.image(from: UIScreen.main.bounds, scale: 1.0)
-    }
-    
-    func getCanvasDrawing() -> PKDrawing {
-        return canvas.drawing
     }
     
     func updateUIView(_ uiView: PKCanvasView, context: Context) {

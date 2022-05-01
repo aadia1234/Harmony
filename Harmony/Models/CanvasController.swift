@@ -9,7 +9,7 @@
 import Foundation
 import PencilKit
 
-public class CanvasController: NSObject, PKCanvasViewDelegate, ObservableObject {
+public class CanvasController: NSObject, PKCanvasViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let scrollViewHeight = scrollView.frame.size.height;
