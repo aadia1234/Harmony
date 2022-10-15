@@ -12,7 +12,7 @@ struct CanvasView: UIViewRepresentable {
     let controller = CanvasController()
     let toolpicker = PKToolPicker()
     let canvas = PKCanvasView()
-    var background = UIImage(color: .red)
+    var background = UIImage(color: .clear)
 
     func makeUIView(context: Context) -> PKCanvasView {
         canvas.tool = PKInkingTool(.pen, color: .black, width: .greatestFiniteMagnitude)

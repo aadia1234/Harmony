@@ -21,7 +21,6 @@
 		353D7461278FAC8C00C96CFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7460278FAC8C00C96CFF /* Assets.xcassets */; };
 		353D7464278FAC8C00C96CFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */; };
 		353D746D278FAF7300C96CFF /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353D746C278FAF7300C96CFF /* FileView.swift */; };
-		354A6D5927DC9FA000733E6F /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 354A6D5827DC9FA000733E6F /* HighlightedTextEditor */; };
 		35555DC427BAD0F200A3CB5C /* Harmony.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35555DBF27BACE1700A3CB5C /* Harmony.xcdatamodeld */; };
 		35638159278FB77B00296071 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35638158278FB77B00296071 /* NoteView.swift */; };
 		35A1A4EF279B291C00A8CD1A /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A1A4EE279B291C00A8CD1A /* TextAlert.swift */; };
@@ -75,7 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				354A6D5927DC9FA000733E6F /* HighlightedTextEditor in Frameworks */,
 				35BC86AB27B94BF8007E8688 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -191,7 +189,6 @@
 			);
 			name = Harmony;
 			packageProductDependencies = (
-				354A6D5827DC9FA000733E6F /* HighlightedTextEditor */,
 			);
 			productName = "Notes&Docs";
 			productReference = 353D7459278FAC8B00C96CFF /* Harmony.app */;
@@ -223,7 +220,6 @@
 			);
 			mainGroup = 353D7450278FAC8B00C96CFF;
 			packageReferences = (
-				354A6D5727DC9FA000733E6F /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
 			);
 			productRefGroup = 353D745A278FAC8B00C96CFF /* Products */;
 			projectDirPath = "";
@@ -411,6 +407,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Harmony-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Harmony;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -423,7 +421,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.techisawesome.Harmony;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aadianand.harmony;
 				PRODUCT_MODULE_NAME = test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -451,6 +449,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Harmony-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Harmony;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -463,7 +463,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.techisawesome.Harmony;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aadianand.harmony;
 				PRODUCT_MODULE_NAME = test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -498,25 +498,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		354A6D5727DC9FA000733E6F /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kyle-n/HighlightedTextEditor";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		354A6D5827DC9FA000733E6F /* HighlightedTextEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 354A6D5727DC9FA000733E6F /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */;
-			productName = HighlightedTextEditor;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		35555DBF27BACE1700A3CB5C /* Harmony.xcdatamodeld */ = {

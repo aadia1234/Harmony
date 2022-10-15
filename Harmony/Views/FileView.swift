@@ -17,13 +17,25 @@ struct FileView: View {
     @Binding private var selection: Set<Document>
     @State private var viewSelected = false
     @State private var presentView = false
-    @State private var thumbnail: Image = Image(systemName: "pencil")
-    
+    @State private var thumbnail: UIImage
     private var isEditing: Bool { editMode?.wrappedValue == .active }
+    
+    func thumbnailIsSystemImage() -> Bool {
+        return thumbnail.pngData() == UIImage(systemName: "doc.plaintext.fill")?.pngData() || thumbnail.pngData() == UIImage(systemName: "pencil")?.pngData()
+    }
+    
+    var thumbnailImage: Image {
+        if thumbnailIsSystemImage() {
+            return Image(systemName: (doc is WordPad) ? "doc.plaintext.fill" : "pencil")
+            } else {
+                return Image(uiImage: thumbnail)
+            }
+        }
     
     init(_ doc: Document, _ selection: Binding<Set<Document>>) {
         self.doc = doc
         self._selection = selection
+        self._thumbnail = State(initialValue: UIImage(systemName: (doc is WordPad) ? "doc.plaintext.fill" : "pencil")!)
     }
 
     var body: some View {
@@ -39,12 +51,17 @@ struct FileView: View {
             } label: {
                 VStack {
                     ZStack {
-                        thumbnail
-                            .resizable()
-                            .scaleEffect(0.90)
-                            .background(Color(uiColor: .systemGray6))
+                        Color(uiColor: .systemGray6)
                             .clipShape(RoundedRectangle(cornerRadius: 15.0))
                         
+                        
+                        thumbnailImage
+                            .resizable()
+//                            .scaleEffect(0.9)
+                            .scaledToFit()
+                            .padding(15)
+                            .foregroundColor(.accentColor)
+
                         Circle()
                             .size(CGSize(width: 20.0, height: 20.0))
                             .foregroundColor((viewSelected && isEditing) ? .accentColor : .clear)
@@ -83,7 +100,11 @@ struct FileView: View {
                 }
             } label: { EmptyView() }
         }
-        .onAppear { if let data = doc.thumbnailData { thumbnail = Image(uiImage: UIImage(data: data)!) } }
+        .onAppear {
+            if let data = doc.thumbnailData {
+                thumbnail = UIImage(data: data)!
+            }
+        }
         .onChange(of: isEditing) { _ in selection.removeAll(); viewSelected = false }
         .frame(width: 250, height: 250, alignment: .center)
     }

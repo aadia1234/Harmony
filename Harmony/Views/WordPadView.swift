@@ -42,25 +42,25 @@ struct WordPadView: View {
             wordPad.date = Date.now
             DataController.save()
         }
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Menu {
-                    LabelButton(title: "Insert Image", image: "photo") {}
-                } label: { Label("Insert", systemImage: "plus") }
-                
-                Menu {
-                    
-                } label: { Label("Text Attributes", systemImage: "textformat.size") }
-                
-                Menu {
-                    LabelButton(title: "Export as PDF", image: "doc.richtext") {}
-                } label: { Label("Export", systemImage: "square.and.arrow.up") }
-                
-                Menu {
-                    
-                } label: { Label("Settings", systemImage: "ellipsis.circle") }
-            }
-        }
+//        .toolbar {
+//            ToolbarItemGroup(placement: .navigationBarTrailing) {
+//                Menu {
+//                    LabelButton(title: "Insert Image", image: "photo") {}
+//                } label: { Label("Insert", systemImage: "plus") }
+//                
+//                Menu {
+//                    
+//                } label: { Label("Text Attributes", systemImage: "textformat.size") }
+//                
+//                Menu {
+//                    LabelButton(title: "Export as PDF", image: "doc.richtext") {}
+//                } label: { Label("Export", systemImage: "square.and.arrow.up") }
+//                
+//                Menu {
+//                    
+//                } label: { Label("Settings", systemImage: "ellipsis.circle") }
+//            }
+//        }
     }
         
 }

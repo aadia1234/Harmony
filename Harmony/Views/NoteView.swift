@@ -25,7 +25,7 @@ public extension UIImage {
 struct NoteView: View {
     @State private var canvasView = CanvasView()
     @ObservedObject var note: Note
-    @Binding var thumbnail: Image
+    @Binding var thumbnail: UIImage
     
     @State private var backgroundImage: UIImage?
     @State private var showImagePicker = false
@@ -37,9 +37,9 @@ struct NoteView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                LabelButton(title: "Change background", image: "photo.on.rectangle") {
-                    showImagePicker.toggle()
-                }
+//                LabelButton(title: "Change background", image: "photo.on.rectangle") {
+//                    showImagePicker.toggle()
+//                }
                 LabelButton(title: "Show pencil", image: "pencil") { canvasView.toggleToolPicker() }
                 LabelButton(title: "Delete canvas", image: "trash", role: .destructive) { canvasView.clearCanvas() }
             }
@@ -53,7 +53,7 @@ struct NoteView: View {
             note.drawingData = canvasView.canvas.drawing.dataRepresentation()
             note.drawingHeight = canvasView.canvas.contentSize.height
             note.date = Date.now
-            thumbnail = Image(uiImage: UIImage(data: note.thumbnailData!)!)
+            thumbnail = UIImage(data: note.thumbnailData!)!
             DataController.save()
         }
         .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }

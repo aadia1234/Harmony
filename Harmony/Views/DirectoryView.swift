@@ -81,7 +81,7 @@ struct DirectoryView: View {
         .onDisappear {directory.date = Date.now; DataController.save()}
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {
-            ToolbarItem(placement: isEditing ? .bottomBar : .navigation) {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     LabelButton(title: "Move") { showFileNavView.toggle() }
                     Spacer()
