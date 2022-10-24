@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "353D7458278FAC8B00C96CFF"
+               BlueprintIdentifier = "35B065A6290670AD000A3BD2"
                BuildableName = "Harmony.app"
                BlueprintName = "Harmony"
                ReferencedContainer = "container:Harmony.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "353D7458278FAC8B00C96CFF"
+            BlueprintIdentifier = "35B065A6290670AD000A3BD2"
             BuildableName = "Harmony.app"
             BlueprintName = "Harmony"
             ReferencedContainer = "container:Harmony.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "353D7458278FAC8B00C96CFF"
+            BlueprintIdentifier = "35B065A6290670AD000A3BD2"
             BuildableName = "Harmony.app"
             BlueprintName = "Harmony"
             ReferencedContainer = "container:Harmony.xcodeproj">
