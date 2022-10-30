@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DirectoryView: View {
-    @Environment(\.editMode) var editMode
+    @State private var editMode: EditMode = .inactive
     @EnvironmentObject var master: MasterDirectory
     @EnvironmentObject var newItemAlert: TextAlert
     @ObservedObject var directory: Folder = Folder.parentFolders.first ?? Folder()
@@ -20,7 +20,7 @@ struct DirectoryView: View {
     @Binding private var sortFoldersSelection: SortMethod
     @Binding private var sortDocsSelection: SortMethod
         
-    private var isEditing: Bool { editMode?.wrappedValue == .active }
+    private var isEditing: Bool { $editMode.wrappedValue == .active }
     private var gridLayout = [GridItem(.adaptive(minimum: 280))]
 
     init(directory: Folder) {
@@ -39,7 +39,7 @@ struct DirectoryView: View {
     func setButton(title: String, type: Item.Type) {
         newItemAlert.title = title
         newItemAlert.itemType = type
-        editMode?.wrappedValue = .inactive
+        $editMode.wrappedValue = .inactive
     }
     
     var searchResults: [Document] {
@@ -51,39 +51,45 @@ struct DirectoryView: View {
     }
     
     var body: some View {
-        Group {
-            ScrollView {
-                LazyVGrid(columns: gridLayout, spacing: 50) {
-                    ForEach(searchResults, id: \.self) { doc in
-                        FileView(doc, $selectedDocuments)
-                            .environment(\.editMode, editMode)
-                            .contextMenu {
-                                LabelButton(title: "Rename", image: "character.cursor.ibeam") {
-                                    master.doc = doc
-                                    setButton(title: "What would you like to rename \"\(doc.title)\" to?", type: Document.self)
-                                }
-                                
-                                LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {
-                                    selectedDocuments = [doc]
-                                    showFileNavView = true
-                                    master.doc = doc
-                                }
-                                
-                                LabelButton(title: "Delete Document", image: "trash", role: .destructive) { doc.delete() }
+        ScrollView {
+            LazyVGrid(columns: gridLayout, spacing: 50) {
+                ForEach(searchResults, id: \.self) { doc in
+                    FileView(doc, $selectedDocuments, Binding(get: {
+                        isEditing
+                    }, set: { Value in
+                        editMode = Value ? .active : .inactive
+                    }))
+                        .contextMenu {
+                            LabelButton(title: "Rename", image: "character.cursor.ibeam") {
+                                master.doc = doc
+                                setButton(title: "What would you like to rename \"\(doc.title)\" to?", type: Document.self)
                             }
-                    }
+                            
+                            LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {
+                                selectedDocuments = [doc]
+                                showFileNavView = true
+                                master.doc = doc
+                            }
+                            
+                            LabelButton(title: "Delete Document", image: "trash", role: .destructive) { doc.delete() }
+                        }
                 }
-                .padding(.top, 50)
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer)
+            .padding(.top, 50)
         }
+        .searchable(text: $searchText, placement: .navigationBarDrawer)
         .navigationTitle(directory.title)
-        .onDisappear {directory.date = Date.now; DataController.save()}
+        .onDisappear {
+            directory.date = Date.now
+            DataController.save()
+        }
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .bottomBar) {
                 HStack {
-                    LabelButton(title: "Move") { showFileNavView.toggle() }
+                    LabelButton(title: "Move") {
+                        showFileNavView.toggle()
+                    }
                     Spacer()
                     LabelButton(title: "Delete", role: .destructive) { selectedDocuments.forEach({$0.delete()}) }
                 }
@@ -94,12 +100,14 @@ struct DirectoryView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    EditButton()
+                    Button(isEditing ? "Done" : "Edit") {
+                        editMode = isEditing ? .inactive : .active
+                    }
                     Menu {
                         LabelButton(title: "New Note", image: "note.text.badge.plus") { setButton(title: "Add New Note", type: Note.self) }
                         LabelButton(title: "New WordPad", image: "doc.badge.plus") { setButton(title: "Add New WordPad", type: WordPad.self) }
                     } label: { Label("Add Item", systemImage: "plus") }
-                    .disabled(Folder.parentFolders.isEmpty || editMode!.wrappedValue.isEditing)
+                    .disabled(Folder.parentFolders.isEmpty || isEditing)
                     .onTapGesture { master.cd = directory }
                     
                     LabelButton(title: "Settings", image: "gearshape") { showSettings = true }

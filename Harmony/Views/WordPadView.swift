@@ -17,7 +17,7 @@ struct WordPadView: View {
     @State private var str = AttributedString("New ewwewePage")
     
     var body: some View {
-        ScrollView {
+        ScrollView([.horizontal, .vertical], showsIndicators: true) {
             VStack {
                 ZStack {
                     VStack {

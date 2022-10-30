@@ -34,6 +34,9 @@ struct FileNavigationView<T: Item>: View {
                     .disabled(isFolders && (items as! Set<Folder>).contains(where: {folder.hasAncestor($0) || $0 == folder || $0.parentFolder == folder}))
                     .disabled(!isFolders && (items as! Set<Document>).contains(where: {$0.storedFolder == folder}))
                 }
+                .onAppear {
+                    print(items)
+                }
                 .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always))
                 
                 Spacer(minLength: 10)

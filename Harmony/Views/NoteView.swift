@@ -25,7 +25,7 @@ public extension UIImage {
 struct NoteView: View {
     @State private var canvasView = CanvasView()
     @ObservedObject var note: Note
-    @Binding var thumbnail: UIImage
+    @Binding var thumbnail: Data
     
     @State private var backgroundImage: UIImage?
     @State private var showImagePicker = false
@@ -53,7 +53,7 @@ struct NoteView: View {
             note.drawingData = canvasView.canvas.drawing.dataRepresentation()
             note.drawingHeight = canvasView.canvas.contentSize.height
             note.date = Date.now
-            thumbnail = UIImage(data: note.thumbnailData!)!
+            thumbnail = note.thumbnailData!
             DataController.save()
         }
         .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }

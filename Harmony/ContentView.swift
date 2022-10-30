@@ -11,19 +11,19 @@ struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
     @StateObject var master = MasterDirectory()
+    @State private var editMode: EditMode = .inactive
     
     private var alertShowing: Bool {
         return newItemAlert.visibility || newDirAlert.visibility
     }
     
+    @State private var test = [1, 2, 3]
+    
     var body: some View {
         ZStack {
             VStack {
-                NavigationView {
-                    SidebarView(alert: newDirAlert)
-                    DirectoryView(directory: Folder.parentFolders.first ?? Folder())
-                        .opacity(Folder.allFolders.count > 0 ? 1 : 0)
-                }
+                SidebarView(alert: newDirAlert)
+//                    .environment(\.editMode, $editMode)
             }
             .disabled(alertShowing)
             .blur(radius: alertShowing ? 30 : 0)
