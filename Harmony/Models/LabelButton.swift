@@ -13,8 +13,8 @@ struct LabelButton: View {
     public let buttonRole: ButtonRole?
     public let action: () -> Void
     
-    init(title labelName: String, image imageName: String? = nil, role buttonRole: ButtonRole? = nil, action: @escaping () -> Void) {
-        self.labelName = labelName
+    init(title labelName: String? = nil, image imageName: String? = nil, role buttonRole: ButtonRole? = nil, action: @escaping () -> Void) {
+        self.labelName = labelName ?? ""
         self.imageName = imageName
         self.buttonRole = buttonRole
         self.action = action

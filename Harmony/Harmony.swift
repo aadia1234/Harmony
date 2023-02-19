@@ -10,18 +10,22 @@ import CoreData
 
 @main
 struct Harmony: App {
+    @StateObject var updateView = UpdateView()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .onAppear {
-                    DataController.container.loadPersistentStores { description, error in
-                        if let error = error {
-                            print("Core Data failed to load: \(error.localizedDescription)")
-                        }
-                        DataController.context = DataController.container.viewContext
-                        DataController.context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-                    }
+//                    DataController.container.loadPersistentStores { description, error in
+//                        if let error = error {
+//                            print("Core Data failed to load: \(error.localizedDescription)")
+//                        }
+////                        DataController.context = DataController.container.viewContext
+//                        DataController.context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+//                    }
                 }
+                .environmentObject(updateView)
+                .environment(\.managedObjectContext, DataController.context)
         }
     }
 }

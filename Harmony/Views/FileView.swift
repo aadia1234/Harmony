@@ -11,7 +11,6 @@ import SwiftUI
 struct FileView: View {
     @EnvironmentObject var itemAlert: TextAlert
     @EnvironmentObject var master: MasterDirectory
-    
     @ObservedObject var doc: Document
     @Binding private var selection: Set<Document>
     @Binding private var isEditing: Bool

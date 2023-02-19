@@ -11,7 +11,8 @@ struct DirectoryView: View {
     @State private var editMode: EditMode = .inactive
     @EnvironmentObject var master: MasterDirectory
     @EnvironmentObject var newItemAlert: TextAlert
-    @ObservedObject var directory: Folder = Folder.parentFolders.first ?? Folder()
+    @ObservedObject var directory: Folder
+        // Folder.parentFolders.first ?? Folder()
     
     @State private var searchText = ""
     @State private var selectedDocuments = Set<Document>()
@@ -32,7 +33,7 @@ struct DirectoryView: View {
         
         self._sortDocsSelection = Binding(
             get: { DataController.sortDocsMethod },
-            set: { value in DataController.sortDocsMethod = value; directory.documents = directory.documents }
+            set: { value in DataController.sortDocsMethod = value }
         )
     }
     
