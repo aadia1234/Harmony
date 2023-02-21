@@ -10,12 +10,11 @@ import CoreData
 
 class DataController {
     public static let container = NSPersistentCloudKitContainer(name: "Harmony")
-//    public static let container = NSPersistentCloudKitContainer(name: "Harmony")
     public static var context: NSManagedObjectContext {
         let context = DataController.container.viewContext
         DataController.container.loadPersistentStores { description, error in
             if let error = error {
-                print("Core Data failed to load: \(error.localizedDescription)")
+//                print("Core Data failed to load: \(error.localizedDescription)")
             }
             context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
             

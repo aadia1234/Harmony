@@ -69,6 +69,7 @@
 		354F54DF29869672002A83DD /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		354F54E029869672002A83DD /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		354F54E52986EC6C002A83DD /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		355A354429A463D500E5240D /* Harmony 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Harmony 3.xcdatamodel"; sourceTree = "<group>"; };
 		35638158278FB77B00296071 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		35765E112986F0190032E2B3 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		359BA604290676C600326A2F /* Harmony.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Harmony.xcdatamodel; sourceTree = "<group>"; };
@@ -484,7 +485,6 @@
 				INFOPLIST_FILE = Harmony/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Harmony;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -535,7 +535,6 @@
 				INFOPLIST_FILE = Harmony/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Harmony;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -595,6 +594,7 @@
 		359BA603290676C600326A2F /* Harmony.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				355A354429A463D500E5240D /* Harmony 3.xcdatamodel */,
 				359BA6072906782300326A2F /* Harmony 2.xcdatamodel */,
 				359BA604290676C600326A2F /* Harmony.xcdatamodel */,
 			);

@@ -19,4 +19,11 @@ class UpdateView: ObservableObject {
         didUpdate.toggle()
         didUpdate.toggle()
     }
+    
+    func changeNavigationBarAppearance() {
+//        let coloredAppearance = UINavigationBarAppearance()
+//        UINavigationBar.appearance().standardAppearance = coloredAppearance
+//        UINavigationBar.appearance().compactAppearance = coloredAppearance
+//        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
+    }
 }

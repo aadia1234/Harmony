@@ -37,7 +37,7 @@ struct DirectoryView: View {
         )
     }
     
-    func setButton(title: String, type: Item.Type) {
+    func setAlert(title: String, type: Item.Type) {
         newItemAlert.title = title
         newItemAlert.itemType = type
         $editMode.wrappedValue = .inactive
@@ -63,7 +63,7 @@ struct DirectoryView: View {
                         .contextMenu {
                             LabelButton(title: "Rename", image: "character.cursor.ibeam") {
                                 master.doc = doc
-                                setButton(title: "What would you like to rename \"\(doc.title)\" to?", type: Document.self)
+                                setAlert(title: "What would you like to rename \"\(doc.title)\" to?", type: Document.self)
                             }
                             
                             LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {
@@ -105,8 +105,8 @@ struct DirectoryView: View {
                         editMode = isEditing ? .inactive : .active
                     }
                     Menu {
-                        LabelButton(title: "New Note", image: "note.text.badge.plus") { setButton(title: "Add New Note", type: Note.self) }
-                        LabelButton(title: "New WordPad", image: "doc.badge.plus") { setButton(title: "Add New WordPad", type: WordPad.self) }
+                        LabelButton(title: "New Note", image: "note.text.badge.plus") { setAlert(title: "Add New Note", type: Note.self) }
+                        LabelButton(title: "New WordPad", image: "doc.badge.plus") { setAlert(title: "Add New WordPad", type: WordPad.self) }
                     } label: { Label("Add Item", systemImage: "plus") }
                     .disabled(Folder.parentFolders.isEmpty || isEditing)
                     .onTapGesture { master.cd = directory }

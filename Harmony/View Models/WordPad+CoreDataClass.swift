@@ -17,6 +17,8 @@ public class WordPad: Document {
             return p?.sorted {$0.index < $1.index} ?? [Page(text: "", index: -1)]
         }
         set {self.storedPages = NSSet(array: newValue)}}
+    
+    public var content: String { get {self.storedContent ?? ""} set {self.storedContent = newValue} }
 
     convenience init(title: String, pages: [Page], thumbnailData: Data?, lastOpened: Date, text: String) {
         self.init()

@@ -43,7 +43,7 @@ struct SplitView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ vc: SplitViewController, context: Context) {
         DataController.container.loadPersistentStores { description, error in
-            if (error != nil) { print(error?.localizedDescription) }
+//            if (error != nil) { print(error?.localizedDescription) }
         }
         vc.preferredDisplayMode = updateView.enableSidebar ? .oneBesideSecondary : .secondaryOnly
         vc.presentsWithGesture = updateView.enableSidebar
@@ -89,6 +89,7 @@ struct ContentView: View {
     private var alertShowing: Bool {
         return newItemAlert.visibility || newDirAlert.visibility
     }
+    
     
     var body: some View {
         
