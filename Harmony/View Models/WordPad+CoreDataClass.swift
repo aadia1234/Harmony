@@ -11,21 +11,12 @@ import CoreData
 
 @objc(WordPad)
 public class WordPad: Document {
-    public var pages: [Page] {
-        get {
-            let p = self.storedPages?.allObjects as? [Page]
-            return p?.sorted {$0.index < $1.index} ?? [Page(text: "", index: -1)]
-        }
-        set {self.storedPages = NSSet(array: newValue)}}
-    
     public var content: String { get {self.storedContent ?? ""} set {self.storedContent = newValue} }
 
-    convenience init(title: String, pages: [Page], thumbnailData: Data?, lastOpened: Date, text: String) {
+    convenience init(title: String, thumbnailData: Data?, lastOpened: Date, text: String) {
         self.init()
         self.title = title
         self.thumbnailData = thumbnailData
         self.date = lastOpened
-        self.pages = pages
-        
     }
 }

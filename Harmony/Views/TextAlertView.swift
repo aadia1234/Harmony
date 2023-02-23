@@ -76,7 +76,7 @@ struct TextAlertView: View {
                         if !textAlert.text.isEmpty {
                             buttonClicked = false
                             successHandler()
-                            DataController.save()
+                            DataController.shared.save()
                             action(completed: true)
                         }
                     }

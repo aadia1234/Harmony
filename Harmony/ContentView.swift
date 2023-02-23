@@ -42,9 +42,6 @@ struct SplitView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ vc: SplitViewController, context: Context) {
-        DataController.container.loadPersistentStores { description, error in
-//            if (error != nil) { print(error?.localizedDescription) }
-        }
         vc.preferredDisplayMode = updateView.enableSidebar ? .oneBesideSecondary : .secondaryOnly
         vc.presentsWithGesture = updateView.enableSidebar
         vc.displayModeButtonVisibility = updateView.enableSidebar ? .always : .never
@@ -109,7 +106,7 @@ struct ContentView: View {
 
             TextAlertView(alert: newItemAlert, itemType: Item.self) {
                 if newItemAlert.itemType == Document.self {
-                    master.doc.title = newItemAlert.text
+                    master.doc!.title = newItemAlert.text
                 } else {
                     let doc: Document = newItemAlert.itemType.init() as! Document
                     doc.title = newItemAlert.text
@@ -117,7 +114,7 @@ struct ContentView: View {
                     doc.date = Date.now
                     
                     if newItemAlert.itemType == WordPad.self {
-                        (doc as! WordPad).addToStoredPages(Page(text: "New Page", index: 0))
+                        (doc as! WordPad)
                     }
                 }
             }

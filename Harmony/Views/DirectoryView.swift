@@ -82,7 +82,7 @@ struct DirectoryView: View {
         .navigationTitle(directory.title)
         .onDisappear {
             directory.date = Date.now
-            DataController.save()
+            DataController.shared.save()
         }
         .sheet(isPresented: $showFileNavView) {FileNavigationView(items: $selectedDocuments)}
         .toolbar {

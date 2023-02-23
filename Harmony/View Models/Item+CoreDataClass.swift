@@ -9,6 +9,7 @@
 import SwiftUI
 import CoreData
 
+@objc(Item)
 public class Item: NSManagedObject {
     public var title: String { get {self.storedTitle ?? ""} set {self.storedTitle = newValue} }
     public var date: Date { get {self.storedDate ?? Date.now} set {self.storedDate = newValue} }
@@ -20,15 +21,15 @@ public class Item: NSManagedObject {
         let predicates = (predicate != nil) ? [classPredicate, predicate!] : [classPredicate]
         request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
         if let sorts = sorts { request.sortDescriptors = sorts }
-        if let results = try? DataController.context.fetch(request) { return results } else { return [] }
+        if let results = try? DataController.shared.context.fetch(request) { return results } else { return [] }
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool { return lhs.id == rhs.id }
     
-    func move(to folder: Folder) { DataController.save() }
+    func move(to folder: Folder) { DataController.shared.save() }
 
     func delete() {
-        DataController.context.delete(self)
-        DataController.save()
+        DataController.shared.context.delete(self)
+        DataController.shared.save()
     }
 }

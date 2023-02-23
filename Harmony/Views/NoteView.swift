@@ -54,7 +54,7 @@ struct NoteView: View {
             note.drawingHeight = canvasView.canvas.contentSize.height
             note.date = Date.now
             thumbnail = note.thumbnailData!
-            DataController.save()
+            DataController.shared.save()
         }
         .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }
         .sheet(isPresented: $showImagePicker) {

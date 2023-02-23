@@ -51,7 +51,7 @@ public class Folder: Item {
     }
     
     convenience init(title: String, parentFolder: Folder?, documents: [Document], subFolders: [Folder]?) {
-        self.init(context: DataController.context)
+        self.init(context: DataController.shared.context)
         self.title = title
         self.parentFolder = parentFolder
         self.documents = documents
@@ -71,11 +71,11 @@ public class Folder: Item {
     
     func moveToParentFolders() {
         self.parentFolder = nil
-        DataController.save()
+        DataController.shared.save()
     }
 }
 
 class MasterDirectory: ObservableObject {
     @Published var cd: Folder = Folder.parentFolders.first ?? Folder()
-    @Published var doc: Item = Item()
+    @Published var doc: Item?
 }

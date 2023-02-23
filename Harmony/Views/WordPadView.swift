@@ -109,13 +109,17 @@ struct WebViewUI: UIViewControllerRepresentable {
         }
         
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            parent.content = parent.content.replacingOccurrences(of: "\\\"", with: "\"")
-            let jsScript = "tinymce.activeEditor.setContent(\"\(parent.content)\", { format: \"html\" });"
+            parent.content = parent.content
+                .replacingOccurrences(of: "\"", with: "\\\"")
+                .replacingOccurrences(of: "\'", with: "\\\'")
+                .replacingOccurrences(of: "\n", with: "\\n")
+                .replacingOccurrences(of: "\r", with: "")
+            let jsScript = "tinymce.activeEditor.setContent(\"\(parent.content)\");"
             webView.evaluateJavaScript(jsScript) { result, error in
                 if error == nil {
                     self.parent.content = result as! String
                 } else {
-                    print(error?.localizedDescription)
+                    fatalError(error.debugDescription)
                 }
             }
         }
@@ -153,7 +157,6 @@ struct CustomMenu: UIViewRepresentable {
         
         button.menu = UIMenu(title: "", preferredElementSize: type, children: uiSubmenus)
         button.showsMenuAsPrimaryAction = true
-        
         button.isPointerInteractionEnabled = true
         return button
     }
@@ -168,7 +171,6 @@ struct CustomMenu: UIViewRepresentable {
 
 struct WordPadView: View {
     @ObservedObject var wordPad: WordPad
-    @ObservedObject var controller = TextEditorViewController()
     @State private var splitViewMode = UISplitViewController.DisplayMode.oneOverSecondary
     @State private var titleText = ""
     @State private var showFileNavView = false
@@ -204,14 +206,13 @@ struct WordPadView: View {
         .navigationTitle(wordPad.title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            controller.wordPad = wordPad
             updateView.enableSidebar = false
             updateView.update()
             updateView.changeNavigationBarAppearance()
         }
         .onDisappear {
-            wordPad.date = Date.now;
-            DataController.save();
+            wordPad.date = Date.now
+            DataController.shared.save()
         }
         .toolbar {
             ToolbarTitleMenu {
@@ -328,7 +329,6 @@ struct WordPadView_Previews: PreviewProvider {
         wp.title = "test"
         wp.folder = Folder(title: "folder test", parentFolder: nil, documents: [Document](), subFolders: nil)
         wp.date = Date.now
-        wp.addToStoredPages(Page(text: "New Page", index: 0))
         return wp
     }
     

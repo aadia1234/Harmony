@@ -8,20 +8,35 @@
 import SwiftUI
 import CoreData
 
-class DataController {
-    public static let container = NSPersistentCloudKitContainer(name: "Harmony")
-    public static var context: NSManagedObjectContext {
-        let context = DataController.container.viewContext
-        DataController.container.loadPersistentStores { description, error in
+class DataController: ObservableObject {
+    public static let shared = DataController()
+    
+    let container: NSPersistentCloudKitContainer
+    
+    init() {
+        container = NSPersistentCloudKitContainer(name: "Harmony")
+        container.loadPersistentStores { description, error in
             if let error = error {
-//                print("Core Data failed to load: \(error.localizedDescription)")
+                fatalError("Error: \(error.localizedDescription)")
             }
-            context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-            
         }
+    }
+    
+    public var context: NSManagedObjectContext {
+        let context = DataController.shared.container.viewContext
+        context.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         return context
     }
-    public static func save() { do { try DataController.context.save() } catch { print(error.localizedDescription) } }
+    public func save() { do { try DataController.shared.context.save() } catch { print(error.localizedDescription) } }
     @AppStorage("sortFoldersMethod") public static var sortFoldersMethod: SortMethod = .title
     @AppStorage("sortDocsMethod") public static var sortDocsMethod: SortMethod = .title
+}
+
+
+extension NSManagedObject {
+    convenience init(context: NSManagedObjectContext) {
+        let name = String(describing: type(of: self))
+        let entity = NSEntityDescription.entity(forEntityName: name, in: context)!
+        self.init(entity: entity, insertInto: context)
+    }
 }
