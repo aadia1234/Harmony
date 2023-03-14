@@ -10,6 +10,8 @@
 		35195188298277B1006BCA8F /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 35195187298277B1006BCA8F /* editor.html */; };
 		3519518A29827941006BCA8F /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3519518929827941006BCA8F /* tinymce */; };
 		3519518D2982AC9C006BCA8F /* editor.js in Resources */ = {isa = PBXBuildFile; fileRef = 3519518C2982AC9C006BCA8F /* editor.js */; };
+		351FB0F929A7C40700D387F0 /* InsertLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351FB0F829A7C40700D387F0 /* InsertLinkView.swift */; };
+		351FB0FB29A7D76B00D387F0 /* EditorDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351FB0FA29A7D76B00D387F0 /* EditorDataModel.swift */; };
 		353B106D29067DE800A4C048 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 350F24462905B26F0032EC6E /* Launch Screen.storyboard */; };
 		353B106F290680F100A4C048 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */; };
 		354F54E129869672002A83DD /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F54DF29869672002A83DD /* TableViewCell.swift */; };
@@ -57,6 +59,8 @@
 		3519518929827941006BCA8F /* tinymce */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tinymce; sourceTree = "<group>"; };
 		3519518C2982AC9C006BCA8F /* editor.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = editor.js; sourceTree = "<group>"; };
 		351B9C0E27BF9B330092E46D /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
+		351FB0F829A7C40700D387F0 /* InsertLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertLinkView.swift; sourceTree = "<group>"; };
+		351FB0FA29A7D76B00D387F0 /* EditorDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorDataModel.swift; sourceTree = "<group>"; };
 		35242AEC27C8C9C40037A91B /* SortMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortMethod.swift; sourceTree = "<group>"; };
 		35242AF027C8D0B50037A91B /* LabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelButton.swift; sourceTree = "<group>"; };
 		353D745C278FAC8B00C96CFF /* Harmony.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harmony.swift; sourceTree = "<group>"; };
@@ -133,11 +137,11 @@
 			isa = PBXGroup;
 			children = (
 				355A354829A4705B00E5240D /* Harmony.xcdatamodeld */,
-				35AEB583298670810015601B /* View Controllers */,
 				350F24462905B26F0032EC6E /* Launch Screen.storyboard */,
 				35D9974427BADF080048A108 /* Harmony.entitlements */,
 				353D745C278FAC8B00C96CFF /* Harmony.swift */,
 				353D745E278FAC8B00C96CFF /* ContentView.swift */,
+				35AEB583298670810015601B /* View Controllers */,
 				35A1A4ED279B28FD00A8CD1A /* View Models */,
 				35BF4C912799CFD3005D2D9B /* Views */,
 				351951862982776A006BCA8F /* web */,
@@ -208,6 +212,7 @@
 				35242AEC27C8C9C40037A91B /* SortMethod.swift */,
 				35242AF027C8D0B50037A91B /* LabelButton.swift */,
 				35AA7ACC27D330E70009918C /* UpdateView.swift */,
+				351FB0FA29A7D76B00D387F0 /* EditorDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				35A34AA327A972260093B8ED /* WordPadView.swift */,
 				35F13C4727B526280001B052 /* FileNavigationView.swift */,
 				35E547D3279971910052C9D6 /* TextAlertView.swift */,
+				351FB0F829A7C40700D387F0 /* InsertLinkView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35F616E22906749700122803 /* Harmony.swift in Sources */,
+				351FB0F929A7C40700D387F0 /* InsertLinkView.swift in Sources */,
 				35F616E32906749700122803 /* ContentView.swift in Sources */,
 				35F616E52906749700122803 /* Document+CoreDataClass.swift in Sources */,
 				35F616E62906749700122803 /* Folder+CoreDataClass.swift in Sources */,
@@ -318,6 +325,7 @@
 				35F616E92906749700122803 /* Item+CoreDataClass.swift in Sources */,
 				35AEB58229866FEC0015601B /* SplitViewController.swift in Sources */,
 				35F616EA2906749700122803 /* DirectoryView.swift in Sources */,
+				351FB0FB29A7D76B00D387F0 /* EditorDataModel.swift in Sources */,
 				35F616EB2906749700122803 /* CanvasView.swift in Sources */,
 				35F616EC2906749700122803 /* NoteView.swift in Sources */,
 				35F616ED2906749700122803 /* SidebarView.swift in Sources */,

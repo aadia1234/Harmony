@@ -14,7 +14,8 @@ class UpdateView: ObservableObject {
     @Published var sidebar = SidebarView(alert: TextAlert(title: ""))
     @Published var folderNavigationView = FolderNavigationView()
     @Published var sidebarSelection = Set<Folder>()
-    
+    @Published var showEditorAlert = false
+    @Published var editorAlert: InsertLinkView = InsertLinkView(url: .constant(""), displayText: .constant(""))
     func update() {
         didUpdate.toggle()
         didUpdate.toggle()

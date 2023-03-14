@@ -79,12 +79,13 @@ struct ContentView: View {
     @StateObject var newItemAlert = TextAlert(title: "New Item")
     @StateObject var newDirAlert = TextAlert(title: "New Parent Folder")
     @StateObject var master = MasterDirectory()
+    @StateObject var editorDataModel = EditorDataModel()
     @EnvironmentObject var updateView: UpdateView
     
     @State private var editMode: EditMode = .inactive
 
     private var alertShowing: Bool {
-        return newItemAlert.visibility || newDirAlert.visibility
+        return newItemAlert.visibility || newDirAlert.visibility || updateView.showEditorAlert
     }
     
     
@@ -100,7 +101,8 @@ struct ContentView: View {
             .edgesIgnoringSafeArea(.all)
             .environmentObject(updateView)
             .disabled(alertShowing)
-            .blur(radius: alertShowing ? 30 : 0)
+            .blur(radius: alertShowing ? 10 : 0)
+            .brightness(alertShowing ? -0.1 : 0)
             .environment(\.editMode, $editMode)
 
 
@@ -128,6 +130,8 @@ struct ContentView: View {
                     parent?.subFolders?.append(folder)
                 }
             }
+            
+            InsertLinkView(url: $editorDataModel.url, displayText: $editorDataModel.displayText)
         }
         .navigationViewStyle(.automatic)
         .onAppear {
@@ -138,6 +142,7 @@ struct ContentView: View {
         .animation(.default, value: alertShowing)
         .environmentObject(newItemAlert)
         .environmentObject(master)
+        .environmentObject(editorDataModel)
 //        .persistentSystemOverlays(.hidden)
     }
 }

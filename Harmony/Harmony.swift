@@ -18,7 +18,7 @@ struct Harmony: App {
         WindowGroup {
             ContentView()
                 .environmentObject(updateView)
-                .environment(\.managedObjectContext, controller.container.viewContext)
+//                .environment(\.managedObjectContext, controller.container.viewContext)
                 .onChange(of: scenePhase) { _ in controller.save() }
         }
     }

@@ -1,13 +1,12 @@
 tinymce.init({
     selector: 'textarea',
     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed pagebreak linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
-    toolbar: "",
-//    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight pagebreak | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight pagebreak | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
     height: 1500,
     content_css: "document",
     menubar: false,
     statusbar: false,
-    skin: "borderless",
+    skin: "oxide",
     tinycomments_mode: 'embedded',
     tinycomments_author: 'Author name',
     pagebreak_separator: "<hr>",
@@ -16,11 +15,17 @@ tinymce.init({
         { value: 'First.Name', title: 'First Name' },
         { value: 'Email', title: 'Email' },
     ],
+    link_target_list: false,
+    link_title: false,
     content_style:
          `
             body {
                 background: #fff;
             }
+         
+         div[aria-label="Insert link"] .mce-btn.mce-open {
+           display: none;
+         }
 
             @media (min-width: 840px) {
                 html {
