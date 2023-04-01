@@ -66,13 +66,39 @@ class WebViewController: UIViewController {
         webView.allowsBackForwardNavigationGestures = false
         
         webView.loadFileURL(url, allowingReadAccessTo: url)
-        webView.backgroundColor = UIColor(red: 237 / 255, green: 238 / 255, blue: 243 / 255, alpha: 1.0)
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
+
         let request = URLRequest(url: url)
         webView.load(request)
     }
     
+    @objc
+        func keyboardWillChange(_ notification: NSNotification) {
+            guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else { return }
+            guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else { return }
+            guard let startingFrame = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            guard let endingFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            let deltaY = endingFrame.origin.y - startingFrame.origin.y
+            UIView.animateKeyframes(withDuration: duration, delay: 0.0, options: UIView.KeyframeAnimationOptions(rawValue: curve), animations: {
+                self.webView.frame.origin.y += deltaY
+            }, completion: nil)
+        }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        content = content
+            .replacingOccurrences(of: "\"", with: "\\\"")
+            .replacingOccurrences(of: "\'", with: "\\\'")
+            .replacingOccurrences(of: "\n", with: "\\n")
+            .replacingOccurrences(of: "\r", with: "")
+        let jsScript = "tinymce.activeEditor.setContent(\"\(content)\");"
+        webView.evaluateJavaScript(jsScript) { result, error in
+            if error == nil {
+                self.content = result as! String
+            } else {
+                fatalError(error!.localizedDescription)
+            }
+        }
+    }
     
     override func viewDidDisappear(_ animated: Bool) {
         let jsScript = "tinymce.activeEditor.getContent({ format: \"html\" });"
@@ -110,22 +136,6 @@ struct WebViewUI: UIViewControllerRepresentable {
         
         init(_ webViewController: WebViewUI) {
             parent = webViewController
-        }
-        
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            parent.content = parent.content
-                .replacingOccurrences(of: "\"", with: "\\\"")
-                .replacingOccurrences(of: "\'", with: "\\\'")
-                .replacingOccurrences(of: "\n", with: "\\n")
-                .replacingOccurrences(of: "\r", with: "")
-            let jsScript = "tinymce.activeEditor.setContent(\"\(parent.content)\");"
-            webView.evaluateJavaScript(jsScript) { result, error in
-                if error == nil {
-                    self.parent.content = result as! String
-                } else {
-                    fatalError(error.debugDescription)
-                }
-            }
         }
     }
 }
@@ -181,6 +191,11 @@ struct WordPadView: View {
     @EnvironmentObject var newItemAlert: TextAlert
     @EnvironmentObject var master: MasterDirectory
     @EnvironmentObject var editorData: EditorDataModel
+    @State private var progress = 0.0
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    
+    @State private var showEditorView = false
+
     
     @State private var doc: Set<WordPad> = []
     @State private var webView = WKWebView()
@@ -207,144 +222,71 @@ struct WordPadView: View {
     }
     
     var body: some View {
-        ZStack {
-            WebViewUI(webView: webView, htmlFileName: "editor", content: $wordPad.content)
-            .sheet(isPresented: $showFileNavView) { FileNavigationView(items: $doc) }
-            .edgesIgnoringSafeArea(.bottom)
-            .navigationTitle(wordPad.title)
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                updateView.enableSidebar = false
-                updateView.update()
-                updateView.changeNavigationBarAppearance()
-            }
-            .onDisappear {
-                wordPad.date = Date.now
-                DataController.shared.save()
-            }
-            .toolbar {
-                ToolbarTitleMenu {
-                    LabelButton(title: "Rename", image: "character.cursor.ibeam") {
-                        master.doc = wordPad
-                        setAlert(title: "What would you like to rename \"\(wordPad.title)\" to?", type: Document.self)
+        HStack {
+            VStack {
+                ZStack {
+                    Color.white
+                        .edgesIgnoringSafeArea(.bottom)
+                        .ignoresSafeArea(.keyboard, edges: .bottom)
+
+
+                    WebViewUI(webView: webView, htmlFileName: "editor", content: $wordPad.content)
+                    .sheet(isPresented: $showFileNavView) { FileNavigationView(items: $doc) }
+                    .edgesIgnoringSafeArea(.bottom)
+                    .navigationTitle(wordPad.title)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .onAppear {
+                        updateView.enableSidebar = false
+                        updateView.update()
+                        updateView.changeNavigationBarAppearance()
                     }
-                    LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {
-                        doc = [wordPad]
-                        showFileNavView = true
-                        master.doc = wordPad
+                    .onDisappear {
+                        wordPad.date = Date.now
+                        DataController.shared.save()
                     }
-                    LabelButton(title: "Delete", image: "trash", role: .destructive) {
-                        wordPad.delete()
-                        dismiss()
-                    }
-                }
-                
-                ToolbarItemGroup(placement: .automatic) {
-                    LabelButton(title: "Back", image: "arrow.uturn.backward") { executeCommand("Undo") }
-                    LabelButton(title: "Forward", image: "arrow.uturn.forward") { executeCommand("Redo") }
-                }
-                
-                ToolbarItem(placement: .secondaryAction) {
-                    ControlGroup {
-                        HStack {
-                            CustomMenu(title: "Insert Media", icon: "plus", type: .small, submenus: [
-                                [
-                                    LabelButton(title: "Insert Link", image: "link") {
-//                                        updateView.editorAlert
-                                        updateView.showEditorAlert.toggle()
-                                        executeCommand("CreateLink", false, "\"\(editorData.url)\"")
-                                    },
-                                    LabelButton(title: "Insert Table", image: "tablecells") {},
-                                    LabelButton(title: "Insert Image", image: "photo") {},
-                                    LabelButton(title: "Insert Video", image: "video") {},
-                                    LabelButton(title: "Insert Code", image: "chevron.left.forwardslash.chevron.right") {}
-                                ],
-                                [
-                                    LabelButton(title: "Special Characters", image: "character.phonetic") {},
-                                    LabelButton(title: "Emojis", image: "face.smiling") {}
-                                ]
-                            ])
-
-                            CustomMenu(title: "Text Attributes", icon: "textformat", type: .medium, submenus: [[
-                                LabelButton(title: "Bold", image: "bold") { executeCommand("Bold") },
-                                LabelButton(title: "Italic", image: "italic") { executeCommand("Italic") },
-                                LabelButton(title: "Underline", image: "underline") { executeCommand("Underline") },
-                                LabelButton(title: "Strikethrough", image: "strikethrough") { executeCommand("Strikethrough") },
-                                LabelButton(title: "Superscript", image: "textformat.superscript") { executeCommand("Superscript") },
-                                LabelButton(title: "Subscript", image: "textformat.subscript") { executeCommand("Subscript") },
-                                LabelButton(title: "Font Format", image: "textformat.alt") {}
-                            ]])
-
-
-                            CustomMenu(title: "Paragraph Style", icon: "paragraphsign", type: .small, submenus: [[
-                                LabelButton(title: "Left", image: "text.alignleft") { executeCommand("JustifyLeft") },
-                                LabelButton(title: "Center", image: "text.aligncenter") { executeCommand("JustifyCenter") },
-                                LabelButton(title: "Right", image: "text.alignright") { executeCommand("JustifyRight") },
-                                LabelButton(title: "Justify", image: "text.justify") { executeCommand("JustifyFull") }
-                            ]])
-
-                            CustomMenu(title: "List", icon: "list.bullet", type: .large, submenus: [[
-                                LabelButton(title: "Numbered List", image: "list.number") {
-                                    let json: [String: Any] =
-                                                [
-                                                  "list-style-type": "decimal",
-                                                  "list-item-attributes'": ["class": "mylistitemclass"],
-                                                  "list-attributes": ["id": "mylist"]
-                                                ]
-                                    executeCommand("InsertOrderedList", false, jsonString(json)!)
-                                },
-                                LabelButton(title: "Bullet List", image: "list.bullet") {
-                                    let json: [String: Any] =
-                                                [
-                                                  "list-style-type": "disc",
-                                                  "list-item-attributes'": ["class": "mylistitemclass"],
-                                                  "list-attributes": ["id": "mylist"]
-                                                ]
-                                    executeCommand("InsertOrderedList", false, jsonString(json)!)
-                                }
-                            ]])
-
-                            Button {
-                                setLineSpacing.toggle()
-                            } label: {
-                                Image(systemName: "arrow.up.and.down.text.horizontal")
+                    .toolbar {
+                        ToolbarTitleMenu {
+                            LabelButton(title: "Rename", image: "character.cursor.ibeam") {
+                                master.doc = wordPad
+                                setAlert(title: "What would you like to rename \"\(wordPad.title)\" to?", type: Document.self)
                             }
-                            .popover(isPresented: $setLineSpacing) {
-                                Stepper("Line Spacing: \(String(format: "%.1f", lineSpacing))", value: $lineSpacing, step: 0.1)
-                                    .padding(20)
+                            LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {
+                                doc = [wordPad]
+                                showFileNavView = true
+                                master.doc = wordPad
                             }
-                            .onChange(of: lineSpacing) { newLineHeight in
-                                executeCommand("LineHeight", false, "\"\(newLineHeight)\"")
+                            LabelButton(title: "Delete", image: "trash", role: .destructive) {
+                                wordPad.delete()
+                                dismiss()
                             }
-
-                            CustomMenu(title: "Indentation", icon: "increase.indent", type: .small, submenus: [[
-                                LabelButton(title: "Increase Indent", image: "increase.indent") { executeCommand("Indent") },
-                                LabelButton(title: "Decrease Indent", image: "decrease.indent") { executeCommand("Outdent") }
-                            ]])
                         }
-                        .frame(width: 325)
                     }
-                }
-                
-                
-                ToolbarItemGroup(placement: ToolbarItemPlacement.primaryAction) {
-                   
-                    ShareLink(item: URL(string: "https://www.google.com")!)
+                    .toolbarRole(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationSplitViewStyle(.prominentDetail)
+                    .opacity(showEditorView ? 1 : 0)
+                    .animation(.easeInOut, value: showEditorView)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
 
-                    Menu {
-                        LabelButton(title: "Customize Toolbar", image: "wrench.adjustable") {
-                            
+                    
+                    ProgressView("Loading")
+                        .tint(.accentColor)
+                        .foregroundColor(.accentColor)
+                        .opacity(showEditorView ? 0 : 1)
+                        .onReceive(timer) { _ in
+                            progress += 1
+                            if progress == 10 {
+                                showEditorView.toggle()
+                                timer.upstream.connect().cancel()
+                            }
                         }
-                    } label: { Label("Settings", systemImage: "ellipsis.circle") }
+                        .animation(.easeInOut, value: showEditorView)
+                        .ignoresSafeArea(.keyboard, edges: .bottom)
+
+
                 }
             }
-            .toolbarRole(.editor)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationSplitViewStyle(.prominentDetail)
         }
-        
-        
-        
     }
     
     func executeCommand(_ command: String, _ args: Any...) {

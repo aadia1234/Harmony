@@ -17,6 +17,7 @@ struct FileView: View {
     @State private var viewSelected = false
     @State private var presentView = false
     @State private var thumbnail: UIImage
+    @Environment(\.colorScheme) var colorScheme
     
     func thumbnailIsSystemImage() -> Bool {
         return thumbnail.pngData() == UIImage(systemName: "doc.plaintext.fill")?.pngData() || thumbnail.pngData() == UIImage(systemName: "pencil")?.pngData()
@@ -42,7 +43,7 @@ struct FileView: View {
             ZStack {
                 Color(uiColor: .systemGray6)
                     .clipShape(RoundedRectangle(cornerRadius: 15.0))
-                
+                    .brightness(isEditing && colorScheme == .light ? -0.2 : 0)
                 
                 thumbnailImage
                     .resizable()
@@ -50,6 +51,8 @@ struct FileView: View {
                     .scaledToFit()
                     .padding(15)
                     .foregroundColor(.accentColor)
+                    .brightness(isEditing ? -0.2 : 0)
+                
                 
                 Circle()
                     .size(CGSize(width: 20.0, height: 20.0))
@@ -68,6 +71,7 @@ struct FileView: View {
                     }
                     .position(x: 126, y: 180)
                     .opacity(isEditing ? 1 : 0)
+                    .shadow(radius: 2)
                 
             }
             .overlay { RoundedRectangle(cornerRadius: 16).stroke(Color.accentColor, lineWidth: (viewSelected && isEditing) ? 2 : 0) }

@@ -81,6 +81,7 @@ struct ContentView: View {
     @StateObject var master = MasterDirectory()
     @StateObject var editorDataModel = EditorDataModel()
     @EnvironmentObject var updateView: UpdateView
+    @AppStorage("firstAppLaunch") var firstAppLaunch = true
     
     @State private var editMode: EditMode = .inactive
 
@@ -97,12 +98,15 @@ struct ContentView: View {
             } detail: {
                 updateView.folderNavigationView
             }
-            .sheet(isPresented: $updateView.showFileNavView) {FileNavigationView(items: $updateView.sidebarSelection)}
+            .sheet(isPresented: $firstAppLaunch, onDismiss: {
+                firstAppLaunch = false
+            }) { WelcomeView() }
+            .sheet(isPresented:$updateView.showFileNavView) {FileNavigationView(items: $updateView.sidebarSelection)}
             .edgesIgnoringSafeArea(.all)
             .environmentObject(updateView)
             .disabled(alertShowing)
-            .blur(radius: alertShowing ? 10 : 0)
-            .brightness(alertShowing ? -0.1 : 0)
+//            .blur(radius: alertShowing ? 10 : 0)
+            .brightness(alertShowing ? -0.05 : 0)
             .environment(\.editMode, $editMode)
 
 

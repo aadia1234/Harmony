@@ -55,8 +55,9 @@ struct TextAlertView: View {
                 TextField("Type the name here", text: $textAlert.text)
                     .font(.system(size: 15))
                     .padding(10)
-                    .background(.thickMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .background(.bar)
+                    .border(Color(uiColor: .systemGray4), width: 1)
+                    .clipShape(RoundedRectangle(cornerRadius: 1.5))
                     .padding([.top, .bottom], 5)
                 
                 Divider()
@@ -83,23 +84,25 @@ struct TextAlertView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .hoverEffect(.automatic)
                 }
+                .padding(.top, -8)
                 .frame(height: 40)
             }
         }
         .padding([.trailing, .leading], 16)
-        .padding([.top, .bottom], 8)
-        .frame(maxWidth: 320, minHeight: 190)
+        .frame(maxWidth: 320)
+        .padding([.top], 8)
         .background(
             Rectangle()
                 .foregroundColor(.clear)
                 .background(.thickMaterial)
         )
-        .clipShape(RoundedRectangle(cornerRadius: 10.0))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .opacity(textAlert.visibility ? 1 : 0)
         .onReceive(textAlert.$itemType) { type in textAlert.visibility = type != Item.self }
         .modifier(ShakeEffect(shakes: (textAlert.text.isEmpty && buttonClicked) ?  2 : 0))
         .animation(.linear(duration: 0.5), value: buttonClicked)
         .disabled(!textAlert.visibility)
+        .shadow(radius: 20.0)
     }
 }
 
@@ -107,6 +110,6 @@ struct TextAlertView_Previews: PreviewProvider {
     static var previews: some View {
         TextAlertView(alert: TextAlert(title: "Alert Title"), itemType: Item.self)
             .previewInterfaceOrientation(.landscapeLeft)
-            .environment(\.colorScheme, .dark)
+            .environment(\.colorScheme, .light)
     }
 }
