@@ -42,7 +42,6 @@ class TableTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let index = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "folderCell", for: indexPath)
         cell.backgroundColor = .red
     }

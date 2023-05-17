@@ -19,9 +19,9 @@ public class Folder: Item {
         return Item.getItems(type: Folder.self, with: NSPredicate(format: "storedParentFolder == nil"), sortBy: sorts) as! [Folder]
     }
     public static var allFolders: [Folder] { Folder.getItems(type: Folder.self) as! [Folder] }
-    public var documents: [Document] {
+    public var documents: [DocumentType] {
         get {
-            let set = storedDocuments as? Set<Document> ?? Set<Document>()
+            let set = storedDocuments as? Set<DocumentType> ?? Set<DocumentType>()
             return set.sorted { prev, curr in
                 switch DataController.sortDocsMethod {
                     case .title: return prev.title < curr.title
@@ -50,7 +50,7 @@ public class Folder: Item {
         self.title = "New Folder"
     }
     
-    convenience init(title: String, parentFolder: Folder?, documents: [Document], subFolders: [Folder]?) {
+    convenience init(title: String, parentFolder: Folder?, documents: [DocumentType], subFolders: [Folder]?) {
         self.init(context: DataController.shared.context)
         self.title = title
         self.parentFolder = parentFolder

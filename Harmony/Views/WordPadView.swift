@@ -248,7 +248,7 @@ struct WordPadView: View {
                         ToolbarTitleMenu {
                             LabelButton(title: "Rename", image: "character.cursor.ibeam") {
                                 master.doc = wordPad
-                                setAlert(title: "What would you like to rename \"\(wordPad.title)\" to?", type: Document.self)
+                                setAlert(title: "What would you like to rename \"\(wordPad.title)\" to?", type: DocumentType.self)
                             }
                             LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {
                                 doc = [wordPad]
@@ -298,7 +298,7 @@ struct WordPadView: View {
         }
         jsScript += ");"
         webView.evaluateJavaScript(jsScript) { desc, error in
-            if let error = error {
+            if error == nil {
                 fatalError(jsScript)
             } else {
                 print(jsScript)
@@ -323,7 +323,7 @@ struct WordPadView_Previews: PreviewProvider {
     static var wp: WordPad {
         let wp = WordPad()
         wp.title = "test"
-        wp.folder = Folder(title: "folder test", parentFolder: nil, documents: [Document](), subFolders: nil)
+        wp.folder = Folder(title: "folder test", parentFolder: nil, documents: [DocumentType](), subFolders: nil)
         wp.date = Date.now
         return wp
     }

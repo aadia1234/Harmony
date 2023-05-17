@@ -11,8 +11,8 @@ import SwiftUI
 struct FileView: View {
     @EnvironmentObject var itemAlert: TextAlert
     @EnvironmentObject var master: MasterDirectory
-    @ObservedObject var doc: Document
-    @Binding private var selection: Set<Document>
+    @ObservedObject var doc: DocumentType
+    @Binding private var selection: Set<DocumentType>
     @Binding private var isEditing: Bool
     @State private var viewSelected = false
     @State private var presentView = false
@@ -31,7 +31,7 @@ struct FileView: View {
         }
     }
     
-    init(_ doc: Document, _ selection: Binding<Set<Document>>, _ isEditing: Binding<Bool>) {
+    init(_ doc: DocumentType, _ selection: Binding<Set<DocumentType>>, _ isEditing: Binding<Bool>) {
         self.doc = doc
         self._selection = selection
         self._thumbnail = State(initialValue: UIImage(systemName: (doc is WordPad) ? "doc.plaintext.fill" : "pencil")!)

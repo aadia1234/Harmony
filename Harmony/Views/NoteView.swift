@@ -7,6 +7,10 @@
 
 import SwiftUI
 import PhotosUI
+import PSPDFKit
+import PSPDFKitUI
+
+
 
 public extension UIImage {
       convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
@@ -31,35 +35,40 @@ struct NoteView: View {
     @State private var showImagePicker = false
     @State private var imageView: Image?
     
+    let fileURL = Bundle.main.url(forResource: "bitcoin", withExtension: "pdf")!
+    
     var body: some View {
-        canvasView
-        .navigationTitle(note.title)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-//                LabelButton(title: "Change background", image: "photo.on.rectangle") {
-//                    showImagePicker.toggle()
-//                }
-                LabelButton(title: "Show pencil", image: "pencil") { canvasView.toggleToolPicker() }
-                LabelButton(title: "Delete canvas", image: "trash", role: .destructive) { canvasView.clearCanvas() }
-            }
-        }.onChange(of: backgroundImage, perform: { _ in
-            guard let backgroundImage = backgroundImage else { return }
-            imageView = Image(uiImage: backgroundImage)
-            canvasView.setBackground(backgroundImage)
-        })
-        .onDisappear {
-            note.thumbnailData = canvasView.getThumbnail().pngData()!
-            note.drawingData = canvasView.canvas.drawing.dataRepresentation()
-            note.drawingHeight = canvasView.canvas.contentSize.height
-            note.date = Date.now
-            thumbnail = note.thumbnailData!
-            DataController.shared.save()
-        }
-        .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $backgroundImage)
-        }
+        PDFView(document: PSPDFKitUI.Document(url: fileURL))
+            .useParentNavigationBar(true)
+            .edgesIgnoringSafeArea(.all)
+//        canvasView
+//        .navigationTitle(note.title)
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItemGroup(placement: .navigationBarTrailing) {
+////                LabelButton(title: "Change background", image: "photo.on.rectangle") {
+////                    showImagePicker.toggle()
+////                }
+//                LabelButton(title: "Show pencil", image: "pencil") { canvasView.toggleToolPicker() }
+//                LabelButton(title: "Delete canvas", image: "trash", role: .destructive) { canvasView.clearCanvas() }
+//            }
+//        }.onChange(of: backgroundImage, perform: { _ in
+//            guard let backgroundImage = backgroundImage else { return }
+//            imageView = Image(uiImage: backgroundImage)
+//            canvasView.setBackground(backgroundImage)
+//        })
+//        .onDisappear {
+//            note.thumbnailData = canvasView.getThumbnail().pngData()!
+//            note.drawingData = canvasView.canvas.drawing.dataRepresentation()
+//            note.drawingHeight = canvasView.canvas.contentSize.height
+//            note.date = Date.now
+//            thumbnail = note.thumbnailData!
+//            DataController.shared.save()
+//        }
+//        .onAppear { canvasView.setCanvasDrawing(data: note.drawingData, height: note.drawingHeight) }
+//        .sheet(isPresented: $showImagePicker) {
+//            ImagePicker(image: $backgroundImage)
+//        }
     }
 }
 
@@ -103,9 +112,12 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 }
 
-//struct NoteView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NoteView(note: Note())
-//            .previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}
+struct NoteView_Previews: PreviewProvider {
+    private static let data = UIImage(systemName: "pencil")!.pngData()!
+    static var previews: some View {
+        NavigationStack {
+            NoteView(note: Note(title: "test", thumbnailData: data, lastOpened: Date.now, drawingData: nil), thumbnail: .constant(data))
+                .previewInterfaceOrientation(.landscapeLeft)
+        }
+    }
+}

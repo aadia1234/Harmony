@@ -7,13 +7,14 @@
 
 import SwiftUI
 import StoreKit
+import PSPDFKit
+import PSPDFKitUI
 
 struct WelcomeView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
-                        
+        VStack {        
             Text("Welcome!")
                 .fontWeight(.heavy)
                 .font(.largeTitle)

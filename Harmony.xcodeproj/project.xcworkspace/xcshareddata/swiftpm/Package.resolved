@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "pspdfkit-sp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/PSPDFKit/PSPDFKit-SP",
+      "state" : {
+        "branch" : "master",
+        "revision" : "a046cfaacf604c097043f9c1b49ac336b1b29eb6"
+      }
+    }
+  ],
+  "version" : 2
+}

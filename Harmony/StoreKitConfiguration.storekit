@@ -1,0 +1,52 @@
+{
+  "identifier" : "9564F6D7",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "634F1F04",
+      "localizations" : [
+
+      ],
+      "name" : "Premium Access",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "974B3256",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Enables unlimited iCloud storage",
+              "displayName" : "Harmony – Premium Access",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.harmony.premium",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Harmony – Premium Access Subscription",
+          "subscriptionGroupID" : "634F1F04",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

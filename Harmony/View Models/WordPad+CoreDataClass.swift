@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(WordPad)
-public class WordPad: Document {
+public class WordPad: DocumentType {
     public var content: String { get {self.storedContent ?? ""} set {self.storedContent = newValue} }
 
     convenience init(title: String, thumbnailData: Data?, lastOpened: Date, text: String) {

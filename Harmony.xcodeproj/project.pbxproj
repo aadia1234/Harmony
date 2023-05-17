@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35139A3F2A1457BE00CAD57D /* PSPDFKit in Frameworks */ = {isa = PBXBuildFile; productRef = 35139A3E2A1457BE00CAD57D /* PSPDFKit */; };
 		35195188298277B1006BCA8F /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 35195187298277B1006BCA8F /* editor.html */; };
 		3519518A29827941006BCA8F /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3519518929827941006BCA8F /* tinymce */; };
 		3519518D2982AC9C006BCA8F /* editor.js in Resources */ = {isa = PBXBuildFile; fileRef = 3519518C2982AC9C006BCA8F /* editor.js */; };
@@ -14,6 +15,7 @@
 		351FB0FB29A7D76B00D387F0 /* EditorDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351FB0FA29A7D76B00D387F0 /* EditorDataModel.swift */; };
 		353B106D29067DE800A4C048 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 350F24462905B26F0032EC6E /* Launch Screen.storyboard */; };
 		353B106F290680F100A4C048 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */; };
+		354BCD0A2A11F3FC0079F96B /* bitcoin.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 354BCD092A11F3FC0079F96B /* bitcoin.pdf */; };
 		354F54E129869672002A83DD /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F54DF29869672002A83DD /* TableViewCell.swift */; };
 		354F54E229869672002A83DD /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 354F54E029869672002A83DD /* TableViewCell.xib */; };
 		354F54E62986EC6C002A83DD /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354F54E52986EC6C002A83DD /* NavigationController.swift */; };
@@ -69,6 +71,7 @@
 		353D7463278FAC8C00C96CFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		353D746C278FAF7300C96CFF /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
 		3541380D29D32841003BDC2F /* StoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfiguration.storekit; sourceTree = "<group>"; };
+		354BCD092A11F3FC0079F96B /* bitcoin.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = bitcoin.pdf; sourceTree = "<group>"; };
 		354F54DF29869672002A83DD /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		354F54E029869672002A83DD /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		354F54E52986EC6C002A83DD /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -83,7 +86,6 @@
 		35AEB586298674990015601B /* TableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTableViewController.swift; sourceTree = "<group>"; };
 		35AEB58829867A5E0015601B /* FolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
 		35B065A7290670AD000A3BD2 /* Harmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Harmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		35BA746C298575E0003D0ABD /* HarmonyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarmonyTests.swift; sourceTree = "<group>"; };
 		35BC86AA27B94BF8007E8688 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		35BF4C8A2799CECE005D2D9B /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		35BF4C8E2799CF20005D2D9B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35B065BC29067175000A3BD2 /* CloudKit.framework in Frameworks */,
+				35139A3F2A1457BE00CAD57D /* PSPDFKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				353D745B278FAC8B00C96CFF /* Harmony */,
-				35BA746B298575E0003D0ABD /* HarmonyTests */,
 				353D745A278FAC8B00C96CFF /* Products */,
 				35BC86A927B94BF8007E8688 /* Frameworks */,
 			);
@@ -139,6 +141,7 @@
 		353D745B278FAC8B00C96CFF /* Harmony */ = {
 			isa = PBXGroup;
 			children = (
+				354BCD092A11F3FC0079F96B /* bitcoin.pdf */,
 				3541380D29D32841003BDC2F /* StoreKitConfiguration.storekit */,
 				355A354829A4705B00E5240D /* Harmony.xcdatamodeld */,
 				350F24462905B26F0032EC6E /* Launch Screen.storyboard */,
@@ -190,14 +193,6 @@
 				354F54E52986EC6C002A83DD /* NavigationController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		35BA746B298575E0003D0ABD /* HarmonyTests */ = {
-			isa = PBXGroup;
-			children = (
-				35BA746C298575E0003D0ABD /* HarmonyTests.swift */,
-			);
-			path = HarmonyTests;
 			sourceTree = "<group>";
 		};
 		35BC86A927B94BF8007E8688 /* Frameworks */ = {
@@ -254,6 +249,9 @@
 			dependencies = (
 			);
 			name = Harmony;
+			packageProductDependencies = (
+				35139A3E2A1457BE00CAD57D /* PSPDFKit */,
+			);
 			productName = Harmony;
 			productReference = 35B065A7290670AD000A3BD2 /* Harmony.app */;
 			productType = "com.apple.product-type.application";
@@ -283,6 +281,7 @@
 			);
 			mainGroup = 353D7450278FAC8B00C96CFF;
 			packageReferences = (
+				35139A3D2A1457BE00CAD57D /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */,
 			);
 			productRefGroup = 353D745A278FAC8B00C96CFF /* Products */;
 			projectDirPath = "";
@@ -298,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				354BCD0A2A11F3FC0079F96B /* bitcoin.pdf in Resources */,
 				353B106D29067DE800A4C048 /* Launch Screen.storyboard in Resources */,
 				35195188298277B1006BCA8F /* editor.html in Resources */,
 				35FA8C112906A0C7007D5DD9 /* Media.xcassets in Resources */,
@@ -593,6 +593,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		35139A3D2A1457BE00CAD57D /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PSPDFKit/PSPDFKit-SP";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		35139A3E2A1457BE00CAD57D /* PSPDFKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35139A3D2A1457BE00CAD57D /* XCRemoteSwiftPackageReference "PSPDFKit-SP" */;
+			productName = PSPDFKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		355A354829A4705B00E5240D /* Harmony.xcdatamodeld */ = {

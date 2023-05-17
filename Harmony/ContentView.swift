@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import PSPDFKit
+import PSPDFKitUI
 
 struct FolderNavigationView: View {
     @EnvironmentObject var updateView: UpdateView
     
+    
     var body: some View {
         NavigationStack {
             DirectoryView(directory: updateView.sidebarSelection.first ?? Folder.parentFolders.first ?? Folder())
-                .navigationDestination(for: Document.self) { doc in
+                .navigationDestination(for: DocumentType.self) { doc in
                     if doc is Note {
                         NoteView(note: doc as! Note, thumbnail: Binding(
                             get: {
@@ -93,28 +96,28 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-            NavigationSplitView {
-                updateView.sidebar
-            } detail: {
-                updateView.folderNavigationView
-            }
-            .sheet(isPresented: $firstAppLaunch, onDismiss: {
-                firstAppLaunch = false
-            }) { WelcomeView() }
-            .sheet(isPresented:$updateView.showFileNavView) {FileNavigationView(items: $updateView.sidebarSelection)}
-            .edgesIgnoringSafeArea(.all)
-            .environmentObject(updateView)
-            .disabled(alertShowing)
-//            .blur(radius: alertShowing ? 10 : 0)
-            .brightness(alertShowing ? -0.05 : 0)
-            .environment(\.editMode, $editMode)
-
+//            NavigationSplitView {
+//                updateView.sidebar
+//            } detail: {
+//                updateView.folderNavigationView
+//            }
+//            .sheet(isPresented: $firstAppLaunch, onDismiss: {
+//                firstAppLaunch = false
+//            }) { WelcomeView() }
+//            .sheet(isPresented:$updateView.showFileNavView) {FileNavigationView(items: $updateView.sidebarSelection)}
+//            .edgesIgnoringSafeArea(.all)
+//            .environmentObject(updateView)
+//            .disabled(alertShowing)
+////            .blur(radius: alertShowing ? 10 : 0)
+//            .brightness(alertShowing ? -0.05 : 0)
+//            .environment(\.editMode, $editMode)
+            
 
             TextAlertView(alert: newItemAlert, itemType: Item.self) {
-                if newItemAlert.itemType == Document.self {
+                if newItemAlert.itemType == DocumentType.self {
                     master.doc!.title = newItemAlert.text
                 } else {
-                    let doc: Document = newItemAlert.itemType.init() as! Document
+                    let doc: DocumentType = newItemAlert.itemType.init() as! DocumentType
                     doc.title = newItemAlert.text
                     doc.folder = master.cd
                     doc.date = Date.now
@@ -130,7 +133,7 @@ struct ContentView: View {
                     master.cd.title = newDirAlert.text
                 } else {
                     let parent: Folder? = newDirAlert.title.contains("sub") ? master.cd : nil
-                    let folder = Folder(title: newDirAlert.text, parentFolder: parent, documents: [Document](), subFolders: nil)
+                    let folder = Folder(title: newDirAlert.text, parentFolder: parent, documents: [DocumentType](), subFolders: nil)
                     parent?.subFolders?.append(folder)
                 }
             }

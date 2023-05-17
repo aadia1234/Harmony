@@ -15,7 +15,7 @@ struct DirectoryView: View {
         // Folder.parentFolders.first ?? Folder()
     
     @State private var searchText = ""
-    @State private var selectedDocuments = Set<Document>()
+    @State private var selectedDocuments = Set<DocumentType>()
     @State private var showFileNavView = false
     @State private var showSettings = false
     @Binding private var sortFoldersSelection: SortMethod
@@ -43,7 +43,7 @@ struct DirectoryView: View {
         $editMode.wrappedValue = .inactive
     }
     
-    var searchResults: [Document] {
+    var searchResults: [DocumentType] {
         if searchText.isEmpty {
             return directory.documents
         } else {
@@ -63,7 +63,7 @@ struct DirectoryView: View {
                         .contextMenu {
                             LabelButton(title: "Rename", image: "character.cursor.ibeam") {
                                 master.doc = doc
-                                setAlert(title: "What would you like to rename \"\(doc.title)\" to?", type: Document.self)
+                                setAlert(title: "What would you like to rename \"\(doc.title)\" to?", type: DocumentType.self)
                             }
                             
                             LabelButton(title: "Move", image: "rectangle.portrait.and.arrow.right") {

@@ -11,7 +11,7 @@ import PencilKit
 import CoreData
 
 @objc(Note)
-public class Note: Document {
+public class Note: DocumentType {
     public var drawingData: Data? { get {self.storedDrawingData} set {self.storedDrawingData = newValue} }
     public var drawingHeight: Double { get {self.storedDrawingHeight} set {self.storedDrawingHeight = newValue} }
     
